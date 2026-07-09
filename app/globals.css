@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   David Zachary Creative — design tokens
+   Monochrome cinematic base + per-project accent palette lifted from the work.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #050505; /* near-black canvas */
+  --color-ink-soft: #0d0d0f;
+  --color-paper: #f4f2ee; /* warm off-white */
+  --color-bone: #e9e6e0;
+  --color-fog: #8a8a8f; /* muted captions */
+  --color-line: #1c1c1f;
+
+  /* Accents — each maps to a real project in the portfolio */
+  --color-magenta: #ff0a78; /* Innovation × Intelligence */
+  --color-orange: #e8871e; /* Beyond Basics / Soulful Science */
+  --color-amber: #f5a623;
+  --color-yellow: #ffd400; /* BGB / PALIO */
+  --color-acid: #8bc53f; /* RareCast green */
+  --color-cyan: #29abe2; /* Beyond */
+  --color-blood: #ed1c24;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-display), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+:root {
+  --background: var(--color-ink);
+  --foreground: var(--color-paper);
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Lenis smooth-scroll baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+::selection {
+  background: var(--color-magenta);
+  color: #fff;
+}
+
+/* Utility: fluid display type */
+.text-display {
+  font-family: var(--font-serif);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}

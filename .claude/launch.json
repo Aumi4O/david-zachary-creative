@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "david-static",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["preview/server.js"],
+      "port": 8080
+    },
+    {
+      "name": "david-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    }
+  ]
+}
