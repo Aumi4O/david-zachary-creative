@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>& — particle type lab · David Zachary Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@900&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:#050505;color:#f4f2ee;overflow:hidden;font-family:"Space Mono",monospace}
+  canvas{display:block;width:100vw;height:100vh;cursor:crosshair}
+  .hud{position:fixed;left:16px;bottom:14px;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#8a8a8f;pointer-events:none}
+  .hud b{color:#ff0a78}
+  .keys{position:fixed;right:16px;bottom:14px;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#555;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="hud">Particle type lab — <b>&amp;</b> built from living text · move the mouse through it</div>
+<div class="keys">[1-5] glyph · space = burst</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   "&" BUILT FROM TINY TEXT that breaks away and drifts —
+   after antonin.work's Cavalry piece. Canvas 2D, zero deps.
+   ───────────────────────────────────────────────────────────── */
+const cv=document.getElementById('c'), ctx=cv.getContext('2d');
+let W=0,H=0,DPR=Math.min(2,window.devicePixelRatio||1);
+
+// words with David-flavored vocabulary; a few get brand colors like the reel's red/green/blue
+const WORDS=("concepts craft brand story idea science health culture design type motion image detail care trust "+
+ "identity campaign system logo craft magenta pixel grid ink paper film signal pulse wave form counter shape "+
+ "bold quiet loud subtle human real work play test learn make break remake again").split(' ');
+const ACCENTS=['#ff0a78','#29abe2','#8bc53f','#e8871e'];
+const GLYPHS=['&','+','×','∞','/'];
+let glyph='&';
+
+let particles=[];
+function buildGlyph(ch){
+  glyph=ch;
+  // offscreen sample of the glyph
+  const os=document.createElement('canvas');
+  const gh=Math.min(H*0.86, W*0.8);
+  os.width=W; os.height=H;
+  const g=os.getContext('2d');
+  g.fillStyle='#fff';
+  g.font='900 '+gh+'px "Archivo Expanded","Arial Black",sans-serif';
+  g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(ch, W/2, H/2 + gh*0.03);
+  const data=g.getImageData(0,0,W,H).data;
+
+  const step=Math.max(7, Math.round(Math.min(W,H)/86)); // sampling density
+  const pts=[];
+  for(let y=step>>1;y<H;y+=step){
+    for(let x=step>>1;x<W;x+=step){
+      if(data[(y*W+x)*4+3]>128) pts.push([x,y]);
+    }
+  }
+  particles=pts.map(([x,y],k)=>{
+    const w=WORDS[(Math.random()*WORDS.length)|0];
+    const ch2=Math.random()<0.55 ? w.slice(0,2+((Math.random()*3)|0)) : w; // fragments + full words
+    const accent=Math.random()<0.075;
+    return {
+      hx:x, hy:y,            // home
+      x:x+(Math.random()-.5)*W*0.9, y:y+(Math.random()-.5)*H*0.9, // start scattered → assembles on load
+      vx:0, vy:0,
+      t:ch2,
+      s:8+Math.random()*4,   // font size
+      c:accent?ACCENTS[(Math.random()*ACCENTS.length)|0]:(Math.random()<0.82?'rgba(238,236,230,':'rgba(150,150,155,'),
+      a:accent?1:(0.55+Math.random()*0.45),
+      accent,
+      seed:Math.random()*1000,
+      free:0                 // 0 = held in glyph, 1 = broken away
+    };
+  });
+}
+
+// cheap value-noise-ish field for organic drift
+function drift(x,y,t,seed){
+  return Math.sin(0.0016*x + t*0.7 + seed) + Math.cos(0.0021*y - t*0.5 + seed*1.7);
+}
+
+let mouse={x:-9999,y:-9999};
+addEventListener('mousemove',e=>{mouse.x=e.clientX*DPR;mouse.y=e.clientY*DPR;});
+addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+let burst=0;
+addEventListener('keydown',e=>{
+  if(e.key===' '){burst=1;e.preventDefault();}
+  const gi=parseInt(e.key,10);
+  if(gi>=1&&gi<=GLYPHS.length) buildGlyph(GLYPHS[gi-1]);
+});
+addEventListener('click',()=>{burst=1;});
+
+function vw(){return innerWidth||document.documentElement.clientWidth||document.body.clientWidth||1280}
+function vh(){return innerHeight||document.documentElement.clientHeight||document.body.clientHeight||800}
+function resize(){
+  const w=vw(), h=vh();
+  W=cv.width=Math.floor(w*DPR);
+  H=cv.height=Math.floor(h*DPR);
+  cv.style.width=w+'px'; cv.style.height=h+'px';
+  buildGlyph(glyph);
+}
+addEventListener('resize',resize);
+// retry once layout settles (some embeds report 0 on first tick)
+setTimeout(()=>{ if(cv.width<10) resize(); },300);
+setTimeout(()=>{ if(cv.width<10) resize(); },1200);
+
+let t0=performance.now();
+function frame(now){
+  const t=(now-t0)/1000;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#050505'; ctx.fillRect(0,0,W,H);
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+
+  // hold → sweep cycle (like the reel): glyph holds solid, then a narrow band crumbles through it
+  const CYCLE=8;                       // seconds per full hold+sweep
+  const ph=(t%CYCLE)/CYCLE;            // 0..1
+  const sweeping=ph>0.35;              // first 35% = hold solid
+  const sw=(ph-0.35)/0.65;             // sweep progress 0..1
+  const bandY=-H*0.1 + sw*(H*1.2);
+  const bandH=H*0.07;
+
+  if(burst>0) burst=Math.max(0,burst-0.02);
+
+  for(let i=0;i<particles.length;i++){
+    const p=particles[i];
+    const inBand=sweeping && Math.abs(p.hy-bandY)<bandH;
+    const mdx=p.x-mouse.x, mdy=p.y-mouse.y;
+    const md2=mdx*mdx+mdy*mdy;
+    const nearMouse=md2<(130*DPR)*(130*DPR);
+    const wantFree=(inBand?1:0) + (nearMouse?1:0) + burst*1.2;
+    // free quickly, return quickly
+    p.free += (Math.min(1,wantFree)-p.free)*(wantFree>p.free?0.2:0.1);
+
+    if(p.free>0.05){
+      p.vx += drift(p.hx,p.hy,t,p.seed)*0.35*DPR*p.free;
+      p.vy += (drift(p.hy,p.hx,t*1.2,p.seed+40)*0.28 + 0.5)*DPR*p.free; // crumble + fall
+      if(nearMouse){ const d=Math.sqrt(md2)||1; p.vx+=(mdx/d)*2.2*DPR; p.vy+=(mdy/d)*2.2*DPR; }
+      if(burst>0.4){ p.vx+=(Math.random()-.5)*5*DPR; p.vy+=(Math.random()-.5)*5*DPR; }
+    }
+    // spring home — tight when held so the glyph reads crisp
+    const k=0.02+(1-p.free)*0.13;
+    p.vx += (p.hx-p.x)*k;
+    p.vy += (p.hy-p.y)*k;
+    p.vx*=0.82; p.vy*=0.82;
+    p.x+=p.vx; p.y+=p.vy;
+
+    // draw tiny text
+    const dist=Math.hypot(p.x-p.hx,p.y-p.hy);
+    const fade=Math.max(0.15, 1-dist/(H*0.5));
+    ctx.font=(p.s*DPR)+'px "Space Mono",monospace';
+    if(p.accent){ ctx.fillStyle=p.c; ctx.globalAlpha=p.a*fade; }
+    else { ctx.fillStyle=p.c+(p.a*fade)+')'; ctx.globalAlpha=1; }
+    ctx.fillText(p.t,p.x,p.y);
+    ctx.globalAlpha=1;
+  }
+  requestAnimationFrame(frame);
+}
+resize();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
