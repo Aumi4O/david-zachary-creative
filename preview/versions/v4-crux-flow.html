@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — the flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  /* ── CRUX-style screen flow: full panels crossfading through black ── */
+  :root{
+    --ink:#050505; --paper:#f4f2ee; --bone:#e9e6e0; --fog:#8a8a8f; --line:#1c1c1f;
+    --magenta:#ff0a78;
+    --serif:"Instrument Serif",Georgia,serif;
+    --exp:"Archivo Expanded",sans-serif;
+    --sans:"Archivo",system-ui,sans-serif;
+    --mono:"Space Mono",monospace;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-font-smoothing:antialiased}
+  html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+  body{background:#000;color:var(--paper);font-family:var(--sans);overflow-x:hidden}
+
+  /* dark "coal" field — layered gradients + grain, fixed behind everything */
+  .field{position:fixed;inset:0;z-index:0;background:
+    radial-gradient(90vmax 70vmax at 18% 82%, #101012, transparent 60%),
+    radial-gradient(80vmax 60vmax at 84% 12%, #0c0c0f, transparent 55%),
+    radial-gradient(120vmax 90vmax at 50% 50%, #08080a, #000 85%)}
+  .field::after{content:"";position:absolute;inset:0;opacity:.09;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 95% at 50% 50%,transparent 55%,rgba(0,0,0,.6) 100%)}
+
+  /* the stage: every screen stacked, opacity driven by scroll */
+  .stage{position:fixed;inset:0;z-index:1}
+  .screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;padding:6vmin}
+  .screen .inner{max-width:1200px;width:100%;text-align:center}
+
+  /* nav dots */
+  .dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:10px}
+  .dots button{width:8px;height:8px;border-radius:50%;border:1px solid rgba(244,242,238,.35);background:transparent;cursor:pointer;padding:0;transition:all .3s}
+  .dots button.on{background:var(--magenta);border-color:var(--magenta);transform:scale(1.25)}
+  .cue{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:5;font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fog);opacity:.8}
+  .cue .a{display:inline-block;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* type system per screen */
+  .id-line{font-family:var(--serif);font-size:clamp(2.4rem,7vw,6rem);letter-spacing:.01em}
+  .id-line .b{font-family:var(--exp);font-weight:900;letter-spacing:-.02em}
+  .id-line .dia{color:var(--magenta)}
+  .word-r{display:inline-block;overflow:hidden;vertical-align:bottom}
+  .word-r>span{display:inline-block;transform:translateY(115%);transition:transform 1s var(--ease)}
+  .screen.on .word-r>span{transform:translateY(0)}
+
+  .smith{font-family:var(--serif);font-size:clamp(3rem,9vw,8.5rem);line-height:1}
+  .smith sup{font-family:var(--sans);font-size:.22em;vertical-align:super;color:var(--fog)}
+  .sub{margin:26px auto 0;max-width:44rem;font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.75;color:rgba(233,230,224,.82)}
+
+  .how{font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,7vw,6.5rem)}
+
+  .proc-name{font-family:var(--mono);font-size:clamp(1rem,2vw,1.4rem);letter-spacing:.12em;color:var(--fog)}
+  .proc-tag{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,3.4vw,2.6rem);margin-top:10px;color:var(--bone)}
+  .verbs{margin-top:7vh;display:flex;flex-wrap:wrap;justify-content:center;gap:.4em 1.6em;font-family:var(--exp);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.6rem,4.6vw,4rem)}
+  .verbs b{cursor:pointer;transition:color .3s;font-weight:900}
+  .verbs b:hover{color:var(--magenta)}
+  .verbs i{color:var(--magenta);font-style:normal}
+
+  .step-k{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--magenta)}
+  .step-verb{font-family:var(--exp);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(2.2rem,6vw,5rem);margin-top:14px}
+  .step-line{font-family:var(--serif);font-size:clamp(1.8rem,4.2vw,3.6rem);line-height:1.15;margin-top:4vh;max-width:20ch;margin-left:auto;margin-right:auto}
+  .step-line em{font-style:italic;color:var(--magenta)}
+  ul.bullets{margin-top:5vh;display:grid;gap:14px 40px;grid-template-columns:1fr;list-style:none;font-size:clamp(.9rem,1.4vw,1.05rem);color:rgba(233,230,224,.75)}
+  @media(min-width:720px){ul.bullets{grid-template-columns:1fr 1fr;max-width:760px;margin-left:auto;margin-right:auto;text-align:left}}
+  ul.bullets li{padding-left:22px;position:relative;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  ul.bullets li::before{content:"✦";position:absolute;left:0;top:0;color:var(--magenta);font-size:.75em}
+  .screen.on ul.bullets li{opacity:1;transform:none}
+  .screen.on ul.bullets li:nth-child(1){transition-delay:.35s}
+  .screen.on ul.bullets li:nth-child(2){transition-delay:.45s}
+  .screen.on ul.bullets li:nth-child(3){transition-delay:.55s}
+  .screen.on ul.bullets li:nth-child(4){transition-delay:.65s}
+
+  .fin .mark{width:104px;height:62px;margin:0 auto 30px;background:conic-gradient(from 210deg,#ff0a78,#e8871e,#ffd400,#8bc53f,#29abe2,#ff0a78);
+    -webkit-mask:var(--m);mask:var(--m);--m:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 40'%3E%3Cpath d='M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z'/%3E%3Cpath d='M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z'/%3E%3C/svg%3E") center/contain no-repeat}
+  .fin .cta{font-family:var(--serif);font-size:clamp(2rem,5.5vw,4.5rem)}
+  .fin .mail{display:inline-flex;margin-top:26px;font-family:var(--mono);font-size:.95rem;color:rgba(233,230,224,.85);text-decoration:none;border-bottom:1px solid var(--magenta);padding-bottom:4px}
+  .fin .legal{margin-top:9vh;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#555;display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+  .fin .legal a{color:inherit;text-decoration:none}
+  .fin .legal a:hover{color:var(--fog)}
+
+  .back{position:fixed;left:14px;bottom:14px;z-index:6;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);background:rgba(5,5,5,.8);border:1px solid var(--line);border-radius:999px;padding:7px 13px;text-decoration:none}
+
+  @media (prefers-reduced-motion: reduce){
+    .word-r>span{transform:none!important;transition:none}
+    ul.bullets li{opacity:1!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="field"></div>
+<div class="vignette"></div>
+
+<div class="stage" id="stage">
+
+  <!-- 1 · identity -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <h1 class="id-line">
+        <span class="word-r"><span>David.</span></span><span class="word-r"><span>Zachary.</span></span><span class="word-r"><span class="b">CREATIVE<span class="dia">✦</span></span></span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- 2 · craftsmithing -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <h2 class="smith"><span class="word-r"><span>Craftsmithing<sup>®</sup></span></span></h2>
+      <p class="sub">I dig deep to find the idea that makes you shine — where science, health and culture meet. Then I bring bold vision and obsessive craft to carve out your space in the world.</p>
+    </div>
+  </section>
+
+  <!-- 3 · how -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <h2 class="how"><span class="word-r"><span>How I craftsmith.</span></span></h2>
+    </div>
+  </section>
+
+  <!-- 4 · process index -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <p class="proc-name">concepts.craft.process</p>
+      <p class="proc-tag">sharper. truer. braver.</p>
+      <div class="verbs">
+        <b data-goto="4">Discover<i>.</i></b>
+        <b data-goto="5">Extract<i>.</i></b>
+        <b data-goto="6">Shape<i>.</i></b>
+        <b data-goto="7">Refine<i>.</i></b>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · discover -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <p class="step-k">01 · Discover</p>
+      <p class="step-line"><span class="word-r"><span>I mine the <em>raw materials</em></span></span><br><span class="word-r"><span>that make you great.</span></span></p>
+      <ul class="bullets">
+        <li>Stakeholder &amp; customer interviews</li>
+        <li>Brand and landscape audit</li>
+        <li>Science &amp; story immersion</li>
+        <li>Competitive review</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · extract -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <p class="step-k">02 · Extract</p>
+      <p class="step-line"><span class="word-r"><span>I crystallize the</span></span><br><span class="word-r"><span><em>essence</em> of your brand.</span></span></p>
+      <ul class="bullets">
+        <li>Positioning</li>
+        <li>Personality</li>
+        <li>Mission, vision and values</li>
+        <li>Voice &amp; value proposition</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 · shape -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <p class="step-k">03 · Shape</p>
+      <p class="step-line"><span class="word-r"><span>I carve out a creative,</span></span><br><span class="word-r"><span><em>authentic</em> place for you.</span></span></p>
+      <ul class="bullets">
+        <li>Visual identity</li>
+        <li>Messaging and voice</li>
+        <li>Creative campaigns</li>
+        <li>Brand launch</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 · refine -->
+  <section class="screen" data-s>
+    <div class="inner">
+      <p class="step-k">04 · Refine</p>
+      <p class="step-line"><span class="word-r"><span>I polish the work across</span></span><br><span class="word-r"><span>the whole <em>life cycle</em>.</span></span></p>
+      <ul class="bullets">
+        <li>Ongoing creative direction</li>
+        <li>Brand refresh</li>
+        <li>Market expansion</li>
+        <li>Campaign response</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 · fin -->
+  <section class="screen fin" data-s>
+    <div class="inner">
+      <div class="mark"></div>
+      <p class="cta"><span class="word-r"><span>Let’s make something <em style="color:var(--magenta);font-style:italic">real</em>.</span></span></p>
+      <a class="mail" href="mailto:hello@davidzachary.co">hello@davidzachary.co</a>
+      <div class="legal">
+        <span>© David Zachary Creative 2026</span>
+        <a href="clean.html">Portfolio — clean</a>
+        <a href="index.html">Portfolio — motion</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="dots" id="dots"></div>
+<div class="cue">Scroll <span class="a">↓</span></div>
+<a class="back" href="../index.html">← All versions</a>
+
+<div id="spacer"></div>
+
+<script>
+/* CRUX-style flow: N fullscreen panels crossfading through black on scroll */
+const screens=[...document.querySelectorAll('.screen')];
+const N=screens.length;
+const SCREEN_VH=1.45;              // scroll-length per screen (holds, then fades)
+const spacer=document.getElementById('spacer');
+function vh(){return innerHeight||document.documentElement.clientHeight||800}
+function layout(){ spacer.style.height=(N*SCREEN_VH*100)+'vh'; }
+layout(); addEventListener('resize',layout);
+
+// dots
+const dotsWrap=document.getElementById('dots');
+screens.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Screen '+(i+1));
+  b.addEventListener('click',()=>goTo(i));dotsWrap.appendChild(b);});
+const dots=[...dotsWrap.children];
+document.querySelectorAll('[data-goto]').forEach(el=>el.addEventListener('click',()=>goTo(+el.dataset.goto)));
+
+function goTo(i){
+  const y=i*SCREEN_VH*vh();
+  if(window.__lenis) window.__lenis.scrollTo(y,{duration:1.4});
+  else window.scrollTo({top:y,behavior:'smooth'});
+}
+addEventListener('keydown',e=>{
+  const cur=Math.round((window.scrollY||0)/(SCREEN_VH*vh()));
+  if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();goTo(Math.min(N-1,cur+1));}
+  if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();goTo(Math.max(0,cur-1));}
+});
+
+let ticking=false;
+function apply(){
+  ticking=false;
+  const unit=SCREEN_VH*vh();
+  const p=(window.scrollY||window.pageYOffset||0)/unit;  // 0..N-1 float
+  for(let i=0;i<N;i++){
+    const d=Math.abs(p-i);
+    // hold plateau then fade through black between screens
+    const o=Math.max(0, Math.min(1, 1.55 - d*2.4));
+    const s=screens[i];
+    s.style.opacity=o;
+    s.style.visibility=o<=0.01?'hidden':'visible';
+    const zoomOut = (p-i)>0 ? 1-Math.min(.06,(p-i)*.06) : 1+Math.min(.05,(i-p)*.05);
+    s.style.transform='scale('+zoomOut+')';
+    if(o>0.5) s.classList.add('on');
+    if(d>1.1) s.classList.remove('on');      // reset when far, so it replays
+  }
+  const cur=Math.round(p);
+  dots.forEach((b,i)=>b.classList.toggle('on',i===Math.max(0,Math.min(N-1,cur))));
+  document.querySelector('.cue').style.opacity = p>N-1.6 ? 0 : .8;
+}
+addEventListener('scroll',()=>{ if(!ticking){ticking=true;requestAnimationFrame(apply);} },{passive:true});
+setTimeout(apply,50); setTimeout(apply,400); setTimeout(apply,1200);
+// safety net: keep state correct even if rAF is throttled (hidden panes, low power)
+setInterval(apply,300);
+</script>
+<script src="lenis.min.js"></script>
+<script>(function(){const L=window.Lenis&&(window.Lenis.default||window.Lenis);if(typeof L!=='function')return;const l=new L({lerp:0.065});window.__lenis=l;function raf(t){l.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf)})();</script>
+</body>
+</html>
