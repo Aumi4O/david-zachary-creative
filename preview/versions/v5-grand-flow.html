@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Grand Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────────────
+   GRAND FLOW — David's ideas fused into one scroll experience:
+   · giant signs (+ & ×) built from LIVING TEXT (the & Amp engine)
+   · the MATCH CUT happens INSIDE the letterform — the sign is the lens,
+     David's works flash cropped by the glyph, the sign PULSES on every cut
+   · signs morph into each other by bursting & re-forming (scroll-driven)
+   · then the flow: Craftsmithing® → how → Discover/Extract/Shape/Refine
+   Design experience first — the work only seeps in through the letters.
+   ───────────────────────────────────────────────────────────────────── */
+:root{
+  --serif:"Instrument Serif",Georgia,serif;
+  --slab:"Archivo Expanded",sans-serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --white:#fff; --dim:rgba(255,255,255,.55);
+  --magenta:#ff0a78;
+  --expo:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:#000;color:#fff;font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:0 auto;padding:0 5vw}
+
+/* nav */
+.nav-bar{position:fixed;inset:0 0 auto 0;z-index:100;padding:19px 0;mix-blend-mode:difference}
+.nav-bar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-bar svg{height:24px;width:auto;color:#fff;display:block}
+.nav-link{font-size:.8rem;position:relative}
+.nav-link::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo)}
+.nav-link:hover::after{transform:scaleX(1)}
+
+/* ── THE OPENING: sticky canvas stage, scroll-scrubbed acts ── */
+.opening{position:relative;height:560vh}
+.opening .stage{position:sticky;top:0;height:100vh;overflow:hidden}
+#gc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.overture{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px;z-index:3;pointer-events:none;
+  font-family:var(--serif);font-size:clamp(1.9rem,4.6vw,3.4rem);line-height:1}
+.rec{width:9px;height:9px;background:var(--magenta);transform:rotate(45deg);animation:blink 1.1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.word-stage{position:relative;height:1.2em;display:flex;align-items:center;min-width:7ch}
+.intro-txt{position:absolute;left:0;white-space:nowrap;opacity:0;transform:translateY(20px)}
+.intro-txt.in{opacity:1;transform:none;transition:opacity .45s var(--expo),transform .45s var(--expo)}
+.intro-txt.out{opacity:0;transform:translateY(-14px);transition:opacity .3s ease,transform .3s ease}
+.id-under{position:absolute;left:50%;bottom:12vh;transform:translateX(-50%);z-index:3;pointer-events:none;white-space:nowrap;
+  font-family:var(--serif);font-size:clamp(1.2rem,2.6vw,1.9rem);opacity:0;transition:opacity .9s ease}
+.id-under.show{opacity:1}
+.id-under .mark{font-family:var(--slab);font-weight:900;letter-spacing:-.01em}
+.id-under .dia{color:var(--magenta)}
+.scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;pointer-events:none;
+  font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.45);transition:opacity .5s}
+.scroll-cue .a{display:inline-block;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ── hero (masked line-rise, triggers on enter) ── */
+.home-hero{min-height:100vh;display:flex;align-items:center}
+.text-hide{overflow:hidden}
+.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(2.6rem,8.4vw,6.6rem);letter-spacing:-.02em;line-height:1.02;white-space:nowrap}
+.lg-h1 .text-span{display:inline-block;transform:translateY(110%);opacity:0}
+.home-hero.on .lg-h1 .text-span{transition:transform .9s var(--expo),opacity .6s ease;transform:translateY(0);opacity:1}
+.home-hero.on .lg-h1 .text-span:nth-child(2){transition-delay:.08s}
+.lg-h1 .real{font-family:var(--sans);font-weight:400;font-size:.4em;vertical-align:super;opacity:0}
+.home-hero.on .lg-h1 .real{transition:opacity .6s ease .5s;opacity:1}
+.hero-h2{font-family:var(--serif);font-size:clamp(1.7rem,3.4vw,3.2rem);line-height:1.25;max-width:24ch;margin-top:28px;opacity:0;transform:translateY(24px)}
+.home-hero.on .hero-h2{transition:opacity .8s ease .35s,transform .8s var(--expo) .35s;opacity:1;transform:none}
+
+/* how */
+.section-auto{padding:8em 0}
+.fadeup{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s var(--expo)}
+.fadeup.on{opacity:1;transform:none}
+.kicker-p{font-size:1.12rem;color:var(--dim)}
+.proc-h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);margin-top:10px}
+.proc-h3{font-family:var(--serif);font-style:italic;font-size:clamp(1.5rem,3vw,2.4rem);margin-top:14px;color:rgba(255,255,255,.85)}
+
+/* services scrub */
+.services{position:relative;height:520vh}
+.services .sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.title-main{font-family:var(--serif);font-size:clamp(3rem,10.5vw,8rem);line-height:1.02;letter-spacing:-.01em}
+.title-main .text-span{opacity:.2;transition:opacity .45s ease;cursor:pointer}
+.title-main .text-span.active{opacity:1}
+.svc-card{margin-top:4em;min-height:15em;position:relative}
+.info-child{position:absolute;inset:0;opacity:0;transform:translateX(46px);transition:opacity .55s ease,transform .55s var(--expo);pointer-events:none}
+.info-child.active{opacity:1;transform:none;pointer-events:auto}
+.info-child.prev{opacity:0;transform:translateX(-46px)}
+.info-child h4{font-family:var(--serif);font-size:clamp(1.4rem,2.6vw,2.1rem);line-height:1.3}
+.grid{margin-top:2em;display:grid;gap:16px 44px;grid-template-columns:1fr}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr;max-width:720px}}
+.row-parent{display:flex;align-items:center;gap:12px;font-size:1.05rem;color:rgba(255,255,255,.85)}
+.row-parent .plus{color:var(--magenta);font-family:var(--slab);font-weight:900;font-size:.95em;line-height:1}
+
+/* fin */
+.fin-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
+.pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(2rem,5.4vw,4.4rem);line-height:1.1}
+.pull-link em{font-style:italic;color:var(--magenta)}
+.pull-link .u{border-bottom:2px solid var(--magenta);padding-bottom:6px}
+.footer{position:absolute;left:0;right:0;bottom:0;padding:38px 0}
+.footer .container{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.78rem;color:var(--dim)}
+.footer a:hover{color:#fff}
+
+@media (prefers-reduced-motion: reduce){
+  .opening{height:auto}
+  #gc,.overture,.scroll-cue{display:none}
+  .id-under{position:static;opacity:1;transform:none;text-align:center;padding:20vh 0}
+  .home-hero .text-span,.lg-h1 .real,.hero-h2{opacity:1!important;transform:none!important}
+  .fadeup{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <div class="container">
+    <a href="../index.html" aria-label="David Zachary Creative">
+      <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+    </a>
+    <a class="nav-link" href="../index.html">All versions</a>
+  </div>
+</nav>
+
+<!-- ══ THE OPENING ══ -->
+<section class="opening" id="opening">
+  <div class="stage">
+    <canvas id="gc"></canvas>
+    <div class="overture" id="overture">
+      <div class="rec"></div>
+      <div class="word-stage" id="stage1">
+        <div class="intro-txt">Concepts.</div>
+        <div class="intro-txt">Craft.</div>
+        <div class="intro-txt">Care.</div>
+      </div>
+    </div>
+    <div class="id-under" id="idUnder">David.Zachary.<span class="mark">CREATIVE<span class="dia">+</span></span></div>
+    <div class="scroll-cue" id="cue">Scroll <span class="a">↓</span></div>
+  </div>
+</section>
+
+<main>
+  <header class="home-hero" id="hero">
+    <div class="container">
+      <div class="text-hide">
+        <h1 class="lg-h1"><span class="text-span">Craft</span><span class="text-span">smithing</span><span class="real">®</span></h1>
+      </div>
+      <h2 class="hero-h2">I dig deep to find what makes you shine. Then I bring bold vision and obsessive craft to carve out your space in the world.</h2>
+    </div>
+  </header>
+
+  <section class="section-auto">
+    <div class="container">
+      <div class="kicker-p fadeup">How I craftsmith.</div>
+      <h2 class="proc-h2 fadeup">concepts.craft.process</h2>
+      <h3 class="proc-h3 fadeup">sharper.truer.braver.</h3>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="sticky">
+      <div class="container">
+        <div class="title-main" id="verbs">
+          <span class="text-span" data-i="0">Discover.</span><span class="text-span" data-i="1">Extract.</span><br>
+          <span class="text-span" data-i="2">Shape.</span><span class="text-span" data-i="3">Refine.</span>
+        </div>
+        <div class="svc-card" id="cards">
+          <div class="info-child">
+            <h4>I mine the raw materials<br>that make you great.</h4>
+            <div class="grid">
+              <div class="row-parent"><span class="plus">+</span><div>Stakeholder &amp; customer interviews</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Brand and landscape audit</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Science &amp; story immersion</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Competitive review</div></div>
+            </div>
+          </div>
+          <div class="info-child">
+            <h4>I crystallize the<br>essence of your brand.</h4>
+            <div class="grid">
+              <div class="row-parent"><span class="plus">+</span><div>Positioning</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Personality</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Mission, vision and values</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Voice &amp; value proposition</div></div>
+            </div>
+          </div>
+          <div class="info-child">
+            <h4>I carve out a creative,<br>authentic place for you.</h4>
+            <div class="grid">
+              <div class="row-parent"><span class="plus">+</span><div>Visual identity</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Messaging and voice</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Creative campaigns</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Brand launch</div></div>
+            </div>
+          </div>
+          <div class="info-child">
+            <h4>I polish the work across<br>the whole life cycle.</h4>
+            <div class="grid">
+              <div class="row-parent"><span class="plus">+</span><div>Ongoing creative direction</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Brand refresh</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Market expansion</div></div>
+              <div class="row-parent"><span class="plus">+</span><div>Campaign response</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fin-section">
+    <div class="container">
+      <a class="pull-link" href="mailto:hello@davidzachary.co">Let’s make something <em>real</em>.<br><span class="u">hello@davidzachary.co</span></a>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <span>© David Zachary Creative 2026</span>
+        <span><a href="clean.html">Portfolio</a> · <a href="index.html">Motion</a> · <a href="flow.html">Flow</a></span>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   THE ENGINE — one canvas, three layers, scroll-scrubbed:
+   1. living-text particles form the giant sign (& Amp)
+   2. David's works drawn CLIPPED INSIDE the glyph (the match cut lens)
+   3. the sign pulses on every cut; morphs (+→&→×) via burst/re-form
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('gc'), ctx=cv.getContext('2d');
+  const opening=document.getElementById('opening');
+  const overture=document.getElementById('overture');
+  const under=document.getElementById('idUnder');
+  const cue=document.getElementById('cue');
+  const DPR=Math.min(2,devicePixelRatio||1);
+  const vw=()=>innerWidth||document.documentElement.clientWidth||1280;
+  const vh=()=>innerHeight||document.documentElement.clientHeight||800;
+  let W=0,H=0;
+  const mask=document.createElement('canvas'), mg=mask.getContext('2d');
+  function size(){W=cv.width=mask.width=Math.floor(vw()*DPR);H=cv.height=mask.height=Math.floor(vh()*DPR);
+    cv.style.width=vw()+'px';cv.style.height=vh()+'px'}
+  size(); addEventListener('resize',()=>{size();caches={};setHomes(curGlyph,true)});
+
+  /* David's works — the match-cut reel (all his own) */
+  const WORKS=['bgbtsol-copy-page-4.jpg','4599d6e5-69f9-4ebf-bf20-d05a1ebf3d53.png','xgettyimages-1280109081.jpg',
+    'ixi-branding-r2-page-16.png','34ea90fc00f374beacb2fa9b9ad0e475.jpg','newgettyimages-484299780-copy.jpg',
+    'screen-shot-2020-08-18-at-10-18-50-am.png','opq-page-1.png','pages-from-dzc-2-copy-page-10.jpg']
+    .map(f=>{const im=new Image();im.src='media/'+f;return im});
+
+  const WORDS=("concepts craft care brand story idea science health culture design type motion image detail trust identity campaign voice launch bold real work make feel").split(' ');
+  const GLYPHS=['+','&','×'];
+  let curGlyph='+';
+  let parts=[]; let caches={};
+
+  function glyphPts(ch){
+    if(caches[ch]) return caches[ch];
+    const os=document.createElement('canvas');os.width=W;os.height=H;
+    const g=os.getContext('2d');
+    g.fillStyle='#fff';g.font=gFont();g.textAlign='center';g.textBaseline='middle';
+    g.fillText(ch,W/2,H/2+gSize()*0.02);
+    const d=g.getImageData(0,0,W,H).data;
+    const step=Math.max(6,Math.round(Math.min(W,H)/110));
+    const pts=[];
+    for(let y=step>>1;y<H;y+=step)for(let x=step>>1;x<W;x+=step)
+      if(d[(y*W+x)*4+3]>128)pts.push([x,y]);
+    caches[ch]=pts;return pts;
+  }
+  function gSize(){return Math.min(H*0.82,W*0.68)}
+  function gFont(){return '900 '+gSize()+'px "Archivo Expanded","Arial Black",sans-serif'}
+
+  function setHomes(ch,hard){
+    curGlyph=ch;
+    const pts=glyphPts(ch);
+    const n=Math.max(pts.length,parts.length);
+    for(let i=0;i<n;i++){
+      const pt=pts[i%pts.length];
+      if(!parts[i]){
+        const w=WORDS[(Math.random()*WORDS.length)|0];
+        parts[i]={x:pt[0]+(Math.random()-.5)*W,y:pt[1]+(Math.random()-.5)*H,vx:0,vy:0,
+          t:Math.random()<.5?w.slice(0,2+((Math.random()*3)|0)):w,
+          s:7+Math.random()*4,m:Math.random()<.08,a:.55+Math.random()*.45,o:1};
+      }
+      parts[i].hx=pt[0];parts[i].hy=pt[1];parts[i].dead=i>=pts.length;
+      if(hard){parts[i].x=pt[0];parts[i].y=pt[1];parts[i].vx=0;parts[i].vy=0}
+    }
+  }
+
+  /* acts across the opening scroll:
+     0.00–0.14  + assembles from chaos (design first — pure type)
+     0.14–0.38  + is the LENS: works cut inside it, pulse each cut
+     0.38–0.46  burst → & re-forms
+     0.46–0.68  & lens: next works
+     0.68–0.76  burst → × re-forms
+     0.76–0.92  × lens: final works
+     0.92–1.00  full burst, scatter & fade → Craftsmithing rises   */
+  const ACTS=[
+    {a:0.00,b:0.14,glyph:'+',mode:'form'},
+    {a:0.14,b:0.38,glyph:'+',mode:'lens',w:[0,1,2]},
+    {a:0.38,b:0.46,glyph:'&',mode:'morph'},
+    {a:0.46,b:0.68,glyph:'&',mode:'lens',w:[3,4,5]},
+    {a:0.68,b:0.76,glyph:'×',mode:'morph'},
+    {a:0.76,b:0.92,glyph:'×',mode:'lens',w:[6,7,8]},
+    {a:0.92,b:1.01,glyph:'×',mode:'end'}
+  ];
+  let lastAct=-1,lastWork=-1,beat=0,burstDone=false;
+
+  function progress(){
+    const ih=vh();
+    const span=(opening.offsetHeight||ih*5.6)-ih;
+    const r=opening.getBoundingClientRect();
+    return Math.min(1,Math.max(0,(-r.top)/Math.max(1,span)));
+  }
+
+  setHomes('+',false); // start scattered, will assemble
+
+  let t0=performance.now();
+  function frame(now){
+    requestAnimationFrame(frame);
+    const t=(now-t0)/1000;
+    const p=progress();
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);
+
+    let act=ACTS.findIndex(a=>p>=a.a&&p<a.b); if(act<0)act=ACTS.length-1;
+    const A=ACTS[act];
+    const local=(p-A.a)/(A.b-A.a);
+
+    if(act!==lastAct){
+      if(A.mode==='morph'||A.mode==='end'){
+        for(const q of parts){const ang=Math.atan2(q.y-H/2,q.x-W/2)+(Math.random()-.5);
+          const f=(3.5+Math.random()*6)*DPR;q.vx+=Math.cos(ang)*f;q.vy+=Math.sin(ang)*f}
+        burstDone=(A.mode==='end');
+      }
+      if(A.glyph!==curGlyph) setHomes(A.glyph,false); // covers jumps/dots, not just morph path
+      lastAct=act;
+    }
+
+    /* pulse: breathing + beat on every cut */
+    const breathe=1+0.028*Math.sin(t*2.6);
+    beat*=0.90;
+    const scale=breathe*(1+0.09*beat);
+
+    /* the lens — works clipped inside the pulsing glyph */
+    if(A.mode==='lens'){
+      const wi=A.w[Math.min(A.w.length-1,Math.floor(local*A.w.length))];
+      if(wi!==lastWork){beat=1;lastWork=wi}
+      const img=WORKS[wi];
+      if(img&&img.complete&&img.naturalWidth){
+        // letterform base so dark works still read as the sign
+        ctx.save();ctx.translate(W/2,H/2);ctx.scale(scale,scale);ctx.translate(-W/2,-H/2);
+        ctx.fillStyle='#17171a';ctx.font=gFont();ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(A.glyph,W/2,H/2+gSize()*0.02);ctx.restore();
+        mg.clearRect(0,0,W,H);
+        mg.save();mg.translate(W/2,H/2);mg.scale(scale,scale);mg.translate(-W/2,-H/2);
+        mg.fillStyle='#fff';mg.font=gFont();mg.textAlign='center';mg.textBaseline='middle';
+        mg.fillText(A.glyph,W/2,H/2+gSize()*0.02);
+        mg.restore();
+        mg.globalCompositeOperation='source-in';
+        const s=Math.max(W/img.naturalWidth,H/img.naturalHeight);
+        const iw=img.naturalWidth*s,ihh=img.naturalHeight*s;
+        mg.drawImage(img,(W-iw)/2,(H-ihh)/2,iw,ihh);
+        mg.globalCompositeOperation='source-over';
+        ctx.drawImage(mask,0,0);
+      }
+    }
+
+    /* living-text particles — the flesh of the sign */
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    const spring=A.mode==='form'?0.06+local*0.06:(A.mode==='lens'?0.11:(A.mode==='morph'?0.05+local*0.09:0));
+    for(const q of parts){
+      if(A.mode==='end'){
+        q.vx*=0.965;q.vy*=0.965;q.vy+=0.05*DPR;q.o=Math.max(0,q.o-0.011);
+      }else{
+        const tx=W/2+(q.hx-W/2)*scale, ty=H/2+(q.hy-H/2)*scale;
+        q.vx+=(tx-q.x)*spring;q.vy+=(ty-q.y)*spring;q.vx*=0.82;q.vy*=0.82;
+        if(q.dead)q.o=Math.max(0,q.o-0.02); else q.o=Math.min(1,q.o+0.04);
+      }
+      q.x+=q.vx;q.y+=q.vy;
+      if(q.o<=0.01)continue;
+      ctx.font=(q.s*DPR)+'px Archivo,monospace';
+      if(q.m){ctx.fillStyle='#ff0a78';ctx.globalAlpha=q.o}
+      else{ctx.fillStyle='#f4f2ee';ctx.globalAlpha=q.a*q.o*(A.mode==='lens'?0.85:1)}
+      ctx.fillText(q.t,q.x,q.y);
+    }
+    ctx.globalAlpha=1;
+
+    /* HTML layers */
+    under.classList.toggle('show', p>0.055&&p<0.9);
+    cue.style.opacity = p>0.9?0:'';
+    if(overture&&p>0.05) killOverture();
+  }
+  requestAnimationFrame(frame);
+
+  /* overture: Concepts./Craft./Care. word cycle over the forming sign */
+  let ovDone=false,ovT=[];
+  const wordEls=[...document.querySelectorAll('#stage1 .intro-txt')];
+  wordEls.forEach((w,i)=>{const s=350+i*1050;
+    ovT.push(setTimeout(()=>w.classList.add('in'),s));
+    ovT.push(setTimeout(()=>{w.classList.remove('in');w.classList.add('out')},s+740));});
+  ovT.push(setTimeout(killOverture,350+wordEls.length*1050+200));
+  function killOverture(){if(ovDone)return;ovDone=true;ovT.forEach(clearTimeout);
+    overture.style.transition='opacity .5s';overture.style.opacity=0;
+    setTimeout(()=>overture.remove(),600)}
+
+  /* preload works early */
+  WORKS.forEach(im=>{if(!im.complete)im.decode&&im.decode().catch(()=>{})});
+})();
+
+/* hero masked rise when it enters */
+(function(){
+  const hero=document.getElementById('hero');
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){hero.classList.add('on')}}),{threshold:0.35}).observe(hero);
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{rootMargin:'-12% 0px -12% 0px'});
+  document.querySelectorAll('.fadeup').forEach(el=>io.observe(el));
+})();
+
+/* services scrub (proven CRUX mechanics) */
+(function(){
+  const sec=document.getElementById('services');
+  const verbs=[...document.querySelectorAll('#verbs .text-span')];
+  const cards=[...document.querySelectorAll('#cards .info-child')];
+  let active=-1;
+  function setActive(i){if(i===active)return;
+    verbs.forEach((v,k)=>v.classList.toggle('active',k===i));
+    cards.forEach((c,k)=>{c.classList.toggle('active',k===i);c.classList.toggle('prev',k<i)});
+    active=i}
+  function scrub(){
+    const ih=innerHeight||document.documentElement.clientHeight||800;
+    const r=sec.getBoundingClientRect();
+    const span=(sec.offsetHeight||ih*5.2)-ih;
+    if(span<=0)return;
+    const p=Math.min(0.999,Math.max(0,-r.top/span));
+    setActive(Math.min(3,Math.floor(p*4)));
+  }
+  let tick=false;
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{tick=false;scrub()})}},{passive:true});
+  setInterval(scrub,250);
+  verbs.forEach(v=>v.addEventListener('click',()=>{
+    const i=+v.dataset.i;
+    const ih=innerHeight||document.documentElement.clientHeight||800;
+    const y=sec.offsetTop+((sec.offsetHeight||ih*5.2)-ih)*(i/4+0.125);
+    scrollTo({top:y,behavior:'smooth'});
+  }));
+  scrub();
+})();
+</script>
+</body>
+</html>
