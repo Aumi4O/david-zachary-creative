@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>David Zachary Creative — Site Map · The 3-Lane Logic</title>
+<title>davidzachary.co — UX Blueprint · The 3-Lane Logic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#050505;--paper:#f4f2ee;--fog:#8a8a8f;--line:#232326;
-  --magenta:#ff0a78;--cyan:#29abe2;--acid:#8bc53f;--orange:#e8871e;--yellow:#ffd400;
+  --magenta:#ff0a78;--cyan:#29abe2;--acid:#8bc53f;--orange:#e8871e;
   --slab:"Archivo Expanded",sans-serif;--serif:"Instrument Serif",Georgia,serif;
   --sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",monospace;
   --ease:cubic-bezier(.16,1,.3,1);
@@ -20,76 +20,84 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1500px;margin:0 auto;padding:0 4vw}
 .mono{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.24em;color:var(--fog)}
+.slug{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--ink);background:var(--paper);border-radius:6px;padding:3px 8px}
+.dark .slug{background:#1c1c20;color:var(--paper)}
 
 header{padding:60px 0 0}
 header .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
 header svg{height:26px;color:var(--paper)}
 h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.9rem,5vw,4rem);margin-top:34px;line-height:1.02}
 h1 .p{color:var(--magenta)}
-.lede{font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.5rem);color:rgba(233,230,224,.85);margin-top:14px;max-width:52ch}
+.lede{font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.5rem);color:rgba(233,230,224,.85);margin-top:14px;max-width:56ch}
 
-/* ── the spine diagram ── */
-.spine{margin-top:60px;border:1px solid var(--line);border-radius:18px;padding:34px;position:relative;background:#0a0a0c}
-.spine .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
-.chip{border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase}
-.chip b{color:var(--magenta)}
-.trinity{display:flex;gap:12px;flex-wrap:wrap}
-.trinity .c{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1rem,2.4vw,1.7rem);letter-spacing:-.01em;
-  border:1px solid var(--line);border-radius:12px;padding:14px 22px;position:relative}
-.trinity .c small{display:block;font-family:var(--mono);font-weight:400;font-size:.58rem;letter-spacing:.2em;color:var(--fog);margin-top:6px}
-.c.c1{box-shadow:inset 3px 0 0 var(--magenta)}
-.c.c2{box-shadow:inset 3px 0 0 var(--cyan)}
-.c.c3{box-shadow:inset 3px 0 0 var(--acid)}
-.menu-r{display:flex;gap:10px;flex-wrap:wrap}
-.menu-r .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;border:1px dashed var(--line);border-radius:999px;padding:10px 16px;color:rgba(244,242,238,.85)}
-.map-note{margin-top:26px;display:grid;gap:8px}
-.map-note div{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--fog)}
-.map-note b{color:var(--paper);font-weight:400}
-.arrow{color:var(--magenta)}
+.sec-k{margin-top:64px;font-family:var(--mono);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;color:var(--magenta)}
+.sec-t{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1.3rem,3vw,2.2rem);letter-spacing:-.01em;margin-top:8px}
 
-/* ── lanes ── */
-.lanes{margin-top:26px;display:grid;gap:18px;grid-template-columns:1fr}
+/* HOME block */
+.home-block{margin-top:22px;border:1px solid var(--line);border-radius:18px;background:#0a0a0c;overflow:hidden}
+.home-block .bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 26px;border-bottom:1px solid var(--line)}
+.home-block .bar .l{display:flex;align-items:center;gap:12px}
+.home-block .bar svg{height:18px;color:var(--paper)}
+.menu-r{display:flex;gap:8px;flex-wrap:wrap}
+.menu-r .m{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:7px 13px;color:rgba(244,242,238,.9)}
+.menu-r .m.c{border-color:var(--magenta);color:var(--magenta)}
+.acts{padding:10px 26px 24px;display:grid;gap:10px}
+.act{display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(35,35,38,.6);flex-wrap:wrap}
+.act:last-child{border-bottom:0}
+.act .n{font-family:var(--mono);font-size:.66rem;color:var(--fog);flex:0 0 34px}
+.act b{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:1.02rem;flex:0 0 200px}
+.act.c1 b{color:var(--magenta)}.act.c2 b{color:var(--cyan)}.act.c3 b{color:var(--acid)}
+.act span{color:var(--fog);font-size:.9rem;flex:1;min-width:240px}
+.act .link{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);border:1px dashed var(--line);border-radius:999px;padding:5px 11px;white-space:nowrap}
+.act .link i{color:var(--magenta);font-style:normal}
+
+/* lanes */
+.lanes{margin-top:22px;display:grid;gap:18px;grid-template-columns:1fr}
 @media(min-width:980px){.lanes{grid-template-columns:1fr 1fr 1fr}}
 .lane{border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
-.lane .head{padding:26px 26px 20px;border-bottom:1px solid var(--line)}
-.lane .no{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase}
-.lane h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.5rem,2.6vw,2.2rem);margin-top:8px}
-.lane .routes{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
-.lane .routes span{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--fog)}
-.lane .routes span b{font-weight:400}
-.lane .tone{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(233,230,224,.75);margin-top:12px}
-.lane ul{list-style:none;padding:18px 26px 26px;display:grid;gap:0;flex:1}
-.lane li{padding:13px 0;border-bottom:1px solid rgba(35,35,38,.6);display:flex;gap:12px;align-items:baseline}
+.lane .head{padding:24px 24px 18px;border-bottom:1px solid var(--line)}
+.lane .no{font-family:var(--mono);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase}
+.lane h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.4rem,2.4vw,2rem);margin:8px 0 10px}
+.lane .tone{font-family:var(--serif);font-style:italic;font-size:.98rem;color:rgba(233,230,224,.75);margin-top:10px}
+.lane ul{list-style:none;padding:14px 24px 22px;flex:1}
+.lane li{padding:11px 0;border-bottom:1px solid rgba(35,35,38,.6);display:flex;gap:11px;align-items:baseline}
 .lane li:last-child{border-bottom:0}
-.lane li .plus{font-family:var(--slab);font-weight:900;font-size:.85em;flex:0 0 auto}
-.lane li b{font-weight:600;font-size:.98rem}
-.lane li span{color:var(--fog);font-size:.85rem}
-.lane .foot{padding:16px 26px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fog)}
-/* lane tints */
+.lane li .plus{font-family:var(--slab);font-weight:900;font-size:.85em}
+.lane li b{font-weight:600;font-size:.95rem}
+.lane li span{color:var(--fog);font-size:.82rem}
+.lane .foot{padding:14px 24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
 .lane1 .no,.lane1 .plus{color:var(--magenta)}
 .lane2{background:var(--paper);color:var(--ink)}
 .lane2 .head,.lane2 li{border-color:#dedad2}
 .lane2 .no,.lane2 .plus{color:var(--orange)}
-.lane2 .tone{color:#555}
-.lane2 li span{color:#777}
-.lane2 .routes span{border-color:#dedad2;color:#777}
+.lane2 .tone{color:#555}.lane2 li span{color:#777}
 .lane2 .foot{border-color:#dedad2;color:#999}
 .lane3 .no,.lane3 .plus{color:var(--cyan)}
 
-/* contact bar */
-.contact-bar{margin-top:26px;border:1px solid var(--line);border-radius:18px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
-  background:linear-gradient(90deg,rgba(255,10,120,.08),transparent 60%)}
-.contact-bar .t{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1.1rem,2.6vw,1.8rem);letter-spacing:-.01em}
-.contact-bar .t em{color:var(--magenta);font-style:normal}
-.contact-bar .mono b{color:var(--paper)}
+/* case template */
+.case{margin-top:22px;border:1px dashed var(--line);border-radius:18px;padding:24px 26px;display:grid;gap:10px}
+.case .row{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.case .row .n{font-family:var(--mono);font-size:.62rem;color:var(--fog);flex:0 0 34px}
+.case .row b{font-weight:600}
+.case .row span{color:var(--fog);font-size:.88rem}
 
-/* principles */
-.principles{margin-top:48px;display:grid;gap:14px;grid-template-columns:1fr}
-@media(min-width:900px){.principles{grid-template-columns:1fr 1fr 1fr 1fr}}
+/* journeys */
+.journeys{margin-top:22px;display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.journeys{grid-template-columns:1fr 1fr 1fr}}
+.j{border:1px solid var(--line);border-radius:14px;padding:20px}
+.j h3{font-family:var(--serif);font-style:italic;font-size:1.2rem;font-weight:400}
+.j .path{margin-top:12px;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;line-height:2;color:var(--fog)}
+.j .path b{color:var(--paper);font-weight:400}
+.j .path i{color:var(--magenta);font-style:normal}
+.j .why{margin-top:10px;font-size:.82rem;color:var(--fog);line-height:1.5}
+
+/* rules */
+.rules{margin-top:22px;display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.rules{grid-template-columns:1fr 1fr 1fr 1fr}}
 .pr{border:1px solid var(--line);border-radius:14px;padding:20px}
 .pr .n{font-family:var(--mono);font-size:.62rem;color:var(--magenta);letter-spacing:.2em}
-.pr h3{font-family:var(--serif);font-style:italic;font-size:1.25rem;margin-top:8px;font-weight:400}
-.pr p{font-size:.85rem;color:var(--fog);margin-top:8px;line-height:1.55}
+.pr h3{font-family:var(--serif);font-style:italic;font-size:1.2rem;margin-top:8px;font-weight:400}
+.pr p{font-size:.84rem;color:var(--fog);margin-top:8px;line-height:1.55}
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -100,119 +108,139 @@ h1 .p{color:var(--magenta)}
 <header class="wrap">
   <div class="top">
     <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
-    <span class="mono">Site map · IA proposal · <a href="../index.html" style="color:var(--paper)">all versions</a></span>
+    <span class="mono">davidzachary.co · UX blueprint · future site</span>
   </div>
   <h1>The 3-Lane Logic <span class="p">+</span></h1>
-  <p class="lede">The 3&nbsp;C&rsquo;s tell the story. The menu holds the archive. Every project lives exactly once — cross-linked, never doubled.</p>
+  <p class="lede">Blueprint for the future site. The 3&nbsp;C&rsquo;s tell the story on Home. The menu holds the archive. Every project lives exactly once — cross-linked, never doubled.</p>
 </header>
 
 <main class="wrap">
 
-  <!-- SPINE -->
-  <section class="spine reveal">
-    <div class="row">
-      <div>
-        <div class="mono" style="margin-bottom:12px">The spine — home scroll · the 3 C&rsquo;s</div>
-        <div class="trinity">
-          <div class="c c1">Concept<small>manifesto · the opening signs · &ldquo;ideas are cheap&rdquo;</small></div>
-          <div class="c c2">Craft<small>the process · discover.extract.shape.refine</small></div>
-          <div class="c c3">Contact<small>one CTA · email · socials</small></div>
-        </div>
-        <div class="mono" style="margin-top:14px;color:var(--magenta)">story only — no project archives inside the C&rsquo;s</div>
+  <!-- A · HOME -->
+  <div class="sec-k reveal">A · Home — the experience</div>
+  <div class="sec-t reveal">One scroll, three anchors <span class="slug dark" style="font-size:.6em;vertical-align:middle">/</span></div>
+  <div class="home-block reveal">
+    <div class="bar">
+      <div class="l">
+        <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+        <span class="mono">persistent bar · mark → home</span>
       </div>
-      <div>
-        <div class="mono" style="margin-bottom:12px;text-align:right">Top-right menu — the archive</div>
-        <div class="menu-r">
-          <div class="m">Branding</div><div class="m">Work</div><div class="m">Campaigns</div>
-        </div>
+      <div class="menu-r">
+        <div class="m">Branding</div><div class="m">Work</div><div class="m">Campaigns</div><div class="m c">Contact</div>
       </div>
     </div>
-    <div class="map-note">
-      <div>The C&rsquo;s hold the <b>story</b>; the menu holds the <b>archive</b> — no doubles, ever.</div>
-      <div>Every project lives <b>exactly once</b>, in one lane: <b>Branding</b>, <b>Work</b> or <b>Campaigns</b>.</div>
-      <div>Cross-links, not copies: <b>CONCEPT</b> <span class="arrow">⟶</span> points to <b>Campaigns</b> · <b>CRAFT</b> <span class="arrow">⟶</span> points to <b>Branding</b> &amp; <b>Work</b></div>
-      <div><b>CONTACT</b> <span class="arrow">⟶</span> the single close of both paths — one CTA, everywhere</div>
+    <div class="acts">
+      <div class="act c1"><span class="n">01</span><b>Concept</b><span>The opening experience — the living signs, the manifesto. Design first; the work only seeps through the letterforms. No lists, no grids.</span><span class="link">points to <i>/campaigns</i></span></div>
+      <div class="act c2"><span class="n">02</span><b>Craft</b><span>How the work gets made — discover.extract.shape.refine, the process, the obsession. Story, not archive.</span><span class="link">points to <i>/branding</i> + <i>/work</i></span></div>
+      <div class="act c3"><span class="n">03</span><b>Contact</b><span>The single close. One line, one email. Also the end-cap of every other page.</span><span class="link">anchor · <i>#contact</i></span></div>
     </div>
-  </section>
+  </div>
 
-  <!-- LANES -->
+  <!-- B · LANES -->
+  <div class="sec-k reveal">B · The archive — three lane pages</div>
+  <div class="sec-t reveal">Every project exactly once</div>
   <section class="lanes">
-    <!-- LANE 1 — CAMPAIGNS -->
     <div class="lane lane1 reveal">
       <div class="head">
-        <div class="no">Lane 01 · Black — cinematic</div>
+        <div class="no">Lane 01 · black — cinematic</div>
         <h2>Campaigns</h2>
-        <div class="routes"><span>menu · <b>Campaigns</b></span><span>← linked from Concept</span></div>
+        <span class="slug dark">/campaigns</span>
         <p class="tone">The idea first — full-bleed, one thought per screen.</p>
       </div>
       <ul>
-        <li><span class="plus">+</span><div><b>OPDIVO Qvantig</b> <span>— More time for overtime · coffee · listening</span></div></li>
-        <li><span class="plus">+</span><div><b>Intac</b> <span>— Crushes abuse. Dissolves dependency.</span></div></li>
-        <li><span class="plus">+</span><div><b>Make Them See</b> <span>— sickle cell disease, front and center</span></div></li>
-        <li><span class="plus">+</span><div><b>PALIO</b> <span>— Awash in the glow of the unknown</span></div></li>
-        <li><span class="plus">+</span><div><b>Mavacamten</b> <span>— Let calm bloom · restore natural order</span></div></li>
-        <li><span class="plus">+</span><div><b>AMG334</b> <span>— distance between patient and migraine</span></div></li>
-        <li><span class="plus">+</span><div><b>Amgen Neuroscience</b> <span>— We&rsquo;re at the point of pain</span></div></li>
-        <li><span class="plus">+</span><div><b>Agios</b> <span>— See what&rsquo;s behind her AML</span></div></li>
-        <li><span class="plus">+</span><div><b>Vyndaqel</b> <span>— life without interruptions (hATTR)</span></div></li>
+        <li><span class="plus">+</span><div><b>OPDIVO Qvantig</b> <span>— More time…</span></div></li>
+        <li><span class="plus">+</span><div><b>Intac</b> <span>— crushes abuse · dissolves dependency</span></div></li>
+        <li><span class="plus">+</span><div><b>Make Them See</b> <span>— SCD</span></div></li>
+        <li><span class="plus">+</span><div><b>PALIO</b> <span>— awash in the glow</span></div></li>
+        <li><span class="plus">+</span><div><b>Mavacamten</b> <span>— let calm bloom</span></div></li>
+        <li><span class="plus">+</span><div><b>AMG334</b> <span>— distance from migraine</span></div></li>
+        <li><span class="plus">+</span><div><b>Amgen Neuroscience</b> <span>— point of pain</span></div></li>
+        <li><span class="plus">+</span><div><b>Agios</b> <span>— reveal IDH</span></div></li>
+        <li><span class="plus">+</span><div><b>Vyndaqel</b> <span>— hATTR</span></div></li>
       </ul>
-      <div class="foot">Treatment · dark lane · works cut through the pulsing signs</div>
+      <div class="foot">each opens → /campaigns/[case] · next-case loops inside the lane</div>
     </div>
 
-    <!-- LANE 2 — BRANDING -->
     <div class="lane lane2 reveal">
       <div class="head">
-        <div class="no">Lane 02 · White — paper</div>
+        <div class="no">Lane 02 · white — paper</div>
         <h2>Branding</h2>
-        <div class="routes"><span>menu · <b>Branding</b></span><span>← linked from Craft</span></div>
+        <span class="slug">/branding</span>
         <p class="tone">Identity systems, obsessed over until inevitable.</p>
       </div>
       <ul>
-        <li><span class="plus">+</span><div><b>BGB Group</b> <span>— agency repositioning · Beyond by BGB</span></div></li>
-        <li><span class="plus">+</span><div><b>Innovation × Intelligence</b> <span>— the sharp X system</span></div></li>
-        <li><span class="plus">+</span><div><b>Soulful Science</b> <span>— the X-frame cast, mind ↔ heart</span></div></li>
-        <li><span class="plus">+</span><div><b>RareCast</b> <span>— podcast identity for Global Genes</span></div></li>
-        <li><span class="plus">+</span><div><b>Beyond Basics</b> <span>— healing starts here · heart mark</span></div></li>
-        <li><span class="plus">+</span><div><b>Genentech</b> <span>— Innovation Open For All system</span></div></li>
-        <li><span class="plus">+</span><div><b>not2wo</b> <span>— apparel · we are tomorrow&rsquo;s past</span></div></li>
-        <li><span class="plus">+</span><div><b>Marks</b> <span>— the logo wall: ROUX → UrbanNest</span></div></li>
+        <li><span class="plus">+</span><div><b>BGB Group</b> <span>— repositioning · Beyond</span></div></li>
+        <li><span class="plus">+</span><div><b>Innovation × Intelligence</b></div></li>
+        <li><span class="plus">+</span><div><b>Soulful Science</b> <span>— the X-frame cast</span></div></li>
+        <li><span class="plus">+</span><div><b>RareCast</b> <span>— podcast identity</span></div></li>
+        <li><span class="plus">+</span><div><b>Beyond Basics</b> <span>— heart mark</span></div></li>
+        <li><span class="plus">+</span><div><b>Genentech</b> <span>— open for all</span></div></li>
+        <li><span class="plus">+</span><div><b>not2wo</b> <span>— apparel</span></div></li>
+        <li><span class="plus">+</span><div><b>Marks</b> <span>— the logo wall</span></div></li>
       </ul>
-      <div class="foot">Treatment · white lane · X-frames &amp; crosshair grids</div>
+      <div class="foot">each opens → /branding/[case] · next-case loops inside the lane</div>
     </div>
 
-    <!-- LANE 3 — WORK -->
     <div class="lane lane3 reveal">
       <div class="head">
-        <div class="no">Lane 03 · Mixed — built &amp; shipped</div>
+        <div class="no">Lane 03 · mixed — built &amp; shipped</div>
         <h2>Work</h2>
-        <div class="routes"><span>menu · <b>Work</b></span><span>← linked from Craft</span></div>
+        <span class="slug dark">/work</span>
         <p class="tone">Where concept and craft landed in the world.</p>
       </div>
       <ul>
-        <li><span class="plus">+</span><div><b>Match + Point</b> <span>— Alnylam RNAi content platform</span></div></li>
-        <li><span class="plus">+</span><div><b>RareCast — the site</b> <span>— episodes, host, subscribe</span></div></li>
-        <li><span class="plus">+</span><div><b>Beyond Basics — the site</b> <span>— brand film to booking</span></div></li>
-        <li><span class="plus">+</span><div><b>Celgene × Noma Bar</b> <span>— big-data film</span></div></li>
-        <li><span class="plus">+</span><div><b>Nal-IRI / Baxalta</b> <span>— SPIRIT workshop print system</span></div></li>
-        <li><span class="plus">+</span><div><b>BGB tees &amp; culture</b> <span>— the brand made wearable</span></div></li>
-        <li><span class="plus">+</span><div><b>The &amp; playground</b> <span>— the living sign, playable</span></div></li>
+        <li><span class="plus">+</span><div><b>Match + Point</b> <span>— RNAi platform</span></div></li>
+        <li><span class="plus">+</span><div><b>RareCast — site</b></div></li>
+        <li><span class="plus">+</span><div><b>Beyond Basics — site</b></div></li>
+        <li><span class="plus">+</span><div><b>Celgene × Noma Bar</b> <span>— film</span></div></li>
+        <li><span class="plus">+</span><div><b>Nal-IRI / Baxalta</b> <span>— print system</span></div></li>
+        <li><span class="plus">+</span><div><b>BGB culture</b> <span>— tees &amp; artifacts</span></div></li>
       </ul>
-      <div class="foot">Treatment · browser frames, film stills, artifacts</div>
+      <div class="foot">each opens → /work/[case] · next-case loops inside the lane</div>
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <div class="contact-bar reveal">
-    <div class="t">Every lane ends at <em>Contact</em></div>
-    <div class="mono">one CTA everywhere · <b>hello@davidzachary.co</b> · let&rsquo;s make something real</div>
+  <!-- C · CASE TEMPLATE -->
+  <div class="sec-k reveal">C · One case template — all lanes</div>
+  <div class="sec-t reveal">Case study <span class="slug dark" style="font-size:.6em;vertical-align:middle">/[lane]/[case]</span></div>
+  <div class="case reveal">
+    <div class="row"><span class="n">01</span><b>Hero</b><span>— full-bleed key visual, project name, one-line idea (lane treatment: black / paper / frame)</span></div>
+    <div class="row"><span class="n">02</span><b>The idea</b><span>— 2–3 sentences, the concept in David&rsquo;s voice</span></div>
+    <div class="row"><span class="n">03</span><b>The work</b><span>— gallery: full-bleeds, details, in-situ; film gets a player</span></div>
+    <div class="row"><span class="n">04</span><b>Credits</b><span>— client · agency · role · year (one quiet line)</span></div>
+    <div class="row"><span class="n">05</span><b>Next case</b><span>— always the next project in the same lane (loop); one link back to the lane index</span></div>
+    <div class="row"><span class="n">06</span><b>Contact cap</b><span>— the same single CTA, everywhere</span></div>
   </div>
 
-  <!-- PRINCIPLES -->
-  <section class="principles">
-    <div class="pr reveal"><div class="n">01</div><h3>Story upstairs, archive downstairs</h3><p>The 3&nbsp;C&rsquo;s tell the story and hold zero project lists. Branding·Work·Campaigns hold every project exactly once. The C&rsquo;s point, the lanes contain — no doubles.</p></div>
-    <div class="pr reveal"><div class="n">02</div><h3>Lanes are treatments</h3><p>Campaigns live on black, cinematic and full-bleed. Branding lives on white paper with X-frames. Work lives in frames and stills. The rhythm is the navigation.</p></div>
-    <div class="pr reveal"><div class="n">03</div><h3>Experience before archive</h3><p>First seconds = design experience (the Grand Flow signs). The lanes only open after the story — work seeps in through the letters first.</p></div>
-    <div class="pr reveal"><div class="n">04</div><h3>One destination</h3><p>Concept, Craft and every lane funnel to a single Contact close. One email, one voice: let&rsquo;s make something real.</p></div>
+  <!-- D · JOURNEYS -->
+  <div class="sec-k reveal">D · User journeys</div>
+  <div class="sec-t reveal">Three visitors, three paths</div>
+  <section class="journeys">
+    <div class="j reveal">
+      <h3>The first-timer</h3>
+      <div class="path"><b>Home</b> <i>→</i> experience the signs <i>→</i> Concept <i>→</i> Craft <i>→</i> curiosity <i>→</i> <b>a lane</b> <i>→</i> case <i>→</i> next case <i>→</i> <b>Contact</b></div>
+      <p class="why">Feels the design before seeing a single list. The story sells the archive.</p>
+    </div>
+    <div class="j reveal">
+      <h3>The recruiter / CD</h3>
+      <div class="path"><b>any page</b> <i>→</i> top-right menu <i>→</i> <b>lane</b> <i>→</i> case — <b>2 clicks to any project</b> <i>→</i> next-case loop keeps them in</div>
+      <p class="why">Zero friction to proof. The menu is always there; no forced storytelling.</p>
+    </div>
+    <div class="j reveal">
+      <h3>The returner</h3>
+      <div class="path">arrives with a case URL <i>→</i> <b>case</b> <i>→</i> lane index one tap away <i>→</i> <b>Contact</b> cap on every page</div>
+      <p class="why">Every page is a complete front door: mark → home, menu → lanes, cap → contact.</p>
+    </div>
+  </section>
+
+  <!-- E · RULES -->
+  <div class="sec-k reveal">E · Navigation rules</div>
+  <div class="sec-t reveal">The contract</div>
+  <section class="rules">
+    <div class="pr reveal"><div class="n">01</div><h3>Story upstairs, archive downstairs</h3><p>The 3&nbsp;C&rsquo;s live on Home and hold zero project lists. The three lanes hold every project exactly once. The C&rsquo;s point, the lanes contain.</p></div>
+    <div class="pr reveal"><div class="n">02</div><h3>Lanes are treatments</h3><p>Campaigns = black, cinematic. Branding = white paper, X-frames. Work = frames &amp; film. You always know where you are by the light.</p></div>
+    <div class="pr reveal"><div class="n">03</div><h3>Two clicks to anything</h3><p>Persistent bar: mark → home, three lanes + Contact on the right. Any project from any page in two clicks; case-to-case in one.</p></div>
+    <div class="pr reveal"><div class="n">04</div><h3>One destination</h3><p>Contact is an end-cap, not a maze: the same single CTA closes Home, every lane and every case. One email, one voice.</p></div>
   </section>
 </main>
 
