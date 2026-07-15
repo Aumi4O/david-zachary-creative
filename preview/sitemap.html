@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Site Map · The 3-Lane Logic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#050505;--paper:#f4f2ee;--fog:#8a8a8f;--line:#232326;
+  --magenta:#ff0a78;--cyan:#29abe2;--acid:#8bc53f;--orange:#e8871e;--yellow:#ffd400;
+  --slab:"Archivo Expanded",sans-serif;--serif:"Instrument Serif",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;padding-bottom:10vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1500px;margin:0 auto;padding:0 4vw}
+.mono{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.24em;color:var(--fog)}
+
+header{padding:60px 0 0}
+header .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+header svg{height:26px;color:var(--paper)}
+h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.9rem,5vw,4rem);margin-top:34px;line-height:1.02}
+h1 .p{color:var(--magenta)}
+.lede{font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.5rem);color:rgba(233,230,224,.85);margin-top:14px;max-width:52ch}
+
+/* ── the spine diagram ── */
+.spine{margin-top:60px;border:1px solid var(--line);border-radius:18px;padding:34px;position:relative;background:#0a0a0c}
+.spine .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+.chip{border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase}
+.chip b{color:var(--magenta)}
+.trinity{display:flex;gap:12px;flex-wrap:wrap}
+.trinity .c{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1rem,2.4vw,1.7rem);letter-spacing:-.01em;
+  border:1px solid var(--line);border-radius:12px;padding:14px 22px;position:relative}
+.trinity .c small{display:block;font-family:var(--mono);font-weight:400;font-size:.58rem;letter-spacing:.2em;color:var(--fog);margin-top:6px}
+.c.c1{box-shadow:inset 3px 0 0 var(--magenta)}
+.c.c2{box-shadow:inset 3px 0 0 var(--cyan)}
+.c.c3{box-shadow:inset 3px 0 0 var(--acid)}
+.menu-r{display:flex;gap:10px;flex-wrap:wrap}
+.menu-r .m{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;border:1px dashed var(--line);border-radius:999px;padding:10px 16px;color:rgba(244,242,238,.85)}
+.map-note{margin-top:26px;display:grid;gap:8px}
+.map-note div{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--fog)}
+.map-note b{color:var(--paper);font-weight:400}
+.arrow{color:var(--magenta)}
+
+/* ── lanes ── */
+.lanes{margin-top:26px;display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:980px){.lanes{grid-template-columns:1fr 1fr 1fr}}
+.lane{border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.lane .head{padding:26px 26px 20px;border-bottom:1px solid var(--line)}
+.lane .no{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase}
+.lane h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.5rem,2.6vw,2.2rem);margin-top:8px}
+.lane .routes{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.lane .routes span{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:5px 10px;color:var(--fog)}
+.lane .routes span b{font-weight:400}
+.lane .tone{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(233,230,224,.75);margin-top:12px}
+.lane ul{list-style:none;padding:18px 26px 26px;display:grid;gap:0;flex:1}
+.lane li{padding:13px 0;border-bottom:1px solid rgba(35,35,38,.6);display:flex;gap:12px;align-items:baseline}
+.lane li:last-child{border-bottom:0}
+.lane li .plus{font-family:var(--slab);font-weight:900;font-size:.85em;flex:0 0 auto}
+.lane li b{font-weight:600;font-size:.98rem}
+.lane li span{color:var(--fog);font-size:.85rem}
+.lane .foot{padding:16px 26px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--fog)}
+/* lane tints */
+.lane1 .no,.lane1 .plus{color:var(--magenta)}
+.lane2{background:var(--paper);color:var(--ink)}
+.lane2 .head,.lane2 li{border-color:#dedad2}
+.lane2 .no,.lane2 .plus{color:var(--orange)}
+.lane2 .tone{color:#555}
+.lane2 li span{color:#777}
+.lane2 .routes span{border-color:#dedad2;color:#777}
+.lane2 .foot{border-color:#dedad2;color:#999}
+.lane3 .no,.lane3 .plus{color:var(--cyan)}
+
+/* contact bar */
+.contact-bar{margin-top:26px;border:1px solid var(--line);border-radius:18px;padding:26px 30px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  background:linear-gradient(90deg,rgba(255,10,120,.08),transparent 60%)}
+.contact-bar .t{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1.1rem,2.6vw,1.8rem);letter-spacing:-.01em}
+.contact-bar .t em{color:var(--magenta);font-style:normal}
+.contact-bar .mono b{color:var(--paper)}
+
+/* principles */
+.principles{margin-top:48px;display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.principles{grid-template-columns:1fr 1fr 1fr 1fr}}
+.pr{border:1px solid var(--line);border-radius:14px;padding:20px}
+.pr .n{font-family:var(--mono);font-size:.62rem;color:var(--magenta);letter-spacing:.2em}
+.pr h3{font-family:var(--serif);font-style:italic;font-size:1.25rem;margin-top:8px;font-weight:400}
+.pr p{font-size:.85rem;color:var(--fog);margin-top:8px;line-height:1.55}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="top">
+    <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+    <span class="mono">Site map · IA proposal · <a href="../index.html" style="color:var(--paper)">all versions</a></span>
+  </div>
+  <h1>The 3-Lane Logic <span class="p">+</span></h1>
+  <p class="lede">Two ways in, three lanes of work, one destination. The 3&nbsp;C&rsquo;s tell the story; the menu opens the archive — both land on the same lanes.</p>
+</header>
+
+<main class="wrap">
+
+  <!-- SPINE -->
+  <section class="spine reveal">
+    <div class="row">
+      <div>
+        <div class="mono" style="margin-bottom:12px">The spine — home scroll · the 3 C&rsquo;s</div>
+        <div class="trinity">
+          <div class="c c1">Concept<small>the idea · opening experience</small></div>
+          <div class="c c2">Craft<small>the making · process &amp; systems</small></div>
+          <div class="c c3">Contact<small>the invitation · every lane ends here</small></div>
+        </div>
+      </div>
+      <div>
+        <div class="mono" style="margin-bottom:12px;text-align:right">Top-right menu — the archive</div>
+        <div class="menu-r">
+          <div class="m">Branding</div><div class="m">Work</div><div class="m">Campaigns</div>
+        </div>
+      </div>
+    </div>
+    <div class="map-note">
+      <div><b>CONCEPT</b> <span class="arrow">⟶</span> lands on <b>Campaigns</b> — his &ldquo;01&nbsp;Concepts&rdquo; lane: the big ideas</div>
+      <div><b>CRAFT</b> <span class="arrow">⟶</span> lands on <b>Branding</b> — his &ldquo;02&nbsp;Branding&rdquo; lane: identity systems</div>
+      <div><b>WORK</b> (menu) <span class="arrow">⟶</span> the built lane — sites, film, print that shipped · reachable from both triads</div>
+      <div><b>CONTACT</b> <span class="arrow">⟶</span> the close of every lane — one CTA, everywhere</div>
+    </div>
+  </section>
+
+  <!-- LANES -->
+  <section class="lanes">
+    <!-- LANE 1 — CAMPAIGNS -->
+    <div class="lane lane1 reveal">
+      <div class="head">
+        <div class="no">Lane 01 · Black — cinematic</div>
+        <h2>Campaigns</h2>
+        <div class="routes"><span>from <b>CONCEPT</b></span><span>menu · <b>Campaigns</b></span></div>
+        <p class="tone">The idea first — full-bleed, one thought per screen.</p>
+      </div>
+      <ul>
+        <li><span class="plus">+</span><div><b>OPDIVO Qvantig</b> <span>— More time for overtime · coffee · listening</span></div></li>
+        <li><span class="plus">+</span><div><b>Intac</b> <span>— Crushes abuse. Dissolves dependency.</span></div></li>
+        <li><span class="plus">+</span><div><b>Make Them See</b> <span>— sickle cell disease, front and center</span></div></li>
+        <li><span class="plus">+</span><div><b>PALIO</b> <span>— Awash in the glow of the unknown</span></div></li>
+        <li><span class="plus">+</span><div><b>Mavacamten</b> <span>— Let calm bloom · restore natural order</span></div></li>
+        <li><span class="plus">+</span><div><b>AMG334</b> <span>— distance between patient and migraine</span></div></li>
+        <li><span class="plus">+</span><div><b>Amgen Neuroscience</b> <span>— We&rsquo;re at the point of pain</span></div></li>
+        <li><span class="plus">+</span><div><b>Agios</b> <span>— See what&rsquo;s behind her AML</span></div></li>
+        <li><span class="plus">+</span><div><b>Vyndaqel</b> <span>— life without interruptions (hATTR)</span></div></li>
+      </ul>
+      <div class="foot">Treatment · dark lane · works cut through the pulsing signs</div>
+    </div>
+
+    <!-- LANE 2 — BRANDING -->
+    <div class="lane lane2 reveal">
+      <div class="head">
+        <div class="no">Lane 02 · White — paper</div>
+        <h2>Branding</h2>
+        <div class="routes"><span>from <b>CRAFT</b></span><span>menu · <b>Branding</b></span></div>
+        <p class="tone">Identity systems, obsessed over until inevitable.</p>
+      </div>
+      <ul>
+        <li><span class="plus">+</span><div><b>BGB Group</b> <span>— agency repositioning · Beyond by BGB</span></div></li>
+        <li><span class="plus">+</span><div><b>Innovation × Intelligence</b> <span>— the sharp X system</span></div></li>
+        <li><span class="plus">+</span><div><b>Soulful Science</b> <span>— the X-frame cast, mind ↔ heart</span></div></li>
+        <li><span class="plus">+</span><div><b>RareCast</b> <span>— podcast identity for Global Genes</span></div></li>
+        <li><span class="plus">+</span><div><b>Beyond Basics</b> <span>— healing starts here · heart mark</span></div></li>
+        <li><span class="plus">+</span><div><b>Genentech</b> <span>— Innovation Open For All system</span></div></li>
+        <li><span class="plus">+</span><div><b>not2wo</b> <span>— apparel · we are tomorrow&rsquo;s past</span></div></li>
+        <li><span class="plus">+</span><div><b>Marks</b> <span>— the logo wall: ROUX → UrbanNest</span></div></li>
+      </ul>
+      <div class="foot">Treatment · white lane · X-frames &amp; crosshair grids</div>
+    </div>
+
+    <!-- LANE 3 — WORK -->
+    <div class="lane lane3 reveal">
+      <div class="head">
+        <div class="no">Lane 03 · Mixed — built &amp; shipped</div>
+        <h2>Work</h2>
+        <div class="routes"><span>menu · <b>Work</b></span><span>cross-linked from both</span></div>
+        <p class="tone">Where concept and craft landed in the world.</p>
+      </div>
+      <ul>
+        <li><span class="plus">+</span><div><b>Match + Point</b> <span>— Alnylam RNAi content platform</span></div></li>
+        <li><span class="plus">+</span><div><b>RareCast — the site</b> <span>— episodes, host, subscribe</span></div></li>
+        <li><span class="plus">+</span><div><b>Beyond Basics — the site</b> <span>— brand film to booking</span></div></li>
+        <li><span class="plus">+</span><div><b>Celgene × Noma Bar</b> <span>— big-data film</span></div></li>
+        <li><span class="plus">+</span><div><b>Nal-IRI / Baxalta</b> <span>— SPIRIT workshop print system</span></div></li>
+        <li><span class="plus">+</span><div><b>BGB tees &amp; culture</b> <span>— the brand made wearable</span></div></li>
+        <li><span class="plus">+</span><div><b>The &amp; playground</b> <span>— the living sign, playable</span></div></li>
+      </ul>
+      <div class="foot">Treatment · browser frames, film stills, artifacts</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-bar reveal">
+    <div class="t">Every lane ends at <em>Contact</em></div>
+    <div class="mono">one CTA everywhere · <b>hello@davidzachary.co</b> · let&rsquo;s make something real</div>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <section class="principles">
+    <div class="pr reveal"><div class="n">01</div><h3>Two doors, one house</h3><p>The 3&nbsp;C&rsquo;s are the story (home scroll anchors); Branding·Work·Campaigns is the archive (top-right). Both land on the same three lanes — no orphan pages.</p></div>
+    <div class="pr reveal"><div class="n">02</div><h3>Lanes are treatments</h3><p>Campaigns live on black, cinematic and full-bleed. Branding lives on white paper with X-frames. Work lives in frames and stills. The rhythm is the navigation.</p></div>
+    <div class="pr reveal"><div class="n">03</div><h3>Experience before archive</h3><p>First seconds = design experience (the Grand Flow signs). The lanes only open after the story — work seeps in through the letters first.</p></div>
+    <div class="pr reveal"><div class="n">04</div><h3>One destination</h3><p>Concept, Craft and every lane funnel to a single Contact close. One email, one voice: let&rsquo;s make something real.</p></div>
+  </section>
+</main>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'-8% 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
