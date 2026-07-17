@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Work — David Zachary Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0c;--paper:#f4f2ee;--fog:#8a8a8f;--line:#232326;--magenta:#ff0a78;--cyan:#29abe2;
+  --slab:"Archivo Expanded",sans-serif;--serif:"Instrument Serif",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;--mono:"Space Mono",monospace;--ease:cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%}
+.wrap{max-width:1500px;margin:0 auto;padding:0 4vw}
+
+.nav-bar{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(10,10,12,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-bar .in{display:flex;justify-content:space-between;align-items:center;padding:14px 4vw}
+.nav-bar svg{height:22px;color:var(--paper)}
+.menu{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.menu a{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 12px;color:var(--fog);border-radius:999px}
+.menu a:hover{color:var(--paper)}
+.menu a.cur{color:var(--paper);border:1px solid var(--line)}
+.menu a.c{color:var(--magenta)}
+
+.lane-hero{padding-block:150px 30px}
+.lane-k{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan)}
+h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(2.4rem,7vw,5.6rem);line-height:1;margin-top:12px}
+.tone{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);color:rgba(233,230,224,.8);margin-top:14px}
+
+.idx{position:sticky;top:56px;z-index:90;background:rgba(10,10,12,.84);backdrop-filter:blur(12px);border-block:1px solid var(--line);margin-top:34px}
+.idx .in{display:flex;gap:2px;overflow-x:auto;padding:10px 4vw;scrollbar-width:none}
+.idx a{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:7px 12px;border-radius:999px;color:var(--fog)}
+.idx a.on{color:var(--ink);background:var(--paper)}
+.idx a:hover{color:var(--paper)}.idx a.on:hover{color:var(--ink)}
+
+section.proj{padding:12vh 0 6vh}
+.pk{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan)}
+h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,3.6rem);line-height:1.04;margin-top:10px;max-width:18ch}
+.pl{font-family:var(--serif);font-size:clamp(1.05rem,1.9vw,1.4rem);color:rgba(233,230,224,.78);margin-top:12px;max-width:52ch}
+.media{margin-top:34px;display:grid;gap:14px}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0e0e11}
+.shot img{transition:transform .8s var(--ease)}
+.shot:hover img{transform:scale(1.02)}
+.browser{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0e0e11;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+.browser .top{display:flex;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.browser .top i{width:11px;height:11px;border-radius:50%;background:#2a2a2e}
+.browser .view{max-height:72vh;overflow-y:auto;scrollbar-width:thin}
+
+.cap{margin-top:14vh;border-top:1px solid var(--line);padding:8vh 0 6vh}
+.cap .t{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,4vw,3rem);letter-spacing:-.01em}
+.cap .t em{font-style:normal;color:var(--magenta)}
+.cap a.mail{display:inline-block;margin-top:16px;font-family:var(--serif);font-size:1.2rem;border-bottom:2px solid var(--magenta);padding-bottom:4px}
+.cap .next{margin-top:44px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
+.cap .next a:hover{color:var(--paper)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar"><div class="in">
+  <a href="grand.html" aria-label="Home"><svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg></a>
+  <div class="menu">
+    <a href="branding.html">Branding</a><a class="cur" href="work.html">Work</a><a href="campaigns.html">Campaigns</a><a class="c" href="#contact">Contact</a>
+  </div>
+</div></nav>
+
+<header class="lane-hero wrap">
+  <div class="lane-k">Lane 03 · Mixed — built &amp; shipped</div>
+  <h1>Work</h1>
+  <p class="tone">Where concept and craft landed in the world.</p>
+</header>
+
+<nav class="idx" id="idx"><div class="in">
+  <a href="#matchpoint">Match+Point</a><a href="#rarecast">RareCast site</a><a href="#beyondbasics">Beyond Basics site</a>
+  <a href="#celgene">Celgene film</a><a href="#naliri">Nal-IRI print</a><a href="#culture">BGB culture</a>
+</div></nav>
+
+<main class="wrap">
+  <section class="proj" id="matchpoint">
+    <div class="pk reveal">01 · Alnylam · RNAi</div>
+    <h2 class="reveal">Match + Point</h2>
+    <p class="pl reveal">Where information meets interests in RNAi — an editorial content platform for the genetic-medicine community. Scroll the page inside the frame.</p>
+    <div class="media"><div class="browser reveal"><div class="top"><i></i><i></i><i></i></div><div class="view"><img src="media/alny-copy-page-2.png" alt="Match+Point platform" loading="lazy"></div></div></div>
+  </section>
+
+  <section class="proj" id="rarecast">
+    <div class="pk reveal">02 · Global Genes</div>
+    <h2 class="reveal">RareCast — the site</h2>
+    <p class="pl reveal">This week&rsquo;s episode, the host, the archive — the podcast brand carried onto the web.</p>
+    <div class="media"><div class="shot reveal"><img src="media/deck/p22.jpg" alt="RareCast website" loading="lazy"></div></div>
+  </section>
+
+  <section class="proj" id="beyondbasics">
+    <div class="pk reveal">03 · Beyond Basics · NYC</div>
+    <h2 class="reveal">And healing starts here</h2>
+    <p class="pl reveal">From brand film to booking — the practice&rsquo;s warmth carried into every click.</p>
+    <div class="media"><div class="shot reveal"><img src="media/deck/p25.jpg" alt="Beyond Basics website" loading="lazy"></div></div>
+  </section>
+
+  <section class="proj" id="celgene">
+    <div class="pk reveal">04 · Celgene · with Noma Bar</div>
+    <h2 class="reveal">Seeing big data</h2>
+    <p class="pl reveal">A film on using big data to accelerate drug research — high-tech visualizations with an artist&rsquo;s eye.</p>
+    <div class="media"><div class="shot reveal"><img src="media/screen-shot-2020-08-18-at-10-18-50-am.png" alt="Celgene film — eye" loading="lazy"></div></div>
+  </section>
+
+  <section class="proj" id="naliri">
+    <div class="pk reveal">05 · Baxalta · Nal-IRI</div>
+    <h2 class="reveal">The SPIRIT system</h2>
+    <p class="pl reveal">Brand essence, positioning and strategy — a workshop print system that made a pipeline feel like a magazine.</p>
+    <div class="media"><div class="shot reveal"><img src="media/deck/p28.jpg" alt="Nal-IRI SPIRIT print system" loading="lazy"></div></div>
+  </section>
+
+  <section class="proj" id="culture">
+    <div class="pk reveal">06 · BGB</div>
+    <h2 class="reveal">The brand, wearable</h2>
+    <p class="pl reveal">Culture pieces — the repositioning made physical, from tees to totems.</p>
+    <div class="media"><div class="shot reveal"><img src="media/bgbtsol-copy-page-3.jpg" alt="BGB culture tees" loading="lazy"></div></div>
+  </section>
+
+  <div class="cap" id="contact">
+    <div class="t reveal">Let&rsquo;s make something <em>real</em>.</div>
+    <a class="mail reveal" href="mailto:hello@davidzachary.co">hello@davidzachary.co</a>
+    <div class="next">
+      <span>© David Zachary Creative</span>
+      <a href="campaigns.html">Next lane → Campaigns</a>
+    </div>
+  </div>
+</main>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'-8% 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const links=[...document.querySelectorAll('#idx a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const spy=new IntersectionObserver(es=>es.forEach(e=>{const i=secs.indexOf(e.target);if(i>-1&&e.isIntersecting){links.forEach((l,k)=>l.classList.toggle('on',k===i));links[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}}),{rootMargin:'-40% 0px -55% 0px'});
+secs.forEach(s=>s&&spy.observe(s));
+</script>
+</body>
+</html>
