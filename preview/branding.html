@@ -52,15 +52,14 @@ h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spaci
 .shot:hover img{transform:scale(1.025)}
 
 /* ── MARKS — interactive hi-res wall (7650×4950 master) ── */
-.marks-grid{margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.marks-grid{margin-top:34px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;perspective:900px}
 @media(min-width:700px){.marks-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:1080px){.marks-grid{grid-template-columns:repeat(5,1fr)}}
-.mk{position:relative;aspect-ratio:1209/755;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in}
-.mk .art{position:absolute;inset:0;background-image:url(media/logos-wall.png);background-repeat:no-repeat;transition:transform .55s var(--ease);transform-origin:center}
-.mk:hover .art{transform:scale(2.05)}
-.marks-grid:hover .mk:not(:hover){opacity:.38;transition:opacity .4s}
-.mk .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#999;background:linear-gradient(transparent,rgba(255,255,255,.92));opacity:0;transition:opacity .35s;pointer-events:none}
-.mk:hover .cap{opacity:1}
+.mk{position:relative;aspect-ratio:1209/755;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in;will-change:transform;z-index:1}
+.mk .art{position:absolute;inset:0;background-image:url(media/logos-wall.png);background-repeat:no-repeat;transform-origin:center;will-change:transform}
+.mk .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#777;background:linear-gradient(transparent,rgba(255,255,255,.94));opacity:0;transition:opacity .3s;pointer-events:none}
+.mk.hov{box-shadow:0 24px 70px rgba(16,16,19,.28);border-color:#c9c4ba}
+.mk.hov .cap{opacity:1}
 /* lightbox */
 .lb{position:fixed;inset:0;z-index:200;background:rgba(16,16,19,.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;cursor:zoom-out}
 .lb.open{display:flex}
@@ -177,6 +176,7 @@ h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spaci
 
 <div class="lb" id="lb"><div class="pane"><div class="art" id="lbArt"></div></div><div class="name" id="lbName"></div></div>
 
+<script src="motion.min.js"></script>
 <script>
 /* MARKS wall — pixel-perfect cells from the 7650×4950 vector render.
    Grid separators measured from the art: V and R are cell EDGES. */
@@ -198,17 +198,54 @@ h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spaci
     el.style.backgroundSize=(IW/bw*100)+'% '+(IH/bh*100)+'%';
     el.style.backgroundPosition=(x0/(IW-bw)*100)+'% '+(y0/(IH-bh)*100)+'%';
   }
+  const M=window.Motion||{};
+  /* WAAPI engine (Motion's animateMini) — compositor-thread, buttery under load */
+  const anim=M.animateMini||M.animate||function(el,kf){for(const k in kf){const v=kf[k];el.style[k]=Array.isArray(v)?v[v.length-1]:v}};
+  const POP=[.34,1.56,.64,1];        /* backOut — the springy pop */
+  const GLIDE=[.16,1,.3,1];
+  const cells=[];
   let i=0;
   for(let r=0;r<4;r++)for(let c=0;c<5;c++){
     const k=i++;
-    const cell=document.createElement('div');cell.className='mk reveal';
+    const cell=document.createElement('div');cell.className='mk';
     const art=document.createElement('div');art.className='art';bg(art,c,r);
     const cap=document.createElement('div');cap.className='cap';cap.textContent=NAMES[k];
     cell.appendChild(art);cell.appendChild(cap);
-    cell.addEventListener('click',()=>{bg(lbArt,c,r);lbName.textContent=NAMES[k];lb.classList.add('open')});
-    grid.appendChild(cell);
-    cell.style.transitionDelay=(k*0.03)+'s';
+    grid.appendChild(cell);cells.push(cell);
+
+    /* the CARD pops out — borders and all */
+    let tilt='';
+    cell.addEventListener('mouseenter',()=>{
+      cell.style.zIndex=30;cell.classList.add('hov');
+      anim(cell,{transform:'scale(1.5)'},{duration:.55,ease:POP});
+      anim(art,{transform:'scale(1.25)'},{duration:.6,ease:GLIDE});
+      cells.forEach(o=>{if(o!==cell)anim(o,{opacity:.3,transform:'scale(.965)'},{duration:.4,ease:'ease-out'});});
+    });
+    cell.addEventListener('mousemove',e=>{
+      const rc=cell.getBoundingClientRect();
+      const rx=((e.clientY-rc.top)/rc.height-.5)*-7;
+      const ry=((e.clientX-rc.left)/rc.width-.5)*7;
+      tilt='rotateX('+rx.toFixed(1)+'deg) rotateY('+ry.toFixed(1)+'deg)';
+      anim(cell,{transform:'scale(1.5) '+tilt},{duration:.22,ease:'ease-out'});
+    });
+    cell.addEventListener('mouseleave',()=>{
+      cell.classList.remove('hov');
+      anim(cell,{transform:'scale(1) rotateX(0deg) rotateY(0deg)'},{duration:.5,ease:POP});
+      setTimeout(()=>{cell.style.zIndex=1},480);
+      anim(art,{transform:'scale(1)'},{duration:.5,ease:GLIDE});
+      cells.forEach(o=>{if(o!==cell)anim(o,{opacity:1,transform:'scale(1)'},{duration:.45,ease:'ease-out'});});
+    });
+    cell.addEventListener('click',()=>{
+      bg(lbArt,c,r);lbName.textContent=NAMES[k];lb.classList.add('open');
+      anim(lb.querySelector('.pane'),{transform:['scale(.85)','scale(1)'],opacity:[0,1]},{duration:.5,ease:POP});
+    });
   }
+  /* staggered pop-in entrance when the wall scrolls into view */
+  const enter=()=>cells.forEach((cell,k)=>anim(cell,
+    {opacity:[0,1],transform:['translateY(28px) scale(.92)','translateY(0px) scale(1)']},
+    {duration:.7,delay:k*0.035,ease:GLIDE}));
+  if(M.inView) M.inView(grid,()=>{enter();return false;},{margin:'-10% 0px'});
+  else enter();
   lb.addEventListener('click',()=>lb.classList.remove('open'));
   addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open')});
 })();
