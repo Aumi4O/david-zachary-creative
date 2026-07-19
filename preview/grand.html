@@ -97,6 +97,15 @@ a{color:inherit;text-decoration:none}
 .row-parent{display:flex;align-items:center;gap:12px;font-size:1.05rem;color:rgba(255,255,255,.85)}
 .row-parent .plus{color:var(--magenta);font-family:var(--slab);font-weight:900;font-size:.95em;line-height:1}
 
+/* ── FINAL ACT: the code becomes the work (AINO-style, paper) ── */
+.decode{position:relative;height:540vh}
+.decode .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#f4f2ee}
+#dc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.dc-cap{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);text-align:center;pointer-events:none;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:#101013;opacity:0;transition:opacity .6s}
+.dc-cap .k{display:block;color:var(--magenta);margin-bottom:8px}
+.dc-cap em{font-style:normal;color:var(--magenta)}
+
 /* fin */
 .fin-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
 .pull-link{display:block;text-align:center;font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1.6rem,4.4vw,3.6rem);line-height:1.14}
@@ -225,6 +234,14 @@ a{color:inherit;text-decoration:none}
   <section class="play-section" id="play">
     <canvas id="pc"></canvas>
     <div class="play-hint">Move through it · click to burst</div>
+  </section>
+
+  <!-- ══ FINAL ACT: our letters & numbers become the works ══ -->
+  <section class="decode" id="decode">
+    <div class="stage">
+      <canvas id="dc"></canvas>
+      <div class="dc-cap" id="dcCap"><span class="k">final act</span>The <em>code</em> becomes the work.</div>
+    </div>
   </section>
 
   <section class="fin-section" id="contact">
@@ -433,6 +450,105 @@ a{color:inherit;text-decoration:none}
 
   /* preload works early */
   WORKS.forEach(im=>{if(!im.complete)im.decode&&im.decode().catch(()=>{})});
+})();
+
+/* ══ FINAL ACT — THE CODE BECOMES THE WORK (after AINO, with our letters) ══
+   Dark mono characters on paper — our density ramp of letters & numbers —
+   type each work tonally, then cell-by-cell develop into the real image.
+   Four works cycle across the scroll. */
+(function(){
+  const sec=document.getElementById('decode'); if(!sec)return;
+  const cv=document.getElementById('dc'), ctx=cv.getContext('2d');
+  const cap=document.getElementById('dcCap');
+  const DPR=Math.min(2,devicePixelRatio||1);
+  const vw=()=>innerWidth||document.documentElement.clientWidth||1280;
+  const vh=()=>innerHeight||document.documentElement.clientHeight||800;
+  const RAMP='&80DZA9642I=+×/:-· ';               // our letters & numbers, dark → light
+  const WORKS=['media/screen-shot-2020-08-18-at-10-18-50-am.png',  // Celgene eye
+               'media/pinkrabbit.jpg',                              // BGB pink rabbit
+               'media/xgettyimages-1280109081.jpg',                 // Beyond sunset
+               'media/opq-page-1.png']                              // OPDIVO stadium
+    .map(src=>{const im=new Image();im.src=src;return im});
+  let W=0,H=0,step=0,gw=0,gh=0,data=null,th=null;
+  function size(){W=cv.width=Math.floor(vw()*DPR);H=cv.height=Math.floor(vh()*DPR);
+    cv.style.width=vw()+'px';cv.style.height=vh()+'px';data=null}
+  size();addEventListener('resize',size);
+
+  function build(){
+    if(!WORKS.every(im=>im.complete&&im.naturalWidth))return;
+    step=Math.max(8*DPR,Math.round(Math.min(W,H)/72));
+    gw=Math.ceil(W/step); gh=Math.ceil(H/step);
+    data=WORKS.map(im=>{
+      const os=document.createElement('canvas');os.width=gw;os.height=gh;
+      const g=os.getContext('2d');
+      g.fillStyle='#fff';g.fillRect(0,0,gw,gh);
+      const s=Math.max(gw/im.naturalWidth,gh/im.naturalHeight);
+      g.drawImage(im,(gw-im.naturalWidth*s)/2,(gh-im.naturalHeight*s)/2,im.naturalWidth*s,im.naturalHeight*s);
+      return g.getImageData(0,0,gw,gh).data;
+    });
+    th=new Float32Array(gw*gh);for(let j=0;j<th.length;j++)th[j]=Math.random();
+  }
+
+  function progress(){
+    const ih=vh();
+    const span=(sec.offsetHeight||ih*5.4)-ih;
+    const r=sec.getBoundingClientRect();
+    return Math.min(1,Math.max(0,(-r.top)/Math.max(1,span)));
+  }
+
+  let t0=performance.now();
+  function draw(){
+    const t=(performance.now()-t0)/1000;
+    const p=progress();
+    if(!data)build();
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#f4f2ee';ctx.fillRect(0,0,W,H);
+    if(data){
+      const N=WORKS.length;
+      const f=Math.min(N-0.0001,p*N), wi=Math.floor(f), q=f-wi;
+      /* development curve per work: type in → develop → (dissolve, except last) */
+      let dev;
+      if(wi<N-1) dev = q<0.42 ? q/0.42 : (q<0.7 ? 1 : 1-(q-0.7)/0.3);
+      else       dev = Math.min(1,q/0.5);
+      const d=data[wi];
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.font=(step*0.92)+'px "Space Mono",monospace';
+      for(let y=0;y<gh;y++)for(let x=0;x<gw;x++){
+        const j=y*gw+x, i4=j*4;
+        const r=d[i4],g=d[i4+1],b=d[i4+2];
+        const lum=(0.299*r+0.587*g+0.114*b)/255;
+        if(lum>0.94)continue;                       // paper stays paper
+        if(dev>th[j]){                              // developed: the real pixels
+          ctx.globalAlpha=1;
+          ctx.fillStyle='rgb('+r+','+g+','+b+')';
+          ctx.fillRect(x*step,y*step,step+1,step+1);
+        }else{                                      // typed: our letters & numbers
+          const ch=RAMP[Math.min(RAMP.length-1,Math.floor(lum*RAMP.length))];
+          if(ch===' ')continue;
+          const tw=0.8+0.2*Math.sin(t*2+th[j]*9);
+          ctx.globalAlpha=(0.35+(1-lum)*0.65)*tw;
+          ctx.fillStyle=th[j]<0.04?'#ff0a78':'#101013';
+          ctx.fillText(ch,x*step+step/2,y*step+step/2);
+        }
+      }
+      ctx.globalAlpha=1;
+      /* last work resolves into the full-res image */
+      if(wi===N-1){
+        const full=Math.min(1,Math.max(0,(q-0.72)/0.26));
+        const im=WORKS[wi];
+        if(full>0&&im.complete&&im.naturalWidth){
+          ctx.globalAlpha=full;
+          const s=Math.max(W/im.naturalWidth,H/im.naturalHeight);
+          ctx.drawImage(im,(W-im.naturalWidth*s)/2,(H-im.naturalHeight*s)/2,im.naturalWidth*s,im.naturalHeight*s);
+          ctx.globalAlpha=1;
+        }
+      }
+    }
+    if(cap) cap.style.opacity=(p>0.02&&p<0.95)?1:0;
+  }
+  function loop(){requestAnimationFrame(loop);draw()}
+  requestAnimationFrame(loop);
+  setInterval(draw,300); // rAF-throttle safety
 })();
 
 /* hero masked rise when it enters */
