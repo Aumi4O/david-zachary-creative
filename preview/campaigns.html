@@ -15,7 +15,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-img{display:block;width:100%}
+img{display:block;max-width:100%}
 .wrap{max-width:1500px;margin:0 auto;padding:0 4vw}
 
 .nav-bar{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(5,5,5,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
@@ -31,32 +31,51 @@ img{display:block;width:100%}
 .lane-k{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--magenta)}
 h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(2.4rem,7vw,5.6rem);line-height:1;margin-top:12px}
 .tone{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);color:rgba(233,230,224,.8);margin-top:14px}
+.hint{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--fog);margin-top:20px}
+.hint .a{display:inline-block;animation:slideBob 1.8s ease-in-out infinite}
+@keyframes slideBob{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
 
-.idx{position:sticky;top:56px;z-index:90;background:rgba(5,5,5,.82);backdrop-filter:blur(12px);border-block:1px solid var(--line);margin-top:34px}
+.idx{position:sticky;top:56px;z-index:90;background:rgba(5,5,5,.82);backdrop-filter:blur(12px);border-block:1px solid var(--line);margin-top:30px}
 .idx .in{display:flex;gap:2px;overflow-x:auto;padding:10px 4vw;scrollbar-width:none}
-.idx a{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:7px 12px;border-radius:999px;color:var(--fog)}
+.idx a{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;padding:7px 12px;border-radius:999px;color:var(--fog);cursor:pointer}
 .idx a.on{color:var(--ink);background:var(--paper)}
 .idx a:hover{color:var(--paper)}.idx a.on:hover{color:var(--ink)}
 
-section.proj{padding:12vh 0 6vh}
+/* ── THE FILMSTRIP: vertical scroll drives horizontal motion ── */
+.film{position:relative}
+.film .sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.track{display:flex;height:100vh;will-change:transform}
+.slide{flex:0 0 100vw;width:100vw;height:100vh;display:grid;grid-template-columns:minmax(280px,.85fr) 1.35fr;gap:3vw;align-items:center;padding:120px 4vw 50px;border-right:1px solid rgba(35,35,38,.5)}
 .pk{font-family:var(--mono);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--magenta)}
-h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.7rem,4.6vw,3.6rem);line-height:1.04;margin-top:10px;max-width:18ch}
-.pl{font-family:var(--serif);font-size:clamp(1.05rem,1.9vw,1.4rem);color:rgba(233,230,224,.78);margin-top:12px;max-width:52ch}
-.media{margin-top:34px;display:grid;gap:14px}
-.media.two{grid-template-columns:1fr}
-@media(min-width:860px){.media.two{grid-template-columns:1fr 1fr}}
-.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0b0b0d}
-.shot img{transition:transform .8s var(--ease)}
-.shot:hover img{transform:scale(1.025)}
+.slide h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(1.5rem,3.2vw,2.8rem);line-height:1.05;margin-top:10px}
+.pl{font-family:var(--serif);font-size:clamp(1rem,1.5vw,1.3rem);color:rgba(233,230,224,.78);margin-top:12px;max-width:40ch}
+.no{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--fog);margin-top:22px}
+.smedia{display:grid;gap:12px;max-height:74vh}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0b0b0d;display:flex;align-items:center;justify-content:center}
+.shot img{width:100%;height:100%;object-fit:contain;max-height:70vh}
+.smedia.duo{grid-template-columns:1fr 1fr}
+.smedia.duo .shot img{max-height:33vh}
+.smedia.trio{grid-template-rows:auto auto}
+.smedia.trio .top{grid-column:1/-1}
+.smedia.trio{grid-template-columns:1fr 1fr}
+.smedia.trio .top img{max-height:42vh}
+.smedia.trio .shot:not(.top) img{max-height:26vh}
 
-.cap{margin-top:14vh;border-top:1px solid var(--line);padding:8vh 0 6vh}
+.cap{border-top:1px solid var(--line);padding:10vh 0 8vh}
 .cap .t{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(1.5rem,4vw,3rem);letter-spacing:-.01em}
 .cap .t em{font-style:normal;color:var(--magenta)}
 .cap a.mail{display:inline-block;margin-top:16px;font-family:var(--serif);font-size:1.2rem;border-bottom:2px solid var(--magenta);padding-bottom:4px}
 .cap .next{margin-top:44px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fog)}
 .cap .next a:hover{color:var(--paper)}
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s var(--ease)}
-.reveal.in{opacity:1;transform:none}
+
+/* mobile / reduced-motion: honest vertical */
+@media (max-width:899px),(prefers-reduced-motion:reduce){
+  .film{height:auto!important}
+  .film .sticky{position:static;height:auto;overflow:visible}
+  .track{display:block;height:auto;transform:none!important}
+  .slide{width:auto;height:auto;grid-template-columns:1fr;padding:70px 6vw 30px;border-right:0;border-bottom:1px solid rgba(35,35,38,.5)}
+  .shot img{max-height:60vh}
+}
 </style>
 </head>
 <body>
@@ -71,100 +90,165 @@ h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spaci
 <header class="lane-hero wrap">
   <div class="lane-k">Lane 01 · Black — cinematic</div>
   <h1>Campaigns</h1>
-  <p class="tone">The idea first — full-bleed, one thought per screen.</p>
+  <p class="tone">The idea first — one thought per screen, driving down the lane.</p>
+  <div class="hint">Scroll — the lane moves sideways <span class="a">→</span></div>
 </header>
 
 <nav class="idx" id="idx"><div class="in">
-  <a href="#opdivo">OPDIVO</a><a href="#intac">Intac</a><a href="#see">Make Them See</a><a href="#palio">PALIO</a>
-  <a href="#mava">Mavacamten</a><a href="#amg">AMG334</a><a href="#vyndaqel">Vyndaqel</a><a href="#agios">Agios</a><a href="#amgen">Amgen</a>
+  <a data-i="0">OPDIVO</a><a data-i="1">Intac</a><a data-i="2">Make Them See</a><a data-i="3">PALIO</a>
+  <a data-i="4">Mavacamten</a><a data-i="5">AMG334</a><a data-i="6">Vyndaqel</a><a data-i="7">Agios</a><a data-i="8">Amgen</a>
 </div></nav>
 
-<main class="wrap">
-  <section class="proj" id="opdivo">
-    <div class="pk reveal">01 · OPDIVO Qvantig</div>
-    <h2 class="reveal">More time for what matters</h2>
-    <p class="pl reveal">A five-minute injection instead of an hour in the chair — so the campaign never shows medicine. It shows overtime, coffee, listening.</p>
-    <div class="media"><div class="shot reveal"><img src="media/opq-page-1.png" alt="OPDIVO — more time for overtime" loading="lazy"></div></div>
-    <div class="media two">
-      <div class="shot reveal"><img src="media/opq-page-3.png" alt="OPDIVO — more time for coffee time" loading="lazy"></div>
-      <div class="shot reveal"><img src="media/opq-page-4.png" alt="OPDIVO — more time to listen" loading="lazy"></div>
-    </div>
-  </section>
+<section class="film" id="film">
+  <div class="sticky"><div class="track" id="track">
 
-  <section class="proj" id="intac">
-    <div class="pk reveal">02 · Intac</div>
-    <h2 class="reveal">Crushes abuse. Dissolves dependency.</h2>
-    <p class="pl reveal">Abuse-deterrent technology, told with the objects of abuse themselves — crushed to powder, dissolved to nothing.</p>
-    <div class="media"><div class="shot reveal"><img src="media/pages-from-dzc-2-copy-page-06.jpg" alt="Intac — crushes abuse, dissolves dependency" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="opdivo">
+      <div>
+        <div class="pk">01 · OPDIVO Qvantig</div>
+        <h2>More time for what matters</h2>
+        <p class="pl">A five-minute injection instead of an hour in the chair — so the campaign never shows medicine. It shows overtime, coffee, listening.</p>
+        <div class="no">01 / 09</div>
+      </div>
+      <div class="smedia trio">
+        <div class="shot top"><img src="media/opq-page-1.png" alt="OPDIVO — more time for overtime" loading="lazy"></div>
+        <div class="shot"><img src="media/opq-page-3.png" alt="OPDIVO — coffee" loading="lazy"></div>
+        <div class="shot"><img src="media/opq-page-4.png" alt="OPDIVO — listen" loading="lazy"></div>
+      </div>
+    </article>
 
-  <section class="proj" id="see">
-    <div class="pk reveal">03 · Sickle Cell Disease</div>
-    <h2 class="reveal">Make them see</h2>
-    <p class="pl reveal">SCD has been under-recognized, undertreated, stigmatized. Seeing is believing — so put it front and center.</p>
-    <div class="media"><div class="shot reveal"><img src="media/55e75558-5a82-4230-b4ec-03ab8efe59df.jpg" alt="Make Them See — SCD" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="intac">
+      <div>
+        <div class="pk">02 · Intac</div>
+        <h2>Crushes abuse. Dissolves dependency.</h2>
+        <p class="pl">Abuse-deterrent technology, told with the objects of abuse themselves — crushed to powder, dissolved to nothing.</p>
+        <div class="no">02 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/pages-from-dzc-2-copy-page-06.jpg" alt="Intac" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="palio">
-    <div class="pk reveal">04 · PALIO — Purveyors of fine story</div>
-    <h2 class="reveal">Awash in the glow of the unknown</h2>
-    <p class="pl reveal">An agency brand built on story: the usual all of a sudden seemed too ordinary.</p>
-    <div class="media"><div class="shot reveal"><img src="media/pages-from-dzc-2-copy-page-10.jpg" alt="PALIO — Awash campaign" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="see">
+      <div>
+        <div class="pk">03 · Sickle Cell Disease</div>
+        <h2>Make them see</h2>
+        <p class="pl">SCD has been under-recognized, undertreated, stigmatized. Seeing is believing — so put it front and center.</p>
+        <div class="no">03 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/55e75558-5a82-4230-b4ec-03ab8efe59df.jpg" alt="Make Them See" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="mava">
-    <div class="pk reveal">05 · Mavacamten</div>
-    <h2 class="reveal">Let calm bloom</h2>
-    <p class="pl reveal">For hearts affected by HCM: restore a more natural order — the heart as rose, the heart as landscape.</p>
-    <div class="media"><div class="shot reveal"><img src="media/deck/p32.jpg" alt="Mavacamten — let calm bloom / restore a more natural order" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="palio">
+      <div>
+        <div class="pk">04 · PALIO</div>
+        <h2>Awash in the glow of the unknown</h2>
+        <p class="pl">An agency brand built on story: the usual all of a sudden seemed too ordinary.</p>
+        <div class="no">04 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/pages-from-dzc-2-copy-page-10.jpg" alt="PALIO Awash" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="amg">
-    <div class="pk reveal">06 · AMG334</div>
-    <h2 class="reveal">Distance from the next migraine</h2>
-    <p class="pl reveal">Prevention as space — put more distance between your patient and their next migraine.</p>
-    <div class="media"><div class="shot reveal"><img src="media/deck/p35.jpg" alt="AMG334 — distance campaign" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="mava">
+      <div>
+        <div class="pk">05 · Mavacamten</div>
+        <h2>Let calm bloom</h2>
+        <p class="pl">For hearts affected by HCM: restore a more natural order — the heart as rose, the heart as landscape.</p>
+        <div class="no">05 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/deck/p32.jpg" alt="Mavacamten" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="vyndaqel">
-    <div class="pk reveal">07 · Vyndaqel · Pfizer</div>
-    <h2 class="reveal">Life without interruptions</h2>
-    <p class="pl reveal">hATTR made visible through chromosome bands laid over everyday life — let her keep her touch.</p>
-    <div class="media"><div class="shot reveal"><img src="media/deck/p37.jpg" alt="Vyndaqel — life without interruptions" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="amg">
+      <div>
+        <div class="pk">06 · AMG334</div>
+        <h2>Distance from the next migraine</h2>
+        <p class="pl">Prevention as space — put more distance between your patient and their next migraine.</p>
+        <div class="no">06 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/deck/p35.jpg" alt="AMG334" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="agios">
-    <div class="pk reveal">08 · Agios</div>
-    <h2 class="reveal">See what&rsquo;s behind her AML</h2>
-    <p class="pl reveal">A revealing genomic biomarker — highlighter strokes uncover the patient behind the redaction.</p>
-    <div class="media"><div class="shot reveal"><img src="media/deck/p38.jpg" alt="Agios — reveal IDH" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="vyndaqel">
+      <div>
+        <div class="pk">07 · Vyndaqel · Pfizer</div>
+        <h2>Life without interruptions</h2>
+        <p class="pl">hATTR made visible through chromosome bands laid over everyday life — let her keep her touch.</p>
+        <div class="no">07 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/deck/p37.jpg" alt="Vyndaqel" loading="lazy"></div></div>
+    </article>
 
-  <section class="proj" id="amgen">
-    <div class="pk reveal">09 · Amgen Neuroscience</div>
-    <h2 class="reveal">We&rsquo;re at the point of pain</h2>
-    <p class="pl reveal">Migraine treated like a disease, not a headache — cymbal, filament, synapse: the exact point where it strikes.</p>
-    <div class="media"><div class="shot reveal"><img src="media/deck/p39.jpg" alt="Amgen — point of pain" loading="lazy"></div></div>
-  </section>
+    <article class="slide" id="agios">
+      <div>
+        <div class="pk">08 · Agios</div>
+        <h2>See what&rsquo;s behind her AML</h2>
+        <p class="pl">A revealing genomic biomarker — highlighter strokes uncover the patient behind the redaction.</p>
+        <div class="no">08 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/deck/p38.jpg" alt="Agios" loading="lazy"></div></div>
+    </article>
 
-  <div class="cap" id="contact">
-    <div class="t reveal">Let&rsquo;s make something <em>real</em>.</div>
-    <a class="mail reveal" href="mailto:hello@davidzachary.co">hello@davidzachary.co</a>
-    <div class="next">
-      <span>© David Zachary Creative</span>
-      <a href="branding.html">Next lane → Branding</a>
-    </div>
+    <article class="slide" id="amgen">
+      <div>
+        <div class="pk">09 · Amgen Neuroscience</div>
+        <h2>We&rsquo;re at the point of pain</h2>
+        <p class="pl">Migraine treated like a disease, not a headache — cymbal, filament, synapse: the exact point where it strikes.</p>
+        <div class="no">09 / 09</div>
+      </div>
+      <div class="smedia"><div class="shot"><img src="media/deck/p39.jpg" alt="Amgen" loading="lazy"></div></div>
+    </article>
+
+  </div></div>
+</section>
+
+<div class="cap wrap" id="contact">
+  <div class="t">Let&rsquo;s make something <em>real</em>.</div>
+  <a class="mail" href="mailto:hello@davidzachary.co">hello@davidzachary.co</a>
+  <div class="next">
+    <span>© David Zachary Creative</span>
+    <a href="branding.html">Next lane → Branding</a>
   </div>
-</main>
+</div>
 
 <script>
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'-8% 0px -8% 0px'});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-// scrollspy
-const links=[...document.querySelectorAll('#idx a')];
-const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
-const spy=new IntersectionObserver(es=>es.forEach(e=>{const i=secs.indexOf(e.target);if(i>-1&&e.isIntersecting){links.forEach((l,k)=>l.classList.toggle('on',k===i));links[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}}),{rootMargin:'-40% 0px -55% 0px'});
-secs.forEach(s=>s&&spy.observe(s));
+/* filmstrip: vertical scroll → horizontal travel */
+(function(){
+  const film=document.getElementById('film');
+  const track=document.getElementById('track');
+  const slides=[...track.children];
+  const links=[...document.querySelectorAll('#idx a')];
+  const N=slides.length;
+  const vw=()=>innerWidth||document.documentElement.clientWidth||1280;
+  const vh=()=>innerHeight||document.documentElement.clientHeight||800;
+  const horizontal=()=>vw()>=900&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function layout(){ film.style.height = horizontal()? (N*80+100)+'vh' : 'auto'; }
+  layout(); addEventListener('resize',layout);
+
+  let active=-1;
+  function setActive(i){if(i===active)return;active=i;
+    links.forEach((l,k)=>l.classList.toggle('on',k===i));
+    const on=links[i]; if(on) on.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  }
+  function apply(){
+    if(!horizontal()){track.style.transform='';setActive(0);return}
+    const ih=vh();
+    const span=(film.offsetHeight||ih*(N*0.8+1))-ih;
+    const r=film.getBoundingClientRect();
+    const p=Math.min(1,Math.max(0,(-r.top)/Math.max(1,span)));
+    const x=p*Math.max(0,track.scrollWidth-vw());
+    track.style.transform='translateX('+(-x)+'px)';
+    setActive(Math.min(N-1,Math.round(p*(N-1))));
+  }
+  let tick=false;
+  addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{tick=false;apply()})}},{passive:true});
+  setInterval(apply,250);
+  links.forEach(l=>l.addEventListener('click',()=>{
+    const i=+l.dataset.i;
+    if(!horizontal()){const s=slides[i];if(s)s.scrollIntoView({behavior:'smooth'});return}
+    const ih=vh();
+    const span=(film.offsetHeight||ih*(N*0.8+1))-ih;
+    scrollTo({top:film.offsetTop+span*(i/(N-1)),behavior:'smooth'});
+  }));
+  apply();
+})();
 </script>
 </body>
 </html>
