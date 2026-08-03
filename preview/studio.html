@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Concepts. Craft. Care.</title>
+<meta name="description" content="David Zachary Creative — a creative director turning complex science into work people feel. Branding and campaigns for the companies rewriting human health." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   DAVID ZACHARY CREATIVE — "Studio" build
+   Clean. Editorial. Fully monochrome (sophisticated warm greys).
+   Built around his REAL dz mark (extracted from the deck). His real work,
+   in black & white. Quiet type, generous space, restrained motion.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --bg:#16150f00; --bg:#171614; --ink:#121110; --paper:#e8e5df;
+  --white:#f1efea; --fog:#b7b3ab; --stone:#8a877f; --line:rgba(241,239,234,.12);
+  --dim:rgba(241,239,234,.52);
+  --expo:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--sans);overflow-x:hidden;font-weight:400}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1200px;margin:0 auto;padding:0 5vw}
+.mono{font-family:var(--mono);font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+.rule{height:1px;background:var(--line);border:0}
+
+.no-js .reveal{opacity:1;transform:none}
+.js .reveal{opacity:0;transform:translateY(22px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity 1s var(--expo),transform 1s var(--expo)}
+@media(prefers-reduced-motion:reduce){ .js .reveal{opacity:1!important;transform:none!important} }
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 0;mix-blend-mode:difference}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.nav .brand{height:19px;width:auto;display:block}
+.nav-right{display:flex;gap:30px}
+.nav-right a{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#fff}
+.nav-right a{position:relative}
+.nav-right a::after{content:"";position:absolute;left:0;bottom:-5px;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo)}
+.nav-right a:hover::after{transform:scaleX(1)}
+@media(max-width:640px){.nav-right a.opt{display:none}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0;position:relative;padding:14vh 5vw 10vh}
+.hero .mark{width:min(360px,58vw);height:auto;opacity:0;transform:translateY(14px)}
+.hero.ready .mark{opacity:1;transform:none;transition:opacity 1.2s var(--expo),transform 1.2s var(--expo)}
+.hero .word{margin-top:30px;font-family:var(--mono);font-size:.7rem;letter-spacing:.5em;text-transform:uppercase;color:var(--fog);padding-left:.5em}
+.hero .tagline{margin-top:8vh;font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.04;letter-spacing:-.01em;color:var(--white)}
+.hero .tagline .s{color:var(--stone)}
+.hero .say{margin-top:26px;max-width:34rem;font-size:clamp(1rem,1.5vw,1.18rem);line-height:1.55;color:var(--dim)}
+.hero .say b{color:var(--white);font-weight:600}
+.scrolldn{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone);display:flex;flex-direction:column;align-items:center;gap:10px}
+.scrolldn .ln{width:1px;height:40px;background:var(--line);position:relative;overflow:hidden}
+.scrolldn .ln i{position:absolute;inset:0;background:var(--fog);transform:translateY(-100%);animation:cue 1.8s var(--expo) infinite}
+@keyframes cue{to{transform:translateY(100%)}}
+@media(prefers-reduced-motion:reduce){.scrolldn .ln i{animation:none}}
+
+/* section shell */
+.sec{padding:15vh 0}
+.kick{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:7vh}
+.kick h2{font-family:var(--sans);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.9rem);letter-spacing:-.01em}
+
+/* statement */
+.statement{font-family:var(--serif);font-size:clamp(1.8rem,4.4vw,3.4rem);line-height:1.22;letter-spacing:-.005em;max-width:20ch}
+.statement em{font-style:italic;color:var(--fog)}
+
+/* work grid */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:5vw 4vw}
+.item{display:block}
+.item .frame{position:relative;overflow:hidden;background:#0e0d0c;aspect-ratio:4/3;border-radius:3px}
+.item .frame img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.97);transform:scale(1.02);transition:transform 1.1s var(--expo),filter .8s ease}
+.item:hover .frame img{transform:scale(1.06);filter:grayscale(1) contrast(1.08) brightness(1.02)}
+.item .meta{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:16px}
+.item .ttl{font-family:var(--sans);font-weight:600;font-size:1.15rem}
+.item .cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.item .idx{font-family:var(--mono);font-size:.58rem;color:var(--stone)}
+@media(max-width:720px){.grid{grid-template-columns:1fr;gap:8vh}}
+
+/* marks strip */
+.marks{text-align:center}
+.marks p{font-family:var(--serif);font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.3;max-width:24ch;margin:0 auto 6vh;color:var(--fog)}
+.wall{position:relative;width:100%;max-width:1000px;margin:0 auto;aspect-ratio:7650/4950;background:var(--paper);border-radius:4px;overflow:hidden;filter:grayscale(1) contrast(1.03)}
+.wall img{width:100%;height:100%;object-fit:cover;opacity:.92}
+
+/* contact */
+.contact{text-align:center;padding:18vh 0 12vh}
+.contact .big{font-family:var(--serif);font-size:clamp(2.4rem,8vw,6rem);line-height:1.02;letter-spacing:-.01em}
+.contact .big a{border-bottom:1px solid var(--line);transition:border-color .4s}
+.contact .big a:hover{border-color:var(--fog)}
+.contact .mail{margin-top:34px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--dim)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14vh}
+.foot img{height:18px;opacity:.8}
+.foot span{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+</style>
+</head>
+<body>
+<script>document.documentElement.className="js";</script>
+
+<nav class="nav"><div class="wrap">
+  <a href="#top" aria-label="David Zachary Creative"><img class="brand" src="media/brand/dzc-mark-white.png" alt="David Zachary Creative"></a>
+  <div class="nav-right">
+    <a class="opt" href="#work">Work</a>
+    <a class="opt" href="#marks">Marks</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <img class="mark" src="media/brand/dzc-mark-white.png" alt="David Zachary Creative">
+  <div class="word">David Zachary Creative</div>
+  <h1 class="tagline reveal">Concepts. Craft. <span class="s">Care.</span></h1>
+  <p class="say reveal">A creative director turning complex science into work people <b>feel</b> — branding &amp; campaigns for the companies rewriting human health.</p>
+  <div class="scrolldn"><span>Scroll</span><span class="ln"><i></i></span></div>
+</header>
+
+<!-- statement -->
+<section class="sec"><div class="wrap">
+  <hr class="rule reveal">
+  <p class="statement reveal" style="margin-top:7vh">Twenty years making the complicated <em>clear</em> — and the clinical <em>human</em>.</p>
+</div></section>
+
+<!-- selected work -->
+<section class="sec" id="work"><div class="wrap">
+  <div class="kick reveal"><h2>Selected Work</h2><span class="mono">Branding · Campaigns · Identity</span></div>
+  <div class="grid">
+    <a class="item reveal"><div class="frame"><img src="media/bgbtsol-copy-page-4.jpg" alt="Beyond — BGB Group" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">Beyond</div><div class="cat">Brand System · BGB Group</div></div><div class="idx">01</div></div></a>
+    <a class="item reveal"><div class="frame"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">Innovation × Intelligence</div><div class="cat">Identity</div></div><div class="idx">02</div></div></a>
+    <a class="item reveal"><div class="frame"><img src="media/sousci3-page-01.png" alt="Soulful Science" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">Soulful Science</div><div class="cat">Brand · Editorial</div></div><div class="idx">03</div></div></a>
+    <a class="item reveal"><div class="frame"><img src="media/deck/p21.jpg" alt="RareCast — Global Genes" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">RareCast</div><div class="cat">Brand · Global Genes</div></div><div class="idx">04</div></div></a>
+    <a class="item reveal"><div class="frame"><img src="media/pinkrabbit.jpg" alt="Celgene concept" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">The Eye</div><div class="cat">Campaign · Celgene</div></div><div class="idx">05</div></div></a>
+    <a class="item reveal"><div class="frame"><img src="media/opq-page-1.png" alt="OPDIVO campaign" loading="lazy"></div>
+      <div class="meta"><div><div class="ttl">OPDIVO</div><div class="cat">Campaign · Oncology</div></div><div class="idx">06</div></div></a>
+  </div>
+</div></section>
+
+<!-- marks -->
+<section class="sec marks" id="marks"><div class="wrap">
+  <div class="kick reveal" style="justify-content:center"><span class="mono">Twenty Years · One Discipline</span></div>
+  <p class="reveal">The single, perfect symbol — the truest test of craft.</p>
+  <div class="wall reveal"><img src="media/logos-wall.png" alt="Selected logo marks" loading="lazy"></div>
+</div></section>
+
+<!-- contact -->
+<footer class="contact" id="contact"><div class="wrap">
+  <hr class="rule reveal">
+  <p class="big reveal" style="margin-top:12vh">Let's make something <a href="mailto:hello@davidzachary.co">they'll feel.</a></p>
+  <div class="mail reveal">hello@davidzachary.co</div>
+  <div class="foot reveal">
+    <img src="media/brand/dzc-mark-white.png" alt="dz">
+    <span>Concepts · Craft · Care</span>
+    <span>© 2026 David Zachary Creative</span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  var hero=document.querySelector('.hero');
+  requestAnimationFrame(function(){ hero.classList.add('ready'); });
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>

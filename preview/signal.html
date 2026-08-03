@@ -150,10 +150,7 @@ img{display:block;max-width:100%}
 <!-- ░░ LOADER — the mark draws itself ░░ -->
 <div id="loader">
   <div class="badge">
-    <svg id="dzDraw" viewBox="0 0 68 40" fill="none" aria-label="dz monogram">
-      <path id="dzPath" d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z"/>
-      <path id="dzPath2" d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z"/>
-    </svg>
+    <img id="dzDraw" src="media/brand/dzc-mark-white.svg" alt="dz monogram" style="width:120px;height:auto;display:block;opacity:0">
     <div class="lockup">Concepts <span class="cx">.</span> Craft <span class="cx">.</span> <b>Care</b></div>
   </div>
 </div>
@@ -162,7 +159,7 @@ img{display:block;max-width:100%}
 <nav class="nav">
   <div class="wrap">
     <a href="#" aria-label="David Zachary Creative — home">
-      <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+      <img src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative" style="height:24px;width:auto;display:block">
     </a>
     <div class="nav-right">
       <a class="nav-link lane" href="#marks">Marks</a>
@@ -436,11 +433,8 @@ img{display:block;max-width:100%}
     A({targets:loader,opacity:[1,0],duration:600,easing:'easeInOutQuad',complete:function(){loader.remove();}}); }
   if(!hasAnime||reduce){ endIntro(); }
   else{
-    var d1=document.getElementById('dzPath'),d2=document.getElementById('dzPath2');
-    [d1,d2].forEach(function(p){p.style.stroke='currentColor';p.style.strokeWidth='1.4';p.style.fill='none';});
     A.timeline({easing:'easeInOutQuart'})
-      .add({targets:[d1,d2],strokeDashoffset:[A.setDashoffset,0],duration:1100,delay:A.stagger(160)})
-      .add({targets:[d1,d2],fill:['rgba(244,242,238,0)','rgba(244,242,238,1)'],duration:520,easing:'easeOutQuad'},'-=180')
+      .add({targets:'#dzDraw',opacity:[0,1],scale:[.9,1],duration:1100})
       .add({targets:'#loader .lockup',opacity:[0,1],translateY:[12,0],duration:600},'-=200')
       .add({targets:'#loader .badge',opacity:[1,0],translateY:[0,-16],duration:520,delay:480,easing:'easeInQuad'})
       .add({targets:'#loader',duration:10,complete:endIntro});
