@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Craftsmithing</title>
+<meta name="description" content="A GSAP-driven journey through David Zachary Creative — concepts, craft, care." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   DAVID ZACHARY CREATIVE — "Kinetic" build
+   Same taste as flow.html / grand.html, but the whole journey is driven by
+   a proper animation engine: inertia smooth-scroll + pin/scrub/snap +
+   line & char text splitting. His own works only. No AI / stock hero video.
+
+   Acts:
+   0 · intro timeline — Concepts./Craft./Care. word cycle beside a
+       blinking diamond → "David Zachary CREATIVE+" rise → match-cut flicker
+       through his own work → intro panel lifts away & unlocks the scroll.
+   1 · Hero — SplitText char-rise on CRAFTSMITHING®, serif statement fade.
+   2 · Works — a pinned HORIZONTAL filmstrip scrubbed by ScrollTrigger;
+       each panel's art wipes in, the giant index + accent recolour live.
+   3 · Craft — pinned services scrub: giant verbs light one-by-one (snap),
+       matching card slides in. (flow.html's move, now on a real timeline.)
+   4 · The & — a pinned, scroll-pulsed sign that breathes magenta.
+   5 · Contact — pull-link fin + footer.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --serif:"Instrument Serif",Georgia,serif;
+  --slab:"Bricolage Grotesque",sans-serif;       /* characterful display, one family */
+  --sans:"Bricolage Grotesque",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --white:#fff; --black:#050505; --dim:rgba(255,255,255,.55);
+  --magenta:#ff0a78; --accent:#ff0a78;
+  --expo:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--black);color:#fff;font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.container{max-width:1240px;margin:0 auto;padding:0 5vw}
+.mono-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+/* ── nav ── */
+.nav-bar{position:fixed;inset:0 0 auto 0;z-index:200;padding:18px 0;mix-blend-mode:difference}
+.nav-bar .container{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.nav-bar svg{height:22px;width:auto;color:#fff;display:block}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-link{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;position:relative}
+.nav-link::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:100%;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--expo)}
+.nav-link:hover::after{transform:scaleX(1)}
+.nav-link.chip{border:1px solid rgba(255,255,255,.5);border-radius:100px;padding:7px 13px}
+.nav-link.chip::after{display:none}
+@media(max-width:720px){.nav-right .lane{display:none}}
+
+/* ── scroll progress ── */
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent);z-index:250;transition:background .5s ease}
+
+/* ── INTRO (fixed, above smoother) ── */
+.intro{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
+.intro .stack{position:absolute;inset:0}
+.intro .frame{position:absolute;inset:-4% 0;background-size:cover;background-position:50% 45%;opacity:0}
+.intro .frame.base{opacity:1;background:#000}
+.intro .shade{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,transparent,rgba(0,0,0,.72))}
+.intro-center{position:relative;z-index:2;display:flex;align-items:center;gap:16px;font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);line-height:1}
+.dia{width:10px;height:10px;background:#fff;transform:rotate(45deg);flex:none}
+.word-stage{position:relative;height:1.25em;min-width:5.5em}
+.word{position:absolute;left:0;top:0;white-space:nowrap;opacity:0}
+.weare{display:flex;align-items:baseline;gap:.28em;opacity:0}
+.weare .mk{font-family:var(--slab);font-weight:900;letter-spacing:-.01em;text-transform:uppercase;font-size:.62em}
+.weare .plus{color:var(--magenta)}
+.intro-skip{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:3;font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:0;cursor:pointer}
+.intro-skip:hover{color:#fff}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:14vh 0 8vh}
+.ghost{position:absolute;right:-4vw;bottom:-8vh;font-family:var(--slab);font-weight:900;font-size:52vw;line-height:.8;color:#fff;opacity:.03;pointer-events:none;z-index:0}
+.hero .container{position:relative;z-index:1}
+.eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.eyebrow .rule{height:1px;width:56px;background:var(--accent)}
+.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,12.5vw,10.5rem);letter-spacing:-.02em;line-height:.92;text-transform:uppercase}
+.lg-h1 .reg{font-family:var(--sans);font-weight:500;font-size:.16em;vertical-align:top;letter-spacing:0;text-transform:none;color:var(--accent)}
+.hero-h2{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.9rem);line-height:1.3;max-width:22ch;margin-top:34px;color:rgba(255,255,255,.9)}
+.scroll-cue{position:absolute;left:5vw;bottom:34px;display:flex;align-items:center;gap:12px}
+.scroll-cue .bar{width:1px;height:44px;background:linear-gradient(#fff,transparent);overflow:hidden}
+.scroll-cue .bar i{display:block;width:1px;height:44px;background:var(--accent)}
+
+/* ── KINETIC marquee band (moving letters) ── */
+.kin-band{overflow:hidden;padding:5.5vh 0;background:#000;border-top:1px solid #161619;border-bottom:1px solid #161619;position:relative}
+.kin-band + .kin-band{border-top:0;padding-top:0}
+.kin-row{display:flex;flex-wrap:nowrap;white-space:nowrap;width:max-content;font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1;font-size:clamp(2.2rem,6vw,5.2rem);will-change:transform}
+.kin-row .seg{padding:0 .28em;color:transparent;-webkit-text-stroke:1.4px rgba(255,255,255,.2)}
+.kin-row .seg em{font-style:normal;color:var(--accent);-webkit-text-stroke:0}
+.kin-row.solid .seg{color:rgba(255,255,255,.06);-webkit-text-stroke:0}
+
+/* ── WORKS filmstrip ── */
+.film{position:relative;height:100vh;overflow:hidden;background:#000}
+.film .track{display:flex;height:100vh;will-change:transform}
+.fp{position:relative;flex:0 0 100vw;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:0 5vw}
+.fp .art{position:relative;height:66vh;border-radius:8px;overflow:hidden;background:#0d0d0f}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform,clip-path}
+.fp .meta{display:flex;flex-direction:column;justify-content:center}
+.fp .idx{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,9vw,7rem);line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--accent2,var(--dim))}
+.fp .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim));margin:22px 0 10px}
+.fp .name{font-family:var(--slab);font-weight:800;font-size:clamp(1.7rem,4vw,3.4rem);line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+.fp .desc{font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.5rem);line-height:1.35;color:rgba(255,255,255,.72);max-width:26ch;margin-top:18px}
+.film-head{position:absolute;left:5vw;top:30px;z-index:5;display:flex;gap:16px;align-items:baseline;pointer-events:none}
+.film-head .t{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--dim)}
+.film-count{position:absolute;right:5vw;bottom:32px;z-index:5;font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;color:var(--dim)}
+.film-count b{color:#fff}
+@media(max-width:820px){.fp{grid-template-columns:1fr;gap:20px;padding:12vh 8vw 8vh}.fp .art{height:44vh;order:-1}}
+
+/* ── section shells ── */
+.section{padding:15vh 0}
+.big-serif{font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);line-height:1.18;max-width:20ch}
+.big-serif em{font-style:italic;color:var(--accent)}
+
+/* ── CRAFT services scrub ── */
+.services{position:relative;height:100vh;overflow:hidden}
+.services .pinwrap{height:100vh;display:flex;align-items:center}
+.verbs{font-family:var(--serif);font-size:clamp(2.6rem,11vw,8.5rem);line-height:.98;letter-spacing:-.01em}
+.verbs span{opacity:.16;transition:opacity .1s linear;cursor:pointer;display:inline-block}
+.verbs span.on{opacity:1}
+.svc-card{margin-top:5vh;position:relative;min-height:16em}
+.svc{position:absolute;inset:0;opacity:0;pointer-events:none}
+.svc h4{font-family:var(--serif);font-size:clamp(1.3rem,2.5vw,2rem);line-height:1.3}
+.svc .rows{margin-top:1.6em;display:grid;grid-template-columns:1fr;gap:12px 44px;max-width:760px}
+@media(min-width:720px){.svc .rows{grid-template-columns:1fr 1fr}}
+.svc .row{display:flex;gap:12px;align-items:baseline;font-size:1.02rem;color:rgba(255,255,255,.85)}
+.svc .row .p{color:var(--accent);font-family:var(--slab);font-weight:900}
+
+/* ── AMPERSAND ── */
+.amp-sec{position:relative;height:130vh}
+.amp-pin{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.amp-glyph{font-family:var(--slab);font-weight:900;font-size:min(78vh,62vw);line-height:1;color:var(--magenta);will-change:transform,opacity}
+.amp-cap{position:absolute;left:0;right:0;bottom:12vh;text-align:center;font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2rem);color:rgba(255,255,255,.8)}
+.amp-cap em{font-style:italic;color:#fff}
+
+/* ── FIN ── */
+.fin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
+.pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(2rem,6vw,5rem);line-height:1.08}
+.pull-link em{font-style:italic;color:var(--magenta)}
+.pull-link .u{border-bottom:2px solid var(--magenta);padding-bottom:6px}
+.footer{position:absolute;left:0;right:0;bottom:0;padding:34px 0}
+.footer .container{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.footer a:hover{color:#fff}
+
+/* reduced motion / no-JS safety */
+.no-smooth .intro{display:none}
+@media (prefers-reduced-motion: reduce){
+  .intro{display:none}
+  .fp{flex-basis:auto}
+  .film,.film .track{height:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="nav-bar">
+  <div class="container">
+    <a href="../index.html" aria-label="David Zachary Creative">
+      <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link lane" href="branding.html">Branding</a>
+      <a class="nav-link lane" href="work.html">Work</a>
+      <a class="nav-link lane" href="campaigns.html">Campaigns</a>
+      <a class="nav-link chip" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ INTRO (fixed, driven by GSAP timeline) ═══ -->
+<div class="intro" id="intro">
+  <div class="stack" id="stack">
+    <div class="frame base"></div>
+    <div class="frame" style="background-image:url(media/bgbtsol-copy-page-4.jpg)"></div>
+    <div class="frame" style="background-image:url(media/ixi-branding-r2-page-16.png)"></div>
+    <div class="frame" style="background-image:url(media/sousci3-page-01.png)"></div>
+    <div class="frame" style="background-image:url(media/pinkrabbit.jpg)"></div>
+    <div class="frame" style="background-image:url(media/deck/p21.jpg)"></div>
+    <div class="frame" style="background-image:url(media/opq-page-1.png)"></div>
+    <div class="frame" style="background-image:url(media/logos-wall.png)"></div>
+    <div class="frame" style="background-image:url(media/pages-from-dzc-2-copy-page-10.jpg)"></div>
+  </div>
+  <div class="shade"></div>
+  <div class="intro-center">
+    <div class="dia" id="dia"></div>
+    <div class="word-stage" id="wordStage">
+      <div class="word">Concepts.</div>
+      <div class="word">Craft.</div>
+      <div class="word">Care.</div>
+    </div>
+    <div class="weare" id="weare">
+      <span>David Zachary</span><span class="mk">Creative<span class="plus">+</span></span>
+    </div>
+  </div>
+  <button class="intro-skip" id="skip" type="button">skip intro</button>
+</div>
+
+<!-- ═══ SMOOTH SCROLL WRAPPER (ScrollSmoother) ═══ -->
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="ghost" aria-hidden="true">D</div>
+    <div class="container">
+      <div class="eyebrow"><span class="rule"></span><span class="mono-label">David Zachary Creative — est. 2005</span></div>
+      <h1 class="lg-h1" id="heroH1">Craftsmithing<span class="reg">®</span></h1>
+      <h2 class="hero-h2">I dig deep to find what makes you shine — then bring bold vision and obsessive craft to carve out your place in the world.</h2>
+    </div>
+    <div class="scroll-cue"><span class="bar"><i></i></span><span class="mono-label">Scroll</span></div>
+  </header>
+
+  <!-- KINETIC bands — twin marquees running opposite ways -->
+  <section class="kin-band" aria-hidden="true">
+    <div class="kin-row" data-dir="-1" data-seed="Concepts&nbsp;<em>+</em>&nbsp;Craft&nbsp;<em>+</em>&nbsp;Care&nbsp;<em>+</em>&nbsp;"></div>
+  </section>
+  <section class="kin-band" aria-hidden="true">
+    <div class="kin-row solid" data-dir="1" data-seed="Discover&nbsp;·&nbsp;Extract&nbsp;·&nbsp;Shape&nbsp;·&nbsp;Refine&nbsp;·&nbsp;"></div>
+  </section>
+
+  <!-- WORKS — pinned horizontal filmstrip -->
+  <section class="film" id="film">
+    <div class="film-head"><span class="t">Selected Work</span><span class="t">/ 07</span></div>
+    <div class="track" id="track">
+      <!-- panels get their accent via --accent2 -->
+      <article class="fp" style="--accent2:#ff0a78">
+        <div class="meta"><div class="idx">01</div><div class="cat">Brand System · BGB Group</div><h2 class="name">Beyond</h2><p class="desc">A challenger identity for the agency redefining medical communications.</p></div>
+        <div class="art"><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond"></div>
+      </article>
+      <article class="fp" style="--accent2:#29abe2">
+        <div class="meta"><div class="idx">02</div><div class="cat">Brand · Innovation × Intelligence</div><h2 class="name">IXI</h2><p class="desc">Where scientific rigor meets creative instinct — an identity built on the multiply sign.</p></div>
+        <div class="art"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence"></div>
+      </article>
+      <article class="fp" style="--accent2:#8bc53f">
+        <div class="meta"><div class="idx">03</div><div class="cat">Brand · Editorial</div><h2 class="name">Soulful Science</h2><p class="desc">Humanising the science — a warm, signature X-frame visual language.</p></div>
+        <div class="art"><img src="media/sousci3-page-01.png" alt="Soulful Science"></div>
+      </article>
+      <article class="fp" style="--accent2:#e8871e">
+        <div class="meta"><div class="idx">04</div><div class="cat">Brand · Global Genes</div><h2 class="name">RareCast</h2><p class="desc">Giving the rare-disease community a voice — a podcast identity with reach.</p></div>
+        <div class="art"><img src="media/deck/p21.jpg" alt="RareCast"></div>
+      </article>
+      <article class="fp" style="--accent2:#ff0a78">
+        <div class="meta"><div class="idx">05</div><div class="cat">Campaign · Celgene</div><h2 class="name">The Eye</h2><p class="desc">One image, one idea — the concept that makes an audience truly see.</p></div>
+        <div class="art"><img src="media/pinkrabbit.jpg" alt="Celgene concept"></div>
+      </article>
+      <article class="fp" style="--accent2:#ffd400">
+        <div class="meta"><div class="idx">06</div><div class="cat">Identity · Collected</div><h2 class="name">The Marks</h2><p class="desc">Twenty years of logos — the discipline of the single, perfect symbol.</p></div>
+        <div class="art"><img src="media/logos-wall.png" alt="Logo marks wall"></div>
+      </article>
+      <article class="fp" style="--accent2:#29abe2">
+        <div class="meta"><div class="idx">07</div><div class="cat">Campaign · Oncology</div><h2 class="name">OPDIVO</h2><p class="desc">Scale and stakes — a launch campaign that fills the whole arena.</p></div>
+        <div class="art"><img src="media/opq-page-1.png" alt="OPDIVO campaign"></div>
+      </article>
+    </div>
+    <div class="film-count"><b id="fpNow">01</b> — 07</div>
+  </section>
+
+  <!-- CRAFT — pinned services scrub -->
+  <section class="section" style="padding-bottom:6vh">
+    <div class="container">
+      <span class="mono-label">How I craftsmith</span>
+      <p class="big-serif" style="margin-top:18px">Not decoration. <em>Excavation.</em> I mine for the truest idea, then obsess over every gram of craft.</p>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="pinwrap">
+      <div class="container">
+        <div class="verbs" id="verbs">
+          <span data-i="0">Discover.</span><span data-i="1">Extract.</span><br>
+          <span data-i="2">Shape.</span><span data-i="3">Refine.</span>
+        </div>
+        <div class="svc-card" id="svcCard">
+          <div class="svc">
+            <h4>I mine the raw materials that make you great.</h4>
+            <div class="rows">
+              <div class="row"><span class="p">+</span>Stakeholder &amp; customer interviews</div>
+              <div class="row"><span class="p">+</span>Brand &amp; landscape audit</div>
+              <div class="row"><span class="p">+</span>Science &amp; story immersion</div>
+              <div class="row"><span class="p">+</span>Competitive review</div>
+            </div>
+          </div>
+          <div class="svc">
+            <h4>I crystallise the essence of your brand.</h4>
+            <div class="rows">
+              <div class="row"><span class="p">+</span>Positioning</div>
+              <div class="row"><span class="p">+</span>Personality</div>
+              <div class="row"><span class="p">+</span>Mission, vision &amp; values</div>
+              <div class="row"><span class="p">+</span>Voice &amp; value proposition</div>
+            </div>
+          </div>
+          <div class="svc">
+            <h4>I carve out an authentic, creative place for you.</h4>
+            <div class="rows">
+              <div class="row"><span class="p">+</span>Visual identity</div>
+              <div class="row"><span class="p">+</span>Messaging &amp; voice</div>
+              <div class="row"><span class="p">+</span>Creative campaigns</div>
+              <div class="row"><span class="p">+</span>Brand launch</div>
+            </div>
+          </div>
+          <div class="svc">
+            <h4>I polish the work across the whole life cycle.</h4>
+            <div class="rows">
+              <div class="row"><span class="p">+</span>Ongoing creative direction</div>
+              <div class="row"><span class="p">+</span>Brand refresh</div>
+              <div class="row"><span class="p">+</span>Market expansion</div>
+              <div class="row"><span class="p">+</span>Campaign response</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMPERSAND -->
+  <section class="amp-sec" id="ampSec">
+    <div class="amp-pin">
+      <div class="amp-glyph" id="ampGlyph">&amp;</div>
+      <div class="amp-cap">Concepts <em>&amp;</em> craft. The little sign that holds the whole practice together.</div>
+    </div>
+  </section>
+
+  <!-- FIN -->
+  <section class="fin" id="contact">
+    <div class="container">
+      <span class="mono-label" style="display:block;text-align:center;margin-bottom:26px">Let's begin</span>
+      <a class="pull-link" href="mailto:hello@davidzachary.co">Let's make something <em>real</em>.<br><span class="u">hello@davidzachary.co</span></a>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <span>© David Zachary Creative 2026</span>
+        <span><a href="../index.html">All versions</a> · <a href="flow.html">Flow</a> · <a href="grand.html">Grand</a></span>
+      </div>
+    </footer>
+  </section>
+
+</div><!-- /smooth-content -->
+</div><!-- /smooth-wrapper -->
+
+<!-- animation engine — vendored locally so it works offline / behind CDN blocks -->
+<script src="lib/anim-core.js"></script>
+<script src="lib/anim-scroll.js"></script>
+<script src="lib/anim-smooth.js"></script>
+<script src="lib/anim-split.js"></script>
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP = !!window.gsap;
+  if(!hasGSAP || reduce){ document.body.classList.add('no-smooth'); runIntroFallback(); return; }
+
+  gsap.registerPlugin(ScrollTrigger);
+  var hasSmoother = !!window.ScrollSmoother;
+  var hasSplit    = !!window.SplitText;
+  if(hasSmoother) gsap.registerPlugin(ScrollSmoother);
+  if(hasSplit)    gsap.registerPlugin(SplitText);
+
+  var smoother = null;
+
+  // ── ScrollSmoother inertia ── (leave paused during the intro)
+  if(hasSmoother){
+    smoother = ScrollSmoother.create({ wrapper:'#smooth-wrapper', content:'#smooth-content', smooth:1.15, effects:true, normalizeScroll:true });
+    lockScroll(true);
+  } else {
+    // no smoother available → plain scroll; strip fixed-wrapper transforms
+    var wrap=document.getElementById('smooth-wrapper'), cont=document.getElementById('smooth-content');
+    wrap.style.cssText='position:static'; cont.style.cssText='position:static';
+    lockScroll(true);
+  }
+
+  function lockScroll(on){
+    if(smoother){ smoother.paused(on); }
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    document.body.style.overflow            = on ? 'hidden' : '';
+  }
+
+  // ── KINETIC marquees — fill to >2× viewport, then loop seamlessly ──
+  gsap.utils.toArray('.kin-row').forEach(function(row){
+    var seed = row.getAttribute('data-seed');
+    var dir  = parseFloat(row.getAttribute('data-dir'))||-1;
+    var unit = '<span class="seg">'+seed+'</span>';
+    // repeat the unit enough to cover two screen widths, then duplicate the set
+    var one='';
+    for(var i=0;i<8;i++) one+=unit;
+    row.innerHTML = one + one;              // two identical halves for a wrap loop
+    var half = row.scrollWidth/2;
+    gsap.set(row,{x: dir<0 ? 0 : -half});
+    gsap.to(row,{ x: dir<0 ? -half : 0, duration: 22, ease:'none', repeat:-1,
+      modifiers:{ x:function(x){ var v=parseFloat(x); return (dir<0 ? (v%half) : (v%half)-half)+'px'; } } });
+  });
+
+  // ══════════════════════════════════════════════════════════════════
+  // ACT 0 — INTRO TIMELINE
+  // ══════════════════════════════════════════════════════════════════
+  var intro   = document.getElementById('intro');
+  var words   = gsap.utils.toArray('#wordStage .word');
+  var weare   = document.getElementById('weare');
+  var dia     = document.getElementById('dia');
+  var frames  = gsap.utils.toArray('#stack .frame').slice(1); // skip black base
+  var introDone = false;
+
+  // blinking diamond (independent of the timeline)
+  gsap.to(dia,{opacity:.15,duration:.55,repeat:-1,yoyo:true,ease:'power1.inOut'});
+
+  var tl = gsap.timeline({ onComplete: endIntro });
+  // word cycle: Concepts. / Craft. / Care.
+  words.forEach(function(w){
+    tl.fromTo(w,{opacity:0,y:22},{opacity:1,y:0,duration:.5,ease:'power3.out'})
+      .to(w,{opacity:0,y:-16,duration:.32,ease:'power2.in'},'+=0.5');
+  });
+  // "David Zachary Creative+" rises
+  tl.set(words,{display:'none'})
+    .fromTo(weare,{opacity:0,y:26},{opacity:1,y:0,duration:.6,ease:'power3.out'},'+=0.05');
+  // match-cut flicker through his own work
+  frames.forEach(function(f,i){
+    tl.to(f,{opacity:1,duration:.001},'+='+(i===0?0.15:0.075))
+      .to(f,{opacity:0,duration:.001},'+=0.075');
+  });
+  // lift the whole intro away & unlock
+  tl.to(intro,{yPercent:-102,duration:.95,ease:'expo.inOut'},'+=0.35');
+
+  function endIntro(){
+    if(introDone) return; introDone=true;
+    lockScroll(false);
+    if(smoother) smoother.scrollTo(0,false);
+    intro.style.pointerEvents='none';
+    gsap.set(intro,{autoAlpha:0,onComplete:function(){ intro.remove(); ScrollTrigger.refresh(); }});
+    playHero();
+  }
+  document.getElementById('skip').addEventListener('click',function(){ tl.kill(); gsap.set(intro,{yPercent:-102}); endIntro(); });
+
+  // ══════════════════════════════════════════════════════════════════
+  // ACT 1 — HERO (SplitText char rise)
+  // ══════════════════════════════════════════════════════════════════
+  function playHero(){
+    var h1 = document.getElementById('heroH1');
+    var h2 = document.querySelector('.hero-h2');
+    var eb = document.querySelector('.eyebrow');
+    if(hasSplit){
+      var split = new SplitText(h1,{type:'chars'});
+      gsap.set(h1,{opacity:1});
+      gsap.set(split.chars,{display:'inline-block'});
+      gsap.from(split.chars,{yPercent:120,opacity:0,duration:.9,ease:'expo.out',stagger:.03,
+        onComplete:function(){
+          // letters keep breathing — a soft perpetual wave across the word
+          gsap.to(split.chars,{yPercent:-9,duration:1.7,ease:'sine.inOut',
+            stagger:{each:.055,repeat:-1,yoyo:true}});
+        }});
+      // pointer proximity kick — hovering a letter pops it
+      split.chars.forEach(function(c){
+        c.style.cursor='default';
+        c.addEventListener('mouseenter',function(){ gsap.to(c,{yPercent:-34,color:'#ff0a78',duration:.3,ease:'back.out(3)',overwrite:'auto'}); });
+        c.addEventListener('mouseleave',function(){ gsap.to(c,{color:'#fff',duration:.5,ease:'power2.out'}); });
+      });
+    } else {
+      gsap.from(h1,{yPercent:20,opacity:0,duration:.9,ease:'expo.out'});
+    }
+    gsap.from(eb,{opacity:0,y:14,duration:.6,ease:'power2.out',delay:.1});
+    gsap.from(h2,{opacity:0,y:26,duration:.9,ease:'expo.out',delay:.35});
+    gsap.fromTo('.scroll-cue .bar i',{yPercent:-100},{yPercent:100,duration:1.4,ease:'power1.inOut',repeat:-1});
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // ACT 2 — WORKS: pinned horizontal filmstrip
+  // ══════════════════════════════════════════════════════════════════
+  var film  = document.getElementById('film');
+  var track = document.getElementById('track');
+  var panels= gsap.utils.toArray('.fp');
+  var fpNow = document.getElementById('fpNow');
+  var docEl = document.documentElement, prog=document.getElementById('progress');
+
+  var horiz = gsap.to(track,{
+    x: function(){ return -(track.scrollWidth - window.innerWidth); },
+    ease:'none',
+    scrollTrigger:{
+      trigger: film, start:'top top',
+      end: function(){ return '+='+(track.scrollWidth - window.innerWidth); },
+      pin:true, scrub:1, invalidateOnRefresh:true,
+      onUpdate:function(self){
+        var i = Math.round(self.progress*(panels.length-1));
+        fpNow.textContent = ('0'+(i+1)).slice(-2);
+        var ac = getComputedStyle(panels[i]).getPropertyValue('--accent2').trim();
+        if(ac){ document.documentElement.style.setProperty('--accent',ac); }
+      }
+    }
+  });
+
+  // each panel's art wipes in + parallax, tied to the horizontal scroll
+  panels.forEach(function(p){
+    var img = p.querySelector('.art img');
+    gsap.fromTo(img,{clipPath:'inset(0% 100% 0% 0%)',scale:1.2},{
+      clipPath:'inset(0% 0% 0% 0%)',scale:1.06,ease:'none',
+      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 82%', end:'left 20%', scrub:true }
+    });
+    gsap.fromTo(p.querySelector('.meta'),{opacity:0,y:40},{opacity:1,y:0,ease:'power2.out',
+      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 80%', end:'left 45%', scrub:true }});
+  });
+
+  // ══════════════════════════════════════════════════════════════════
+  // ACT 3 — CRAFT: pinned services scrub (verbs light up, card slides)
+  // ══════════════════════════════════════════════════════════════════
+  var verbs = gsap.utils.toArray('#verbs span');
+  var svcs  = gsap.utils.toArray('#svcCard .svc');
+  gsap.set(svcs[0],{opacity:1}); gsap.set(verbs[0],{}); verbs[0].classList.add('on');
+
+  function showStep(i){
+    verbs.forEach(function(v,k){ v.classList.toggle('on',k===i); });
+    svcs.forEach(function(s,k){
+      gsap.to(s,{opacity:k===i?1:0,x:k===i?0:(k<i?-46:46),duration:.5,ease:'power2.out',overwrite:true});
+    });
+  }
+  ScrollTrigger.create({
+    trigger:'#services', start:'top top', end:'+=300%', pin:true, scrub:true,
+    snap:{ snapTo:[0,1/3,2/3,1], duration:.25, ease:'power1.inOut' },
+    onUpdate:function(self){ showStep(Math.min(3,Math.floor(self.progress*3.999))); }
+  });
+  verbs.forEach(function(v){
+    v.addEventListener('click',function(){
+      var i=+v.dataset.i, st=ScrollTrigger.getById; // jump via smoother
+      var t=document.getElementById('services');
+      var y=t.offsetTop + (t.offsetHeight)* (i/3.999) * 0.75;
+      if(smoother) smoother.scrollTo(y,true); else window.scrollTo({top:y,behavior:'smooth'});
+    });
+  });
+
+  // ══════════════════════════════════════════════════════════════════
+  // ACT 4 — AMPERSAND pulse
+  // ══════════════════════════════════════════════════════════════════
+  gsap.fromTo('#ampGlyph',{scale:.6,opacity:.25,rotate:-6},{
+    scale:1,opacity:1,rotate:0,ease:'none',
+    scrollTrigger:{ trigger:'#ampSec', start:'top bottom', end:'center center', scrub:true }
+  });
+  gsap.to('#ampGlyph',{scale:1.06,duration:1.6,repeat:-1,yoyo:true,ease:'sine.inOut'});
+
+  // ── global scroll progress bar ──
+  gsap.to(prog,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
+
+  // keep triggers honest after images load
+  window.addEventListener('load',function(){ ScrollTrigger.refresh(); });
+})();
+
+/* Fallback intro when GSAP is unavailable or reduced-motion: just reveal. */
+function runIntroFallback(){
+  var intro=document.getElementById('intro');
+  if(intro) intro.parentNode && intro.remove();
+  document.documentElement.style.overflow=''; document.body.style.overflow='';
+}
+</script>
+</body>
+</html>

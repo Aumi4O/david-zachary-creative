@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Concepts. Craft. Care.</title>
+<meta name="description" content="A living-instrument portfolio for David Zachary Creative — a radial identity gauge in his own accent palette, marks that assemble, and a palette that re-tints per project. Built with anime.js, styled after animejs.com." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   DAVID ZACHARY CREATIVE — "Signal" build  ·  engine: anime.js (vendored)
+   Homage to animejs.com's homepage: split hero — bold stacked headline
+   left, a LIVE RADIAL INSTRUMENT right — rebuilt in David's OWN accent
+   palette (magenta/orange/yellow/acid-green/cyan) with a pulsing diamond
+   core (his blinking-diamond / Soulful-X motif). His work only. No AI video.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --serif:"Instrument Serif",Georgia,serif;
+  --slab:"Archivo Expanded",sans-serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --white:#f4f2ee; --black:#0e0c0b; --paper:#eae6dd; --ink:#141414;
+  --dim:rgba(244,242,238,.5);
+  --mag:#ff0a78; --orange:#e8871e; --yellow:#ffd400; --green:#8bc53f; --cyan:#29abe2;
+  --accent:#ff0a78;            /* live — anime re-tints this per project */
+  --expo:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1320px;margin:0 auto;padding:0 4vw}
+.mono{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+.no-js .reveal{opacity:1;transform:none}
+.js .reveal{opacity:0;transform:translateY(26px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .9s var(--expo),transform .9s var(--expo)}
+@media(prefers-reduced-motion:reduce){ .js .reveal{opacity:1!important;transform:none!important;transition:none} }
+
+/* ─── loader ─── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--black);display:grid;place-items:center;overflow:hidden}
+#loader .badge{display:flex;flex-direction:column;align-items:center;gap:22px}
+#loader svg{width:120px;height:auto;color:var(--white)}
+#loader .lockup{font-family:var(--mono);font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;color:var(--dim);opacity:0}
+#loader .lockup b{color:var(--white);font-weight:400}
+#loader .lockup .cx{color:var(--accent)}
+.no-js #loader{display:none}
+
+/* ─── nav (animejs.com style: mark left, pill nav right) ─── */
+.nav{position:fixed;inset:0 0 auto 0;z-index:200;padding:20px 0}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.nav svg{height:24px;width:auto;color:#fff;display:block}
+.nav-right{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:100px;padding:6px 8px;backdrop-filter:blur(8px)}
+.nav-link{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:100px;transition:background .3s,color .3s;color:var(--dim)}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-link.chip{background:var(--accent);color:#111;font-weight:700}
+.nav-link.chip:hover{background:#fff}
+@media(max-width:760px){.nav-right .lane{display:none}}
+
+.rail{position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent);z-index:250;transition:background .6s ease}
+
+/* ─── HERO — split like animejs.com ─── */
+.hero{min-height:100svh;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:center;gap:2vw;
+  padding:12vh 0 6vh;position:relative}
+.hero-copy{max-width:30rem}
+.hero .eyebrow{margin-bottom:26px}
+.hero h1{font-family:var(--sans);font-weight:900;letter-spacing:-.035em;line-height:.92;
+  font-size:clamp(3.4rem,8vw,7rem)}
+.hero h1 .ln{display:block}
+.hero h1 .g{background:linear-gradient(180deg,#fff 30%,#8a8580 120%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 .dot{color:var(--accent)}
+.hero .sub{font-family:var(--sans);font-weight:500;font-size:clamp(1rem,1.5vw,1.22rem);line-height:1.5;color:var(--dim);margin-top:28px;max-width:26rem}
+.hero .sub b{color:var(--white);font-weight:600}
+.cta-row{display:flex;align-items:center;gap:14px;margin-top:40px;flex-wrap:wrap}
+.chip-code{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.82rem;color:var(--white);
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:13px 16px}
+.chip-code .cp{opacity:.55;cursor:pointer;transition:opacity .2s}.chip-code .cp:hover{opacity:1}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;
+  color:#111;background:var(--white);border-radius:12px;padding:14px 18px;font-weight:700;transition:transform .3s var(--spring)}
+.btn:hover{transform:translateY(-3px)}
+.btn .ar{transition:transform .4s var(--spring)}.btn:hover .ar{transform:translateY(3px)}
+
+/* instrument stage */
+.stage{position:relative;display:grid;place-items:center;perspective:1400px}
+.inst-holder{width:min(56vw,660px);aspect-ratio:1/1;transform-style:preserve-3d;will-change:transform}
+#inst{width:100%;height:100%;overflow:visible;display:block}
+.spin{transform-box:view-box;transform-origin:300px 300px}
+.wave rect{transform-box:fill-box;transform-origin:center}
+.legend{position:absolute;left:0;bottom:8%;display:flex;gap:16px;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.legend b{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:middle}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:6vh;padding-top:16vh}
+  .inst-holder{width:min(84vw,520px)}
+  .hero-copy{max-width:none}
+}
+
+/* ─── section frame ─── */
+.section{padding:16vh 0;position:relative}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:8vh}
+.sec-head h3{font-family:var(--slab);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(1.6rem,4vw,3rem)}
+.underdraw{width:100%;height:8px;margin-top:14px;overflow:visible}
+.underdraw path{fill:none;stroke:var(--accent);stroke-width:2}
+
+/* ─── Marks wall ─── */
+.marks-intro{max-width:34ch;font-family:var(--serif);font-size:clamp(1.1rem,2.4vw,1.7rem);line-height:1.4;color:var(--dim)}
+.wall-outer{margin-top:7vh}
+.wall{position:relative;width:100%;aspect-ratio:7650/4950;background:var(--paper);border-radius:6px;overflow:hidden}
+.mark-cell{position:absolute;background-repeat:no-repeat;background-color:var(--paper);transform-origin:center;cursor:pointer;
+  transition:transform .5s var(--spring),box-shadow .4s var(--expo);outline:0px solid transparent}
+.js .mark-cell{opacity:0;transform:scale(.86)}
+.mark-cell.lit{opacity:1;transform:scale(1)}
+.wall:hover .mark-cell{opacity:.32;transform:scale(.97)}
+.wall .mark-cell:hover{opacity:1;transform:scale(1.16);z-index:5;box-shadow:0 24px 60px rgba(0,0,0,.5);outline:1px solid var(--accent)}
+
+/* ─── Selected work ─── */
+.work{min-height:92vh;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:6vw;align-items:center;padding:8vh 0;border-top:1px solid rgba(255,255,255,.08)}
+.work:first-of-type{border-top:0}
+.work .idx{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;color:var(--accent)}
+.work .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:14px 0 18px}
+.work .name{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:clamp(2.4rem,6.5vw,5.2rem);line-height:.92;letter-spacing:-.02em}
+.work .desc{font-family:var(--serif);font-size:clamp(1.1rem,2.3vw,1.55rem);line-height:1.42;max-width:30ch;margin-top:22px;color:var(--white)}
+.work .art{position:relative;overflow:hidden;border-radius:6px;background:#0d0d0f}
+.work .art img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;transform:scale(1.06);transition:transform 1.1s var(--expo)}
+.work .art .mask{position:absolute;inset:0;background:var(--black);transform-origin:left;z-index:2}
+.work.in .art img{transform:scale(1)}
+@media(max-width:860px){.work{grid-template-columns:1fr;gap:34px}}
+
+/* ─── connector playground ─── */
+.play{min-height:96vh;display:grid;place-items:center;text-align:center;position:relative}
+.play .huge{font-family:var(--slab);font-weight:900;color:var(--accent);line-height:1;cursor:pointer;user-select:none;font-size:clamp(9rem,36vw,26rem)}
+.play .cap{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin-top:2vh}
+
+/* ─── contact ─── */
+.fin{padding:20vh 0 12vh;text-align:center}
+.pull{display:inline-block;font-family:var(--serif);font-size:clamp(2rem,7vw,5.5rem);line-height:1.05;letter-spacing:-.01em}
+.pull em{font-style:italic;color:var(--accent)}
+.pull .u{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--dim);display:block;margin-top:26px}
+.foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:12vh;padding-top:26px;border-top:1px solid rgba(255,255,255,.1)}
+.foot span{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+</style>
+</head>
+<body>
+<script>document.documentElement.className="js";</script>
+
+<!-- ░░ LOADER — the mark draws itself ░░ -->
+<div id="loader">
+  <div class="badge">
+    <svg id="dzDraw" viewBox="0 0 68 40" fill="none" aria-label="dz monogram">
+      <path id="dzPath" d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z"/>
+      <path id="dzPath2" d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z"/>
+    </svg>
+    <div class="lockup">Concepts <span class="cx">.</span> Craft <span class="cx">.</span> <b>Care</b></div>
+  </div>
+</div>
+
+<!-- ░░ NAV ░░ -->
+<nav class="nav">
+  <div class="wrap">
+    <a href="#" aria-label="David Zachary Creative — home">
+      <svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link lane" href="#marks">Marks</a>
+      <a class="nav-link lane" href="#work">Work</a>
+      <a class="nav-link lane" href="#amp">The &amp;</a>
+      <a class="nav-link chip" href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+<div class="rail" id="rail"></div>
+
+<!-- ░░ HERO — animejs.com split: headline left, instrument right ░░ -->
+<header class="hero">
+  <div class="wrap" style="display:contents">
+    <div class="hero-copy">
+      <div class="mono eyebrow">David Zachary Creative — Creative Director · 20 Years</div>
+      <h1>
+        <span class="ln reveal">Concepts<span class="dot">.</span></span>
+        <span class="ln reveal">Craft<span class="dot">.</span></span>
+        <span class="ln reveal"><span class="g">Care</span><span class="dot">.</span></span>
+      </h1>
+      <p class="sub reveal">Twenty years turning complex science into work people <b>feel</b> — branding &amp; campaigns for the companies rewriting human health.</p>
+      <div class="cta-row reveal">
+        <span class="chip-code">hello@davidzachary.co <span class="cp" id="copy" title="copy">⧉</span></span>
+        <a class="btn" href="#work">Selected work <span class="ar">↓</span></a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="inst-holder" id="holder">
+        <svg id="inst" viewBox="0 0 600 600" aria-label="Identity instrument"><!-- built by JS --></svg>
+      </div>
+      <div class="legend reveal">
+        <span><b style="background:var(--mag)"></b>Concept</span>
+        <span><b style="background:var(--green)"></b>Craft</span>
+        <span><b style="background:var(--cyan)"></b>Care</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ░░ MARKS ░░ -->
+<section class="section" id="marks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h3>The Marks</h3>
+        <svg class="underdraw" viewBox="0 0 600 8" preserveAspectRatio="none"><path id="under1" d="M0 4 Q150 0 300 4 T600 4"/></svg>
+      </div>
+      <span class="mono">20 Years / One Discipline</span>
+    </div>
+    <p class="marks-intro reveal">The single, perfect symbol — the hardest thing to make and the truest test of craft. Twenty of them, assembling one by one.</p>
+    <div class="wall-outer reveal"><div class="wall" id="wall"></div></div>
+  </div>
+</section>
+
+<!-- ░░ SELECTED WORK — palette re-tints per project ░░ -->
+<section class="section" id="work" style="padding-top:6vh">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h3>Selected Work</h3>
+        <svg class="underdraw" viewBox="0 0 600 8" preserveAspectRatio="none"><path id="under2" d="M0 4 Q150 8 300 4 T600 4"/></svg>
+      </div>
+      <span class="mono">Concepts + Craft + Care</span>
+    </div>
+
+    <article class="work reveal" data-accent="255,10,120">
+      <div class="meta"><div class="idx">01</div><div class="cat">Brand System · BGB Group</div><h2 class="name">Beyond</h2><p class="desc">A challenger identity for the agency redefining medical communications.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond" loading="lazy"></div>
+    </article>
+    <article class="work reveal" data-accent="41,171,226">
+      <div class="meta"><div class="idx">02</div><div class="cat">Brand · Innovation × Intelligence</div><h2 class="name">IXI</h2><p class="desc">Where scientific rigor meets creative instinct — an identity built on the multiply sign.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence" loading="lazy"></div>
+    </article>
+    <article class="work reveal" data-accent="139,197,63">
+      <div class="meta"><div class="idx">03</div><div class="cat">Brand · Editorial</div><h2 class="name">Soulful Science</h2><p class="desc">Humanising the science — a warm, signature X-frame visual language.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/sousci3-page-01.png" alt="Soulful Science" loading="lazy"></div>
+    </article>
+    <article class="work reveal" data-accent="232,135,30">
+      <div class="meta"><div class="idx">04</div><div class="cat">Brand · Global Genes</div><h2 class="name">RareCast</h2><p class="desc">Giving the rare-disease community a voice — a podcast identity with reach.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/deck/p21.jpg" alt="RareCast" loading="lazy"></div>
+    </article>
+    <article class="work reveal" data-accent="255,10,120">
+      <div class="meta"><div class="idx">05</div><div class="cat">Campaign · Celgene</div><h2 class="name">The Eye</h2><p class="desc">One image, one idea — the concept that makes an audience truly see.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/pinkrabbit.jpg" alt="Celgene concept" loading="lazy"></div>
+    </article>
+    <article class="work reveal" data-accent="255,212,0">
+      <div class="meta"><div class="idx">06</div><div class="cat">Campaign · Oncology</div><h2 class="name">OPDIVO</h2><p class="desc">Scale and stakes — a launch campaign that fills the whole arena.</p></div>
+      <div class="art"><span class="mask"></span><img src="media/opq-page-1.png" alt="OPDIVO campaign" loading="lazy"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ░░ THE CONNECTOR ░░ -->
+<section class="play" id="amp">
+  <div>
+    <div class="huge" id="knotBig" title="click to morph">&amp;</div>
+    <div class="cap">The connector — <span id="knotName">and</span>. Click it.</div>
+  </div>
+</section>
+
+<!-- ░░ CONTACT ░░ -->
+<footer class="fin" id="contact">
+  <div class="wrap">
+    <a class="pull reveal" href="mailto:hello@davidzachary.co">Let's make something <em>they'll feel</em>.<span class="u">hello@davidzachary.co</span></a>
+    <div class="foot">
+      <span>David Zachary Creative</span>
+      <span>Concepts <span style="color:var(--accent)">.</span> Craft <span style="color:var(--accent)">.</span> Care</span>
+      <span>© 2026 · Built with anime.js</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ░░ ENGINE ░░ -->
+<script src="lib/anime.min.js"></script>
+<script>
+(function(){
+  var A = window.anime;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var hasAnime = typeof A === 'function';
+  var NS='http://www.w3.org/2000/svg';
+  function E(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function polar(cx,cy,r,deg){var a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  function arcPath(cx,cy,r,a0,a1){var p0=polar(cx,cy,r,a1),p1=polar(cx,cy,r,a0);var large=(a1-a0)<=180?0:1;
+    return 'M'+p0[0].toFixed(2)+' '+p0[1].toFixed(2)+' A'+r+' '+r+' 0 '+large+' 0 '+p1[0].toFixed(2)+' '+p1[1].toFixed(2);}
+
+  /* ---------- accent tinting ---------- */
+  function setAccent(rgb){ document.documentElement.style.setProperty('--accent','rgb('+rgb+')'); }
+  var curAccent = {r:255,g:10,b:120};
+  function tintTo(rgbStr){
+    if(!hasAnime||reduce){ setAccent(rgbStr); return; }
+    var p = rgbStr.split(',').map(Number);
+    A({targets:curAccent, r:p[0], g:p[1], b:p[2], duration:650, easing:'easeOutQuad',
+       update:function(){ setAccent((curAccent.r|0)+','+(curAccent.g|0)+','+(curAccent.b|0)); }});
+  }
+
+  /* ═══════════ THE INSTRUMENT (animejs.com-style radial gauge, David's palette) ═══════════ */
+  (function(){
+    var svg=document.getElementById('inst'); if(!svg) return;
+    var CX=300,CY=300;
+    var ACC=['#ff0a78','#e8871e','#ffd400','#8bc53f','#29abe2'];
+
+    // faint outer bezel rings
+    [292,262,236].forEach(function(r,i){ svg.appendChild(E('circle',{cx:CX,cy:CY,r:r,fill:'none',stroke:'rgba(244,242,238,'+(i?0.05:0.09)+')','stroke-width':1})); });
+
+    // segmented multicolour ring (his 5 accents) — rotates
+    var ring=E('g',{'class':'spin',id:'ring'});
+    for(var i=0;i<5;i++){ var a0=i*72+3, a1=(i+1)*72-3;
+      ring.appendChild(E('path',{d:arcPath(CX,CY,278,a0,a1),fill:'none',stroke:ACC[i],'stroke-width':6,'stroke-linecap':'round'})); }
+    svg.appendChild(ring);
+
+    // tick ring (dotted) — counter-rotates
+    var ticks=E('g',{'class':'spin',id:'ticks'});
+    var tickCount=90, tr=250;
+    for(var t=0;t<tickCount;t++){ var deg=t/tickCount*360; var p1=polar(CX,CY,tr,deg), p2=polar(CX,CY,tr-(t%5?7:12),deg);
+      ticks.appendChild(E('line',{x1:p1[0].toFixed(1),y1:p1[1].toFixed(1),x2:p2[0].toFixed(1),y2:p2[1].toFixed(1),stroke:'rgba(255,10,120,'+(t%5?0.18:0.4)+')','stroke-width':t%5?1:1.6})); }
+    svg.appendChild(ticks);
+
+    // inner dot-matrix (clip to circle) — tech texture
+    var dots=E('g',{opacity:0.5}), clip=E('clipPath',{id:'lens'}); clip.appendChild(E('circle',{cx:CX,cy:CY,r:210})); svg.appendChild(clip);
+    dots.setAttribute('clip-path','url(#lens)');
+    for(var y=90;y<=510;y+=24) for(var x=90;x<=510;x+=24){ dots.appendChild(E('circle',{cx:x,cy:y,r:1.1,fill:'rgba(244,242,238,0.10)'})); }
+    svg.appendChild(dots);
+
+    // decorative concentric arcs (bottom-right), peach
+    var deco=E('g',{});
+    [150,158,166].forEach(function(r){ deco.appendChild(E('path',{d:arcPath(CX,CY,r,120,205),fill:'none',stroke:'rgba(255,170,140,0.55)','stroke-width':2,'stroke-linecap':'round'})); });
+    svg.appendChild(deco);
+
+    // orbiting dots along the horizontal axis
+    var axis=E('g',{id:'axis'});
+    var axDots=[];
+    for(var d=-9;d<=9;d++){ var r=(d<-4)?(4+(-4-d)):3; var c=E('circle',{cx:CX+d*20,cy:CY,r:Math.min(r,7),fill:ACC[0],opacity:d===0?0:0.85}); axis.appendChild(c); axDots.push(c); }
+    svg.appendChild(axis);
+
+    // central WAVEFORM DIAMOND — rows of bars whose widths form a rhombus
+    var wave=E('g',{'class':'wave',id:'wave'});
+    var N=41, mid=(N-1)/2, maxW=150, step=6, bars=[];
+    for(var b=0;b<N;b++){ var dy=b-mid; var frac=1-Math.abs(dy)/mid; var w=Math.max(4,maxW*frac);
+      var rect=E('rect',{x:(CX-w/2).toFixed(1),y:(CY+dy*step-1.6).toFixed(1),width:w.toFixed(1),height:3.2,rx:1.6,fill:ACC[0],opacity:(0.55+0.4*frac).toFixed(2)});
+      wave.appendChild(rect); bars.push(rect); }
+    svg.appendChild(wave);
+
+    // glass glare
+    var glare=E('ellipse',{cx:236,cy:214,rx:150,ry:88,fill:'rgba(244,242,238,0.05)',transform:'rotate(-28 236 214)'});
+    glare.setAttribute('clip-path','url(#lens)'); svg.appendChild(glare);
+
+    // ── animation (skipped under reduced-motion; static composition still reads) ──
+    if(hasAnime && !reduce){
+      A({targets:'#ring', rotate:360, duration:64000, easing:'linear', loop:true});
+      A({targets:'#ticks', rotate:-360, duration:110000, easing:'linear', loop:true});
+      A({targets:bars, scaleX:[
+          {value:function(el,idx){ var f=1-Math.abs(idx-mid)/mid; return 0.35+0.65*(0.6+0.4*Math.sin(idx)); }},
+          {value:1}
+        ], duration:1600, delay:A.stagger(38,{from:'center'}), direction:'alternate', loop:true, easing:'easeInOutSine'});
+      A({targets:'#wave', scale:[1,1.04], duration:2600, direction:'alternate', loop:true, easing:'easeInOutSine'});
+      A({targets:axDots, opacity:[0.2,0.95], translateX:[0,6], delay:A.stagger(60,{from:'last'}), duration:1400, direction:'alternate', loop:true, easing:'easeInOutQuad'});
+      A({targets:'#inst', translateY:[-8,8], duration:5200, direction:'alternate', loop:true, easing:'easeInOutSine'});
+    }
+
+    // interactive 3D tilt (like the reactive anime homepage)
+    var holder=document.getElementById('holder');
+    if(holder && !reduce){
+      var hero=document.querySelector('.hero');
+      hero.addEventListener('pointermove',function(e){
+        var r=hero.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width-0.5, py=(e.clientY-r.top)/r.height-0.5;
+        holder.style.transform='rotateY('+(px*16)+'deg) rotateX('+(-py*16)+'deg)';
+      });
+      hero.addEventListener('pointerleave',function(){ holder.style.transform='rotateY(0) rotateX(0)'; });
+    }
+  })();
+
+  /* ---------- reveal-on-scroll ---------- */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  /* ---------- per-work re-tint + mask wipe ---------- */
+  var wIO=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return; var acc=e.target.getAttribute('data-accent'); if(acc)tintTo(acc);
+    var m=e.target.querySelector('.art .mask');
+    if(m&&hasAnime&&!reduce)A({targets:m,scaleX:[1,0],duration:900,easing:'easeInOutExpo'}); else if(m)m.style.transform='scaleX(0)';
+  });},{threshold:.4});
+  document.querySelectorAll('.work').forEach(function(el){wIO.observe(el);});
+
+  /* ---------- progress rail ---------- */
+  function onScroll(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight,p=max>0?h.scrollTop/max:0;document.getElementById('rail').style.transform='scaleX('+p+')';}
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* ---------- copy chip ---------- */
+  var cp=document.getElementById('copy');
+  if(cp)cp.addEventListener('click',function(){ if(navigator.clipboard)navigator.clipboard.writeText('hello@davidzachary.co'); cp.textContent='✓'; setTimeout(function(){cp.textContent='⧉';},1400); });
+
+  /* ---------- MARKS WALL ---------- */
+  (function(){
+    var wall=document.getElementById('wall'); if(!wall) return;
+    var NW=7650,NH=4950, V=[781,1991,3201,4409,5620,6829], R=[949,1704,2459,3214,3969], img='media/logos-wall.png';
+    for(var r=0;r<R.length-1;r++)for(var c=0;c<V.length-1;c++){
+      var x0=V[c],x1=V[c+1],y0=R[r],y1=R[r+1],cw=x1-x0,ch=y1-y0;
+      var d=document.createElement('div'); d.className='mark-cell';
+      d.style.left=(x0/NW*100)+'%'; d.style.top=(y0/NH*100)+'%'; d.style.width=(cw/NW*100)+'%'; d.style.height=(ch/NH*100)+'%';
+      d.style.backgroundImage='url('+img+')'; d.style.backgroundSize=(NW/cw*100)+'% '+(NH/ch*100)+'%';
+      d.style.backgroundPosition=(x0/(NW-cw)*100)+'% '+(y0/(NH-ch)*100)+'%'; wall.appendChild(d);
+    }
+    var cells=wall.querySelectorAll('.mark-cell');
+    function lightUp(){ if(!hasAnime||reduce){cells.forEach(function(c){c.classList.add('lit');});return;}
+      A({targets:cells,opacity:[0,1],scale:[.86,1],delay:A.stagger(70,{grid:[5,4],from:'center'}),duration:640,easing:'easeOutBack',
+         begin:function(){cells.forEach(function(c){c.classList.add('lit');});}}); }
+    var once=false, wio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!once){once=true;lightUp();wio.disconnect();}});},{threshold:.25}); wio.observe(wall);
+  })();
+
+  /* ---------- LIVING CONNECTOR ---------- */
+  var GLYPHS=[['+','plus'],['&','and'],['×','times'],['∞','forever']];
+  function morph(el,i,nameEl){var g=GLYPHS[i%GLYPHS.length];
+    if(!hasAnime||reduce){el.textContent=g[0];if(nameEl)nameEl.textContent=g[1];return;}
+    A.timeline({easing:'easeOutElastic(1,.6)'})
+      .add({targets:el,scale:[1,.55],rotate:'+=18',opacity:[1,.2],duration:220,easing:'easeInQuad',complete:function(){el.textContent=g[0];if(nameEl)nameEl.textContent=g[1];}})
+      .add({targets:el,scale:[.55,1],rotate:'-=18',opacity:[.2,1],duration:620}); }
+  (function(){var big=document.getElementById('knotBig'),nm=document.getElementById('knotName'),i=1; if(!big)return;
+    big.addEventListener('click',function(){i++;morph(big,i,nm);if(hasAnime&&!reduce)A({targets:big,scale:[1.14,1],duration:800,easing:'easeOutElastic(1,.5)'});});
+    if(hasAnime&&!reduce){A({targets:big,scale:[1,1.06],duration:1800,direction:'alternate',loop:true,easing:'easeInOutSine'});setInterval(function(){i++;morph(big,i,nm);},3400);} })();
+
+  /* ---------- underline self-draw ---------- */
+  function draw(sel){var p=document.querySelector(sel); if(!p||!hasAnime||reduce)return;
+    var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){A({targets:p,strokeDashoffset:[A.setDashoffset,0],duration:1100,easing:'easeInOutQuart'});io2.disconnect();}});},{threshold:.6}); io2.observe(p.closest('svg')); }
+  draw('#under1'); draw('#under2');
+
+  /* ---------- INTRO — mark draws itself, then curtain lifts ---------- */
+  var loader=document.getElementById('loader');
+  function endIntro(){ if(!loader)return;
+    if(!hasAnime||reduce){loader.remove();return;}
+    A({targets:loader,opacity:[1,0],duration:600,easing:'easeInOutQuad',complete:function(){loader.remove();}}); }
+  if(!hasAnime||reduce){ endIntro(); }
+  else{
+    var d1=document.getElementById('dzPath'),d2=document.getElementById('dzPath2');
+    [d1,d2].forEach(function(p){p.style.stroke='currentColor';p.style.strokeWidth='1.4';p.style.fill='none';});
+    A.timeline({easing:'easeInOutQuart'})
+      .add({targets:[d1,d2],strokeDashoffset:[A.setDashoffset,0],duration:1100,delay:A.stagger(160)})
+      .add({targets:[d1,d2],fill:['rgba(244,242,238,0)','rgba(244,242,238,1)'],duration:520,easing:'easeOutQuad'},'-=180')
+      .add({targets:'#loader .lockup',opacity:[0,1],translateY:[12,0],duration:600},'-=200')
+      .add({targets:'#loader .badge',opacity:[1,0],translateY:[0,-16],duration:520,delay:480,easing:'easeInQuad'})
+      .add({targets:'#loader',duration:10,complete:endIntro});
+    setTimeout(function(){ if(document.getElementById('loader')) endIntro(); }, 4200);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "scenes": [
+    {
+      "name": "homepage-selected-work",
+      "image": "preview/media/dzc-work-port-page-07.png",
+      "output": "public/generated/videos/homepage-selected-work.mp4",
+      "duration": 5,
+      "aspect_ratio": "16:9",
+      "prompt": "Elegant editorial portfolio animation. Preserve the exact graphic composition and typography. Add a very slow camera push-in, soft parallax between foreground and background layers, subtle paper texture movement, restrained cinematic light shimmer, premium design reel pacing."
+    }
+  ]
+}

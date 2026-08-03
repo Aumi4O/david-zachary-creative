@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>David Zachary Creative — Turn It</title>
+<meta name="description" content="A scroll-scrubbed 3D object for David Zachary Creative — his diamond becomes a prism you turn by scrolling, each face a different material rendered in a sophisticated monochrome system. Inspired by animejs.com's scroll observer." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@700;800;900&family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   DAVID ZACHARY CREATIVE — "Prism" build  ·  engine: anime.js (vendored)
+   animejs.com's "scroll observer" idea → applied to David:
+   ONE 3D object, pinned, SCRUBBED BY SCROLL. His diamond becomes a
+   hexagonal prism you turn by scrolling; each of the 6 faces is a
+   different MATERIAL/TEXTURE from his world.
+   PALETTE: sophisticated warm-gray monochrome. No chroma. Faces read by
+   TONE + TEXTURE, not colour. Photography desaturated to editorial B&W.
+   ════════════════════════════════════════════════════════════════════════ */
+:root{
+  --serif:"Instrument Serif",Georgia,serif;
+  --slab:"Archivo Expanded",sans-serif;
+  --sans:"Archivo",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  /* warm-neutral greyscale */
+  --ink:#121110; --bg:#1a1917; --near:#0f0e0d;
+  --paper:#e8e5df; --paper2:#d7d3ca; --fog:#b7b3ab; --stone:#8a877f; --slate:#55524d;
+  --white:#f1efea; --dim:rgba(241,239,234,.5);
+  --accent:#cbc5ba;                 /* restrained bone — re-tones per face within greys */
+  --expo:cubic-bezier(.16,1,.3,1);
+  --fw:min(42vw,440px);
+  --fh:min(58vh,540px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--white);font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1320px;margin:0 auto;padding:0 4vw}
+.mono{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+.nav{position:fixed;inset:0 0 auto 0;z-index:200;padding:20px 0;mix-blend-mode:difference}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.nav svg{height:24px;width:auto;color:#fff;display:block}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-link{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
+.rail{position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent);z-index:250;transition:background .6s ease}
+
+.intro{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative}
+.intro h1{font-family:var(--sans);font-weight:900;letter-spacing:-.035em;line-height:.9;font-size:clamp(3rem,9vw,8rem)}
+.intro h1 .dot{color:var(--accent)}
+.intro .sub{font-family:var(--sans);font-weight:500;font-size:clamp(1rem,1.6vw,1.3rem);color:var(--dim);margin-top:26px;max-width:34rem;line-height:1.5}
+.intro .sub b{color:var(--white);font-weight:600}
+.cue{position:absolute;left:4vw;bottom:5vh;display:flex;align-items:center;gap:12px}
+.cue .bar{width:1px;height:46px;background:rgba(255,255,255,.22);overflow:hidden;position:relative}
+.cue .bar i{position:absolute;inset:0;background:var(--accent);transform:translateY(-100%)}
+
+/* ─── SCROLL SCENE ─── */
+.scene{position:relative;height:560vh}
+.stage{position:sticky;top:0;height:100vh;overflow:hidden;perspective:1300px;perspective-origin:50% 45%}
+.rig{position:absolute;inset:0;display:grid;place-items:center;transform-style:preserve-3d}
+.prism{position:relative;width:var(--fw);height:var(--fh);transform-style:preserve-3d;will-change:transform;transform:rotateX(-8deg) rotateY(0deg)}
+.face{position:absolute;left:50%;top:50%;width:var(--fw);height:var(--fh);margin-left:calc(var(--fw)/-2);margin-top:calc(var(--fh)/-2);
+  border-radius:10px;overflow:hidden;backface-visibility:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);outline:1px solid rgba(255,255,255,.07)}
+.p0{transform:rotateY(0deg)   translateZ(calc(var(--fw) * .866))}
+.p1{transform:rotateY(60deg)  translateZ(calc(var(--fw) * .866))}
+.p2{transform:rotateY(120deg) translateZ(calc(var(--fw) * .866))}
+.p3{transform:rotateY(180deg) translateZ(calc(var(--fw) * .866))}
+.p4{transform:rotateY(240deg) translateZ(calc(var(--fw) * .866))}
+.p5{transform:rotateY(300deg) translateZ(calc(var(--fw) * .866))}
+.face .tag{position:absolute;left:18px;top:16px;font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;z-index:3;opacity:.8}
+.face .big{position:absolute;left:18px;bottom:16px;right:18px;font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.9;font-size:clamp(1.6rem,3.4vw,2.6rem);z-index:3}
+.face .sheen{position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.12),transparent 42%);z-index:2;pointer-events:none}
+.face .shade{position:absolute;inset:0;background:#000;opacity:0;z-index:4;pointer-events:none}
+.floor{position:absolute;left:50%;top:66%;width:calc(var(--fw) * 1.05);height:70px;transform:translateX(-50%);
+  background:radial-gradient(ellipse at center,rgba(0,0,0,.6),transparent 68%);filter:blur(10px);z-index:0;pointer-events:none}
+.face .ph{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;z-index:0;filter:grayscale(1) contrast(1.06) brightness(.98)}
+.face .scrim{position:absolute;inset:0;background:linear-gradient(180deg,transparent 38%,rgba(0,0,0,.62));z-index:1}
+
+/* materials — tone + texture only */
+.f-concept{background:radial-gradient(circle at 50% 36%,#3a3833,#1d1b18 62%,#0e0d0b);color:#eceae5}
+.f-concept .plus{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--slab);font-weight:900;font-size:44vh;line-height:0;color:rgba(241,239,234,.14);z-index:1}
+.f-craft{background:var(--paper);color:var(--ink)}
+.f-craft .grain{position:absolute;inset:0;opacity:.55;mix-blend-mode:multiply;z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+.f-craft .mk{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
+.f-craft .mk svg{width:52%;color:var(--ink);opacity:.9}
+.f-care{background:#0d0c0b;color:#fff}
+.f-print{background:var(--paper2);color:var(--ink);background-image:radial-gradient(var(--ink) 20%,transparent 21%);background-size:11px 11px}
+.f-signal{background:#0e0d0b;color:#fff}
+.f-signal .osc{position:absolute;inset:0;z-index:1;background:repeating-linear-gradient(0deg,var(--fog) 0 2px,transparent 2px 7px);
+  -webkit-clip-path:polygon(50% 8%,92% 50%,50% 92%,8% 50%);clip-path:polygon(50% 8%,92% 50%,50% 92%,8% 50%)}
+.f-work{background:#0d0c0b;color:#fff}
+
+.cap{position:absolute;left:0;right:0;bottom:8vh;text-align:center;z-index:6;pointer-events:none;padding:0 6vw}
+.cap .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
+.cap .t{font-family:var(--serif);font-size:clamp(1.4rem,3.4vw,2.4rem);line-height:1.25;margin-top:12px;max-width:24ch;margin-inline:auto}
+.stage .count{position:absolute;right:5vw;top:14vh;font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--dim);z-index:6}
+.stage .count b{color:var(--accent)}
+
+.outro{min-height:100svh;display:grid;place-items:center;text-align:center}
+.pull{font-family:var(--serif);font-size:clamp(2rem,7vw,5rem);line-height:1.05}
+.pull em{font-style:italic;color:var(--accent)}
+.pull .u{display:block;font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;color:var(--dim);margin-top:24px}
+
+.flat .scene{height:auto}
+.flat .stage{position:static;height:auto;overflow:visible;perspective:none;padding:14vh 4vw}
+.flat .rig{position:static;display:block;transform:none}
+.flat .prism{position:static;width:100%;height:auto;transform:none!important;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.flat .face{position:relative;left:auto;top:auto;margin:0;width:auto;height:min(46vh,360px);transform:none!important;backface-visibility:visible}
+.flat .cap,.flat .count{display:none}
+@media(prefers-reduced-motion:reduce){ .cue .bar i{display:none} }
+</style>
+</head>
+<body>
+<script>
+  document.documentElement.className="js";
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches) document.documentElement.classList.add('flat');
+</script>
+
+<nav class="nav"><div class="wrap">
+  <a href="../index.html" aria-label="home"><svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg></a>
+  <div class="nav-right"><a class="nav-link" href="#contact">Contact</a></div>
+</div></nav>
+<div class="rail" id="rail"></div>
+
+<header class="intro"><div class="wrap">
+  <div class="mono" style="margin-bottom:24px">David Zachary Creative — Concepts · Craft · Care</div>
+  <h1>Turn it<span class="dot">.</span></h1>
+  <p class="sub">One object, six materials. Scroll to <b>rotate the work through its textures</b> — the idea, the craft, the care, the print, the signal, the campaign.</p>
+  <div class="cue"><span class="bar"><i id="cueBar"></i></span><span class="mono">Scroll to turn</span></div>
+</div></header>
+
+<section class="scene" id="scene">
+  <div class="stage">
+    <div class="count"><b id="fNow">01</b> / 06</div>
+    <div class="floor"></div>
+    <div class="rig">
+      <div class="prism" id="prism">
+        <div class="face f-concept p0"><div class="plus">+</div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 01</span><span class="big">Concept</span></div>
+        <div class="face f-craft p1"><div class="grain"></div><div class="mk"><svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 02</span><span class="big">Craft</span></div>
+        <div class="face f-care p2"><img class="ph" src="media/sousci3-page-01.png" alt="" loading="lazy"><div class="scrim"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 03</span><span class="big">Care</span></div>
+        <div class="face f-print p3"><div class="sheen"></div><div class="shade"></div><span class="tag">Material 04</span><span class="big">Print</span></div>
+        <div class="face f-signal p4"><div class="osc"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 05</span><span class="big">Signal</span></div>
+        <div class="face f-work p5"><img class="ph" src="media/opq-page-1.png" alt="" loading="lazy"><div class="scrim"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 06</span><span class="big">Work</span></div>
+      </div>
+    </div>
+    <div class="cap">
+      <div class="k" id="capK">Material 01 — Concept</div>
+      <div class="t" id="capT">The idea comes first. Everything else is in service of it.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="outro" id="contact"><div class="wrap">
+  <a class="pull" href="mailto:hello@davidzachary.co">Six materials, <em>one maker</em>.<span class="u">hello@davidzachary.co · David Zachary Creative</span></a>
+</div></footer>
+
+<script src="lib/anime.min.js"></script>
+<script>
+(function(){
+  var A=window.anime, reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches, hasAnime=typeof A==='function';
+  var flat=document.documentElement.classList.contains('flat');
+
+  /* per-face accent stays within the greyscale — tonal steps, no chroma */
+  var FACES=[
+    {k:'Material 01 — Concept', t:'The idea comes first. Everything else is in service of it.', a:'203,197,186'},
+    {k:'Material 02 — Craft',   t:'Made by hand and held to the millimetre. Paper, ink, patience.', a:'150,147,140'},
+    {k:'Material 03 — Care',    t:'Complex science, made human — because a patient is on the other side.', a:'183,179,171'},
+    {k:'Material 04 — Print',   t:'Halftone, registration, trim. The discipline of the physical.', a:'120,117,110'},
+    {k:'Material 05 — Signal',  t:'The mark as an instrument — a form that reads at any distance.', a:'214,210,202'},
+    {k:'Material 06 — Work',    t:'Twenty years of campaigns that had to land, at scale.', a:'138,134,127'}
+  ];
+  function setAccent(rgb){ document.documentElement.style.setProperty('--accent','rgb('+rgb+')'); }
+
+  var prism=document.getElementById('prism'), capK=document.getElementById('capK'), capT=document.getElementById('capT'), fNow=document.getElementById('fNow'), scene=document.getElementById('scene');
+  var faceEls=document.querySelectorAll('#prism .face'), shades=[];
+  faceEls.forEach(function(f){ shades.push(f.querySelector('.shade')); });
+  var lastFace=-1;
+  function clamp(v,a,b){return v<a?a:v>b?b:v;}
+  function smooth(t){return t*t*(3-2*t);}                 /* smoothstep — makes each material dwell, then flip */
+  function update(){
+    if(flat) return;
+    var r=scene.getBoundingClientRect(), total=scene.offsetHeight-window.innerHeight;
+    var p=clamp((-r.top)/total,0,1);
+    var segF=p*6, seg=Math.min(Math.floor(segF),5), fr=clamp(segF-seg,0,1);
+    var turn=(seg+smooth(fr))/6*360;                        /* eased detent turn */
+    var wobble=-9+Math.sin(p*Math.PI*2)*3, scale=0.93+Math.sin(p*Math.PI)*0.05;
+    prism.style.transform='rotateX('+wobble.toFixed(2)+'deg) rotateY('+(-turn).toFixed(2)+'deg) scale('+scale.toFixed(3)+')';
+    for(var i=0;i<faceEls.length;i++){                      /* dimensional shading — faces darken as they turn away */
+      var facing=Math.cos((-turn+i*60)*Math.PI/180);
+      if(shades[i]) shades[i].style.opacity=(facing>0?(1-facing)*0.7:0.8).toFixed(3);
+    }
+    var idx=((Math.round(turn/60))%6+6)%6;
+    if(idx!==lastFace){
+      lastFace=idx; var f=FACES[idx]; setAccent(f.a); fNow.textContent=('0'+(idx+1)).slice(-2);
+      capK.textContent=f.k; capT.textContent=f.t;
+      if(hasAnime&&!reduce){ A({targets:[capK,capT],opacity:[0,1],translateY:[10,0],duration:500,easing:'easeOutQuad'}); }
+    }
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    document.getElementById('rail').style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+  }
+  addEventListener('scroll',update,{passive:true}); addEventListener('resize',update); update();
+
+  if(hasAnime&&!reduce){
+    A({targets:'#cueBar',translateY:['-100%','100%'],duration:1500,easing:'easeInOutSine',loop:true});
+    A({targets:'.face .sheen',opacity:[.4,.95],delay:A.stagger(120),duration:2200,direction:'alternate',loop:true,easing:'easeInOutSine'});
+  }
+})();
+</script>
+</body>
+</html>
