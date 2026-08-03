@@ -9,73 +9,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  body{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;
-    background:#050505;color:#f4f2ee;font-family:"Space Mono",monospace;text-align:center;padding:32px}
+  body{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;
+    background:#050505;color:#f4f2ee;font-family:"Space Mono",monospace;text-align:center;padding:56px 24px}
   .mark{font-family:"Instrument Serif",serif;font-size:clamp(3rem,10vw,7rem);line-height:.95;letter-spacing:-.02em}
   .mark .p{color:#ff0a78}.mark .i{font-style:italic}
   .kick{font-size:.7rem;text-transform:uppercase;letter-spacing:.34em;color:#8a8a8f}
-  .cards{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:8px}
-  a.card{display:block;width:280px;max-width:80vw;padding:28px 26px;border:1px solid #1c1c1f;border-radius:16px;
-    text-decoration:none;color:inherit;background:#0d0d0f;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s}
+  .sec{width:100%;max-width:1260px}
+  .sec-t{font-size:.68rem;text-transform:uppercase;letter-spacing:.3em;color:#ff0a78;margin:26px 0 4px}
+  .sec-s{font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:#666;margin-bottom:18px}
+  .cards{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+  a.card{display:block;width:280px;max-width:80vw;padding:26px 24px;border:1px solid #1c1c1f;border-radius:16px;
+    text-decoration:none;color:inherit;background:#0d0d0f;text-align:left;
+    transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s}
   a.card:hover{transform:translateY(-5px);border-color:#ff0a78}
-  a.card h2{font-family:"Instrument Serif",serif;font-size:1.9rem;margin-bottom:8px;font-style:italic}
-  a.card p{font-size:.72rem;line-height:1.6;color:#8a8a8f;text-transform:uppercase;letter-spacing:.08em}
-  a.card .go{margin-top:16px;font-size:.7rem;letter-spacing:.2em;color:#ff0a78}
-  .foot{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#555}
+  a.card h2{font-family:"Instrument Serif",serif;font-size:1.8rem;margin-bottom:8px;font-style:italic}
+  a.card p{font-size:.68rem;line-height:1.6;color:#8a8a8f;text-transform:uppercase;letter-spacing:.08em}
+  a.card .go{margin-top:14px;font-size:.7rem;letter-spacing:.2em;color:#ff0a78}
+  .old a.card{opacity:.75;background:#0a0a0b}
+  .old a.card:hover{opacity:1}
+  .lanes a.card:hover{border-color:#29abe2}
+  .lanes a.card .go{color:#29abe2}
+  .lanes .sec-t{color:#29abe2}
+  .foot{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#555;margin-top:14px}
 </style>
 </head>
 <body>
-  <p class="kick">Portfolio Preview · Two builds</p>
+  <p class="kick">Portfolio Preview · All builds</p>
   <h1 class="mark">Concepts <span class="p">+</span> <span class="i">Craft</span></h1>
-  <div class="cards">
-    <a class="card" href="preview/clean.html">
-      <h2>Clean</h2>
-      <p>PDF-faithful · editorial serif · real work · calm</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/index.html">
-      <h2>Motion</h2>
-      <p>Brutalist type · video · black/white lanes · ambient scroll</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/v3.html">
-      <h2>Zoom</h2>
-      <p>Experimental · the sign swells on scroll to reveal the work</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/flow.html">
-      <h2>Flow</h2>
-      <p>Screen-by-screen journey · crossfade through black · after cruxcreative.net</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/kinetic.html">
-      <h2>Kinetic</h2>
-      <p>Inertia smooth-scroll · moving-letter hero · pinned works filmstrip · scrub &amp; snap</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/edition.html">
-      <h2>Edition</h2>
-      <p>Same kinetic flow · Bricolage Grotesque + Instrument Serif · an editorial type variant</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/signal.html">
-      <h2>Signal</h2>
-      <p>anime.js · animejs.com-style hero · live radial instrument in his palette · marks assemble · palette re-tints per project</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/prism.html">
-      <h2>Prism</h2>
-      <p>Object on scroll · a 3D prism you turn by scrolling · six material faces · sophisticated monochrome</p>
-      <div class="go">Open →</div>
-    </a>
-    <a class="card" href="preview/marks.html">
-      <h2>Marks</h2>
-      <p>Twenty logotypes standalone · hi-res wall · card pop + lightbox</p>
-      <div class="go">Open →</div>
-    </a>
-    <!-- & Lab kept unlisted for the call: preview/amp.html -->
-    <!-- David's hub (Grand · & Lab · Marks · Kinetic): preview/david.html -->
+
+  <!-- ── 1 · THE SET DAVID SEES ─────────────────────────────── -->
+  <div class="sec">
+    <div class="sec-t">The Set — live for David</div>
+    <div class="sec-s">his hub: <a href="preview/david.html" style="color:#ff0a78">preview/david.html</a> · Grand, &amp; Lab, Marks, Kinetic (Signal unlisted on his page)</div>
+    <div class="cards">
+      <a class="card" href="preview/grand.html">
+        <h2>Grand</h2>
+        <p>The full flow · living type · the sign is the lens · the code becomes the work</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/amp.html">
+        <h2>&amp; Lab</h2>
+        <p>The ampersand alive · play with the mouse · particles that remember</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/marks.html">
+        <h2>Marks</h2>
+        <p>Twenty logotypes standalone · hi-res wall · card pop + lightbox</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/kinetic.html">
+        <h2>Kinetic</h2>
+        <p>Inertia smooth-scroll · moving-letter hero · pinned works filmstrip · scrub &amp; snap</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/signal.html">
+        <h2>Signal</h2>
+        <p>anime.js radial instrument in his palette · marks assemble · re-tints per project</p>
+        <div class="go">Open →</div>
+      </a>
+    </div>
   </div>
+
+  <!-- ── 2 · THE SITE WORK: LANES + SITEMAP + MENUS ─────────── -->
+  <div class="sec lanes">
+    <div class="sec-t">The Site — lanes · sitemap · menus</div>
+    <div class="sec-s">the future-site structure — 3 filmstrip lanes wired to the top-right menu · unreachable from David's pages until reveal</div>
+    <div class="cards">
+      <a class="card" href="preview/sitemap.html">
+        <h2>Sitemap</h2>
+        <p>The 3-lane logic · UX blueprint · 3 C's hold the story, menu holds the archive</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/branding.html">
+        <h2>Branding</h2>
+        <p>Lane 02 · horizontal filmstrip · BGB, IXI, Soulful Science, RareCast… + Marks wall</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/work.html">
+        <h2>Work</h2>
+        <p>Lane 01 · horizontal filmstrip · the craft projects</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/campaigns.html">
+        <h2>Campaigns</h2>
+        <p>Lane 03 · horizontal filmstrip · OPDIVO, Celgene, Make Them See…</p>
+        <div class="go">Open →</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ── 3 · OLD VERSIONS ───────────────────────────────────── -->
+  <div class="sec old">
+    <div class="sec-t" style="color:#8a8a8f">Old versions — the road here</div>
+    <div class="sec-s">every step kept openable · nothing overwritten</div>
+    <div class="cards">
+      <a class="card" href="preview/clean.html">
+        <h2>Clean</h2>
+        <p>PDF-faithful · editorial serif · real work · calm</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/index.html">
+        <h2>Motion</h2>
+        <p>Brutalist type · video · black/white lanes · ambient scroll</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/v3.html">
+        <h2>Zoom</h2>
+        <p>Experimental · the sign swells on scroll to reveal the work</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/flow.html">
+        <h2>Flow</h2>
+        <p>Screen-by-screen journey · crossfade through black · after cruxcreative.net</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/edition.html">
+        <h2>Edition</h2>
+        <p>Kinetic flow in Bricolage Grotesque · editorial type variant</p>
+        <div class="go">Open →</div>
+      </a>
+      <a class="card" href="preview/prism.html">
+        <h2>Prism</h2>
+        <p>Object on scroll · a 3D prism you turn by scrolling · six material faces · monochrome</p>
+        <div class="go">Open →</div>
+      </a>
+    </div>
+  </div>
+
   <p class="foot">David Zachary Creative</p>
 </body>
 </html>
