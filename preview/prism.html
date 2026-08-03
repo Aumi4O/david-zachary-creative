@@ -43,6 +43,7 @@ img{display:block;max-width:100%}
 .nav{position:fixed;inset:0 0 auto 0;z-index:200;padding:20px 0;mix-blend-mode:difference}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .nav svg{height:24px;width:auto;color:#fff;display:block}
+.nav .brand{height:20px;width:auto;display:block}
 .nav-right{display:flex;align-items:center;gap:22px}
 .nav-link{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
 .rail{position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent);z-index:250;transition:background .6s ease}
@@ -85,7 +86,7 @@ img{display:block;max-width:100%}
 .f-craft .grain{position:absolute;inset:0;opacity:.55;mix-blend-mode:multiply;z-index:1;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
 .f-craft .mk{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
-.f-craft .mk svg{width:52%;color:var(--ink);opacity:.9}
+.f-craft .mk img{width:56%;opacity:.92}
 .f-care{background:#0d0c0b;color:#fff}
 .f-print{background:var(--paper2);color:var(--ink);background-image:radial-gradient(var(--ink) 20%,transparent 21%);background-size:11px 11px}
 .f-signal{background:#0e0d0b;color:#fff}
@@ -120,7 +121,7 @@ img{display:block;max-width:100%}
 </script>
 
 <nav class="nav"><div class="wrap">
-  <a href="../index.html" aria-label="home"><svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg></a>
+  <a href="#" aria-label="David Zachary Creative — home"><img class="brand" src="media/brand/dzc-mark-white.png" alt="David Zachary Creative"></a>
   <div class="nav-right"><a class="nav-link" href="#contact">Contact</a></div>
 </div></nav>
 <div class="rail" id="rail"></div>
@@ -139,7 +140,7 @@ img{display:block;max-width:100%}
     <div class="rig">
       <div class="prism" id="prism">
         <div class="face f-concept p0"><div class="plus">+</div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 01</span><span class="big">Concept</span></div>
-        <div class="face f-craft p1"><div class="grain"></div><div class="mk"><svg viewBox="0 0 68 40" fill="none"><path d="M2 6h18c9 0 15 6 15 14s-6 14-15 14H2V26h16c3 0 5-2 5-6s-2-6-5-6H2V6Z" fill="currentColor"/><path d="M40 6h26v8H54l12 12v6H40v-8h12L40 12V6Z" fill="currentColor"/></svg></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 02</span><span class="big">Craft</span></div>
+        <div class="face f-craft p1"><div class="grain"></div><div class="mk"><img src="media/brand/dzc-mark-ink.png" alt="dz"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 02</span><span class="big">Craft</span></div>
         <div class="face f-care p2"><img class="ph" src="media/sousci3-page-01.png" alt="" loading="lazy"><div class="scrim"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 03</span><span class="big">Care</span></div>
         <div class="face f-print p3"><div class="sheen"></div><div class="shade"></div><span class="tag">Material 04</span><span class="big">Print</span></div>
         <div class="face f-signal p4"><div class="osc"></div><div class="sheen"></div><div class="shade"></div><span class="tag">Material 05</span><span class="big">Signal</span></div>
