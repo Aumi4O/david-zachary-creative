@@ -4,7 +4,8 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const ROOT = __dirname;
+// Serve the repo root so localhost mirrors GitHub Pages: / = kit, /preview/... = builds
+const ROOT = path.join(__dirname, "..");
 const PORT = process.env.PORT || 8080;
 const TYPES = {
   ".html": "text/html; charset=utf-8",
