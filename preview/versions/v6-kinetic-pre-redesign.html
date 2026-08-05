@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>David Zachary Creative — Concepts + Craft</title>
+<title>David Zachary Creative — Craftsmithing</title>
 <meta name="description" content="A GSAP-driven journey through David Zachary Creative — concepts, craft, care." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,14 +81,8 @@ img{display:block;max-width:100%}
 .hero .container{position:relative;z-index:1}
 .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px}
 .eyebrow .rule{height:1px;width:56px;background:var(--accent)}
-.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(2.4rem,8.6vw,7.6rem);letter-spacing:-.02em;line-height:.96;text-transform:uppercase;display:flex;align-items:center;gap:.2em;flex-wrap:wrap}
+.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,12.5vw,10.5rem);letter-spacing:-.02em;line-height:.92;text-transform:uppercase}
 .lg-h1 .reg{font-family:var(--sans);font-weight:500;font-size:.16em;vertical-align:top;letter-spacing:0;text-transform:none;color:var(--accent)}
-.lg-h1 .hw{display:inline-block}
-/* the symbol between the words — endlessly, gently becoming another */
-.hsym{position:relative;display:inline-block;width:.92em;height:1em;flex:none;color:var(--magenta);cursor:pointer}
-.hsym i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;
-  font-family:var(--serif);font-size:.88em;opacity:0;transform:scale(.86);transition:opacity 1.5s ease,transform 1.5s cubic-bezier(.22,1,.36,1)}
-.hsym i.cur{opacity:1;transform:scale(1)}
 .hero-h2{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.9rem);line-height:1.3;max-width:22ch;margin-top:34px;color:rgba(255,255,255,.9)}
 .scroll-cue{position:absolute;left:5vw;bottom:34px;display:flex;align-items:center;gap:12px}
 .scroll-cue .bar{width:1px;height:44px;background:linear-gradient(#fff,transparent);overflow:hidden}
@@ -106,10 +100,8 @@ img{display:block;max-width:100%}
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
 .film .track{display:flex;height:100vh;will-change:transform}
 .fp{position:relative;flex:0 0 100vw;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:0 5vw}
-.fp .art{position:relative;height:70vh;background:transparent}
-.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform}
-.fp.fspace{flex:0 0 52vw;padding:0}
-.fp .meta{will-change:opacity}
+.fp .art{position:relative;height:66vh;border-radius:8px;overflow:hidden;background:#0d0d0f}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform,clip-path}
 .fp .meta{display:flex;flex-direction:column;justify-content:center}
 .fp .idx{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,9vw,7rem);line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--accent2,var(--dim))}
 .fp .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim));margin:22px 0 10px}
@@ -147,10 +139,6 @@ img{display:block;max-width:100%}
 .amp-cap{position:absolute;left:0;right:0;bottom:12vh;text-align:center;font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2rem);color:rgba(255,255,255,.8)}
 .amp-cap em{font-style:italic;color:#fff}
 
-/* ── THE MARK ── */
-.logo-sec{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5vh;text-align:center}
-.logo-sec img{height:clamp(72px,16vh,150px);width:auto;will-change:opacity,transform}
-
 /* ── FIN ── */
 .fin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
 .pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(2rem,6vw,5rem);line-height:1.08}
@@ -166,9 +154,6 @@ img{display:block;max-width:100%}
   .intro{display:none}
   .fp{flex-basis:auto}
   .film,.film .track{height:auto}
-  .fp .art img{opacity:1!important;transform:none!important}
-  .fp .meta{opacity:1!important}
-  .fp.fspace{display:none}
 }
 </style>
 </head>
@@ -228,7 +213,7 @@ img{display:block;max-width:100%}
     <div class="ghost" aria-hidden="true">D</div>
     <div class="container">
       <div class="eyebrow"><span class="rule"></span><span class="mono-label">David Zachary Creative — est. 2005</span></div>
-      <h1 class="lg-h1" id="heroH1"><span class="hw">Concepts</span><span class="hsym" id="heroSym" title="+ & ✳ ∞"><i class="cur">+</i><i>&amp;</i><i>✳</i><i>∞</i></span><span class="hw">Craft</span></h1>
+      <h1 class="lg-h1" id="heroH1">Craftsmithing<span class="reg">®</span></h1>
       <h2 class="hero-h2">I dig deep to find what makes you shine — then bring bold vision and obsessive craft to carve out your place in the world.</h2>
     </div>
     <div class="scroll-cue"><span class="bar"><i></i></span><span class="mono-label">Scroll</span></div>
@@ -342,12 +327,6 @@ img{display:block;max-width:100%}
       <div class="amp-glyph" id="ampGlyph">&amp;</div>
       <div class="amp-cap">Concepts <em>&amp;</em> craft. The little sign that holds the whole practice together.</div>
     </div>
-  </section>
-
-  <!-- THE MARK — the real dz monogram, alone in the dark -->
-  <section class="logo-sec" id="logoSec">
-    <img id="logoMark" src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative">
-    <span class="mono-label">David Zachary Creative</span>
   </section>
 
   <!-- FIN -->
@@ -466,13 +445,8 @@ img{display:block;max-width:100%}
     var h1 = document.getElementById('heroH1');
     var h2 = document.querySelector('.hero-h2');
     var eb = document.querySelector('.eyebrow');
-    // the morphing symbol between the words — slow, endless
-    var symEls = h1.querySelectorAll('.hsym i'), symI = 0;
-    function symNext(){ symEls[symI].classList.remove('cur'); symI=(symI+1)%symEls.length; symEls[symI].classList.add('cur'); }
-    setInterval(symNext, 3200);
-    h1.querySelector('.hsym').addEventListener('click', symNext);
     if(hasSplit){
-      var split = new SplitText(h1.querySelectorAll('.hw'),{type:'chars'});
+      var split = new SplitText(h1,{type:'chars'});
       gsap.set(h1,{opacity:1});
       gsap.set(split.chars,{display:'inline-block'});
       gsap.from(split.chars,{yPercent:120,opacity:0,duration:.9,ease:'expo.out',stagger:.03,
@@ -504,11 +478,6 @@ img{display:block;max-width:100%}
   var fpNow = document.getElementById('fpNow');
   var docEl = document.documentElement, prog=document.getElementById('progress');
 
-  // lead-in / lead-out spacers of pure black, so the first work EMERGES
-  // and the last one DISSOLVES — nothing is ever just "already there"
-  var lead=document.createElement('div'); lead.className='fp fspace'; track.insertBefore(lead,track.firstElementChild);
-  var tail=document.createElement('div'); tail.className='fp fspace'; track.appendChild(tail);
-
   var horiz = gsap.to(track,{
     x: function(){ return -(track.scrollWidth - window.innerWidth); },
     ease:'none',
@@ -516,35 +485,25 @@ img{display:block;max-width:100%}
       trigger: film, start:'top top',
       end: function(){ return '+='+(track.scrollWidth - window.innerWidth); },
       pin:true, scrub:1, invalidateOnRefresh:true,
-      onUpdate: updateEmerge
+      onUpdate:function(self){
+        var i = Math.round(self.progress*(panels.length-1));
+        fpNow.textContent = ('0'+(i+1)).slice(-2);
+        var ac = getComputedStyle(panels[i]).getPropertyValue('--accent2').trim();
+        if(ac){ document.documentElement.style.setProperty('--accent',ac); }
+      }
     }
   });
 
-  // out of the black: each image fully appears near centre, holds, then
-  // dissolves back into black as it leaves. text arrives first, stays longer.
-  function sstep(t){ t=Math.min(1,Math.max(0,t)); return t*t*(3-2*t); }
-  var curPanel=-1;
-  function updateEmerge(){
-    var vw2=(window.innerWidth||1280)/2, best=0, bi=0;
-    panels.forEach(function(p,i){
-      var r=p.getBoundingClientRect(), c=r.left+r.width/2;
-      var d=Math.abs(c-vw2)/(vw2*2);            // 0 at centre → .5 a screen away
-      var oImg=sstep(1-d/0.30);                 // image: full only around centre
-      var oTxt=sstep(1-d/0.46);                 // type: earlier in, later out
-      var img=p.querySelector('.art img'), meta=p.querySelector('.meta');
-      if(img){ img.style.opacity=oImg; img.style.transform='scale('+(1.04-oImg*.04)+')'; }
-      if(meta){ meta.style.opacity=oTxt; }
-      if(oImg>best){ best=oImg; bi=i; }
+  // each panel's art wipes in + parallax, tied to the horizontal scroll
+  panels.forEach(function(p){
+    var img = p.querySelector('.art img');
+    gsap.fromTo(img,{clipPath:'inset(0% 100% 0% 0%)',scale:1.2},{
+      clipPath:'inset(0% 0% 0% 0%)',scale:1.06,ease:'none',
+      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 82%', end:'left 20%', scrub:true }
     });
-    if(bi!==curPanel){ curPanel=bi;
-      fpNow.textContent=('0'+(bi+1)).slice(-2);
-      var ac=getComputedStyle(panels[bi]).getPropertyValue('--accent2').trim();
-      if(ac){ document.documentElement.style.setProperty('--accent',ac); }
-    }
-  }
-  updateEmerge();
-  addEventListener('resize',updateEmerge);
-  setInterval(updateEmerge,250);
+    gsap.fromTo(p.querySelector('.meta'),{opacity:0,y:40},{opacity:1,y:0,ease:'power2.out',
+      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 80%', end:'left 45%', scrub:true }});
+  });
 
   // ══════════════════════════════════════════════════════════════════
   // ACT 3 — CRAFT: pinned services scrub (verbs light up, card slides)
@@ -581,12 +540,6 @@ img{display:block;max-width:100%}
     scrollTrigger:{ trigger:'#ampSec', start:'top bottom', end:'center center', scrub:true }
   });
   gsap.to('#ampGlyph',{scale:1.06,duration:1.6,repeat:-1,yoyo:true,ease:'sine.inOut'});
-
-  // ── THE MARK — the monogram surfaces out of the dark, slowly ──
-  gsap.fromTo('#logoMark',{opacity:0,scale:.9},{opacity:1,scale:1,ease:'none',
-    scrollTrigger:{ trigger:'#logoSec', start:'top 85%', end:'center center', scrub:true }});
-  gsap.fromTo('#logoSec .mono-label',{opacity:0},{opacity:.7,ease:'none',
-    scrollTrigger:{ trigger:'#logoSec', start:'top 55%', end:'center 45%', scrub:true }});
 
   // ── global scroll progress bar ──
   gsap.to(prog,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
