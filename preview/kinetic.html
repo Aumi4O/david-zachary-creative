@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>David Zachary Creative — Concepts + Craft</title>
+<title>David Zachary Creative — Craftsmithing</title>
 <meta name="description" content="A GSAP-driven journey through David Zachary Creative — concepts, craft, care." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,18 +81,46 @@ img{display:block;max-width:100%}
 .hero .container{position:relative;z-index:1}
 .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:26px}
 .eyebrow .rule{height:1px;width:56px;background:var(--accent)}
-.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(2.4rem,8.6vw,7.6rem);letter-spacing:-.02em;line-height:.96;text-transform:uppercase;display:flex;align-items:center;gap:.2em;flex-wrap:wrap}
+.lg-h1{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,12.5vw,10.5rem);letter-spacing:-.02em;line-height:.92;text-transform:uppercase}
 .lg-h1 .reg{font-family:var(--sans);font-weight:500;font-size:.16em;vertical-align:top;letter-spacing:0;text-transform:none;color:var(--accent)}
-.lg-h1 .hw{display:inline-block}
-/* the symbol between the words — endlessly, gently becoming another */
-.hsym{position:relative;display:inline-block;width:.92em;height:1em;flex:none;color:var(--magenta);cursor:pointer}
-.hsym i{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-style:normal;
-  font-family:var(--serif);font-size:.88em;opacity:0;transform:scale(.86);transition:opacity 1.5s ease,transform 1.5s cubic-bezier(.22,1,.36,1)}
-.hsym i.cur{opacity:1;transform:scale(1)}
 .hero-h2{font-family:var(--serif);font-size:clamp(1.5rem,3.2vw,2.9rem);line-height:1.3;max-width:22ch;margin-top:34px;color:rgba(255,255,255,.9)}
 .scroll-cue{position:absolute;left:5vw;bottom:34px;display:flex;align-items:center;gap:12px}
 .scroll-cue .bar{width:1px;height:44px;background:linear-gradient(#fff,transparent);overflow:hidden}
 .scroll-cue .bar i{display:block;width:1px;height:44px;background:var(--accent)}
+
+/* ── SECTION 2 — the Clean hero, verbatim language ── */
+.clean-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;padding:120px 0 40px;overflow:hidden}
+.ch-glow{position:absolute;inset:0;z-index:0;pointer-events:none}
+.ch-glow::before{content:"";position:absolute;left:50%;top:33%;width:60vmax;height:60vmax;transform:translate(-50%,-50%);border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(255,10,120,.09),transparent 60%)}
+.ch-mid{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.ch-kicker{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:32px;
+  opacity:0;transition:opacity 1s ease .1s}
+.ch-rule{height:1px;width:38px;background:var(--magenta);display:inline-block}
+.ch-title{font-family:var(--serif);font-weight:400;font-size:clamp(3.5rem,12vw,11rem);line-height:.9;letter-spacing:-.02em}
+.ch-title .w{display:inline-block;overflow:hidden;vertical-align:bottom;margin-right:.22em}
+.ch-title .w>span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1) .3s}
+.ch-title .w:nth-child(2)>span{transition-delay:.42s;color:var(--magenta)}
+.ch-title .w:nth-child(3)>span{transition-delay:.54s;font-style:italic}
+.clean-hero.on .ch-title .w>span{transform:translateY(0)}
+.clean-hero.on .ch-kicker{opacity:1}
+.sympulse{display:inline-block;animation:symPulse 2.6s ease-in-out infinite;animation-delay:1.1s}
+@keyframes symPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.symbol{display:inline-block;color:inherit;background:none;border:0;font:inherit;line-height:1;cursor:pointer;padding:0 .04em;transition:transform .35s cubic-bezier(.16,1,.3,1);text-shadow:0 0 44px rgba(255,10,120,.5);will-change:transform;-webkit-tap-highlight-color:transparent}
+.symbol:hover{transform:scale(1.28) rotate(-6deg)}
+.symbol:active{transform:scale(.92)}
+.ch-lede{margin-top:36px;max-width:36rem;font-size:1.125rem;line-height:1.7;color:rgba(233,230,224,.8);
+  opacity:0;transform:translateY(20px);transition:opacity 1s ease .8s,transform 1s cubic-bezier(.16,1,.3,1) .8s}
+.ch-lede b{color:#f4f2ee;font-weight:600}
+.clean-hero.on .ch-lede{opacity:1;transform:none}
+.marq{position:relative;border-top:1px solid rgba(28,28,31,.6);border-bottom:1px solid rgba(28,28,31,.6);padding:16px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq-row{display:flex;width:max-content;gap:46px;font-size:.85rem;text-transform:uppercase;letter-spacing:.24em;color:rgba(255,255,255,.4);animation:chScroll 36s linear infinite}
+.marq-row span{display:flex;align-items:center;gap:46px;white-space:nowrap}
+.marq-row .s{color:var(--magenta)}
+@keyframes chScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ch-hint{display:flex;align-items:center;justify-content:space-between;margin-top:28px;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.28em;color:var(--dim)}
+.ch-arrow{display:inline-block;animation:chBob 1.6s ease-in-out infinite}
+@keyframes chBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
 /* ── KINETIC marquee band (moving letters) ── */
 .kin-band{overflow:hidden;padding:5.5vh 0;background:#000;border-top:1px solid #161619;border-bottom:1px solid #161619;position:relative}
@@ -228,18 +256,24 @@ img{display:block;max-width:100%}
     <div class="ghost" aria-hidden="true">D</div>
     <div class="container">
       <div class="eyebrow"><span class="rule"></span><span class="mono-label">David Zachary Creative — est. 2005</span></div>
-      <h1 class="lg-h1" id="heroH1"><span class="hw">Concepts</span><span class="hsym" id="heroSym" title="+ & ✳ ∞"><i class="cur">+</i><i>&amp;</i><i>✳</i><i>∞</i></span><span class="hw">Craft</span></h1>
+      <h1 class="lg-h1" id="heroH1">Craftsmithing<span class="reg">®</span></h1>
       <h2 class="hero-h2">I dig deep to find what makes you shine — then bring bold vision and obsessive craft to carve out your place in the world.</h2>
     </div>
     <div class="scroll-cue"><span class="bar"><i></i></span><span class="mono-label">Scroll</span></div>
   </header>
 
-  <!-- KINETIC bands — twin marquees running opposite ways -->
-  <section class="kin-band" aria-hidden="true">
-    <div class="kin-row" data-dir="-1" data-seed="Concepts&nbsp;<em>+</em>&nbsp;Craft&nbsp;<em>+</em>&nbsp;Care&nbsp;<em>+</em>&nbsp;"></div>
-  </section>
-  <section class="kin-band" aria-hidden="true">
-    <div class="kin-row solid" data-dir="1" data-seed="Discover&nbsp;·&nbsp;Extract&nbsp;·&nbsp;Shape&nbsp;·&nbsp;Refine&nbsp;·&nbsp;"></div>
+  <!-- SECTION 2 — the Clean hero: Concepts + Craft, serif, the pulsing connector -->
+  <section class="clean-hero" id="concepts">
+    <div class="ch-glow" aria-hidden="true"></div>
+    <div class="container ch-mid">
+      <p class="ch-kicker"><span class="ch-rule"></span>Creative Director · Designer · Brand Builder</p>
+      <h2 class="ch-title"><span class="w"><span>Concepts</span></span><span class="w"><span><span class="sympulse"><button class="symbol" id="chSymbol" type="button" aria-label="Cycle the connector symbol">+</button></span></span></span><span class="w"><span>Craft</span></span></h2>
+      <p class="ch-lede">I&rsquo;m <b>David Zachary</b> — I build brands and campaigns for the places where science, health and culture meet. Twenty years turning complex ideas into work people feel.</p>
+    </div>
+    <div>
+      <div class="marq" aria-hidden="true"><div class="marq-row" id="marq"></div></div>
+      <div class="container ch-hint"><span>Selected Work — 2005 → 2026</span><span>Scroll <span class="ch-arrow">↓</span></span></div>
+    </div>
   </section>
 
   <!-- WORKS — pinned horizontal filmstrip -->
@@ -419,6 +453,28 @@ img{display:block;max-width:100%}
       modifiers:{ x:function(x){ var v=parseFloat(x); return (dir<0 ? (v%half) : (v%half)-half)+'px'; } } });
   });
 
+  // ── SECTION 2 — the Clean hero: connector cycle, clients marquee, reveal ──
+  (function(){
+    var sym=document.getElementById('chSymbol'); if(!sym) return;
+    var SYMBOLS=['+','&','×','∞','/'], si=0;
+    function pop(){
+      try{ sym.animate([
+        {transform:'scale(.35) rotate(-45deg)',filter:'blur(6px)',opacity:.25},
+        {transform:'scale(1.5) rotate(10deg)',filter:'blur(0)',opacity:1,offset:.55},
+        {transform:'scale(1) rotate(0)',filter:'blur(0)',opacity:1}
+      ],{duration:680,easing:'cubic-bezier(.16,1,.3,1)'});}catch(e){}
+    }
+    function next(){ si=(si+1)%SYMBOLS.length; sym.textContent=SYMBOLS[si]; pop(); }
+    setInterval(next,2000);
+    sym.addEventListener('click',next);
+    var clients=["BGB Group","Genentech","Pfizer","Amgen","Celgene","Baxalta","Agios","Global Genes","BMS","Beyond Basics","Alnylam","PALIO"];
+    var row=document.getElementById('marq');
+    var mk=clients.map(function(c){return '<span>'+c+'<span class="s">✦</span></span>'}).join('');
+    row.innerHTML=mk+mk;
+    var ch=document.querySelector('.clean-hero');
+    new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ch.classList.add('on');}})},{threshold:.25}).observe(ch);
+  })();
+
   // ══════════════════════════════════════════════════════════════════
   // ACT 0 — INTRO TIMELINE
   // ══════════════════════════════════════════════════════════════════
@@ -466,13 +522,8 @@ img{display:block;max-width:100%}
     var h1 = document.getElementById('heroH1');
     var h2 = document.querySelector('.hero-h2');
     var eb = document.querySelector('.eyebrow');
-    // the morphing symbol between the words — slow, endless
-    var symEls = h1.querySelectorAll('.hsym i'), symI = 0;
-    function symNext(){ symEls[symI].classList.remove('cur'); symI=(symI+1)%symEls.length; symEls[symI].classList.add('cur'); }
-    setInterval(symNext, 3200);
-    h1.querySelector('.hsym').addEventListener('click', symNext);
     if(hasSplit){
-      var split = new SplitText(h1.querySelectorAll('.hw'),{type:'chars'});
+      var split = new SplitText(h1,{type:'chars'});
       gsap.set(h1,{opacity:1});
       gsap.set(split.chars,{display:'inline-block'});
       gsap.from(split.chars,{yPercent:120,opacity:0,duration:.9,ease:'expo.out',stagger:.03,
