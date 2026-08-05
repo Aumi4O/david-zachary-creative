@@ -130,23 +130,21 @@ img{display:block;max-width:100%}
 .kin-row .seg em{font-style:normal;color:var(--accent);-webkit-text-stroke:0}
 .kin-row.solid .seg{color:rgba(255,255,255,.06);-webkit-text-stroke:0}
 
-/* ── WORKS filmstrip — the unforgettable pass: type on black, then the
-   work expands out of the dark to full screen, holds, dissolves back ── */
+/* ── WORKS — a scrubbed GSAP score: type on black → the work surfaces
+   full-screen → holds → sinks back to black → next. One rhythm. ── */
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
-.film .track{display:flex;height:100vh;will-change:transform}
-.fp{position:relative;flex:0 0 100vw;height:100vh;padding:0}
-.fp .big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw;will-change:opacity,transform}
+.film .track{position:relative;height:100vh}
+.fp{position:absolute;inset:0}
+.fp .big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw;opacity:0;will-change:opacity,transform}
 .fp .big .idx{font-family:var(--slab);font-weight:900;font-size:clamp(1.1rem,2.4vw,1.9rem);color:transparent;-webkit-text-stroke:1.2px var(--accent2,var(--dim));margin-bottom:3vh}
 .fp .big .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2,var(--dim));margin-bottom:2.6vh}
 .fp .big .name{font-family:var(--slab);font-weight:900;font-size:clamp(2.6rem,7.4vw,6.6rem);line-height:.98;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
 .fp .big .desc{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--dim);max-width:44ch;margin-top:3vh}
-.fp .art{position:absolute;inset:6vh 5vw}
-.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform,filter;filter:brightness(.25)}
+.fp .art{position:absolute;inset:6vh 5vw;pointer-events:none}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform}
 .fp .cap{position:absolute;left:5vw;bottom:5vh;display:flex;gap:18px;align-items:baseline;opacity:0;will-change:opacity}
 .fp .cap .c1{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim))}
 .fp .cap .c2{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:1rem;color:#fff}
-.fp.fspace{flex:0 0 52vw;padding:0}
-.fp.fgap{flex:0 0 40vw;padding:0}
 /* ── section shells ── */
 .section{padding:15vh 0}
 .big-serif{font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);line-height:1.18;max-width:20ch}
@@ -193,9 +191,12 @@ img{display:block;max-width:100%}
   .intro{display:none}
   .fp{flex-basis:auto}
   .film,.film .track{height:auto}
-  .fp .art img{opacity:1!important;transform:none!important;filter:none!important}
-  .fp .big,.fp .cap{opacity:1!important;transform:none!important}
-  .fp.fspace,.fp.fgap{display:none}
+  .film,.film .track{height:auto}
+  .fp{position:static;height:auto;padding:9vh 0;display:block}
+  .fp .big{position:static;opacity:1!important;transform:none!important;padding:0 8vw}
+  .fp .art{position:static;height:60vh;margin-top:4vh}
+  .fp .art img{position:static;opacity:1!important;transform:none!important}
+  .fp .cap{position:static;opacity:1!important;margin-top:2vh;padding:0 8vw}
 }
 </style>
 </head>
@@ -473,54 +474,35 @@ img{display:block;max-width:100%}
   var fpNow = document.getElementById('fpNow');
   var docEl = document.documentElement, prog=document.getElementById('progress');
 
-  // pure-black spacers: before, BETWEEN and after the works — so between two
-  // works the screen returns to black + typography only, never two at once
-  var lead=document.createElement('div'); lead.className='fp fspace'; track.insertBefore(lead,track.firstElementChild);
-  panels.forEach(function(p,i){ if(i===0) return;
-    var g=document.createElement('div'); g.className='fp fgap'; track.insertBefore(g,p); });
-  var tail=document.createElement('div'); tail.className='fp fspace'; track.appendChild(tail);
-
-  var horiz = gsap.to(track,{
-    x: function(){ return -(track.scrollWidth - window.innerWidth); },
-    ease:'none',
-    scrollTrigger:{
-      trigger: film, start:'top top',
-      end: function(){ return '+='+(track.scrollWidth - window.innerWidth); },
-      pin:true, scrub:1, invalidateOnRefresh:true,
-      onUpdate: updateEmerge
-    }
+  // ── one scrubbed score, GSAP-timed: nothing ever looks unfinished ──
+  // per work: type rises in on black · breathes · lifts away · the image
+  // surfaces full-screen · holds · sinks back into black · one beat · next
+  var U=10; // scroll-units per work
+  var score = gsap.timeline({
+    scrollTrigger:{ trigger:film, start:'top top',
+      end:function(){ return '+='+(panels.length*180)+'%'; },
+      pin:true, scrub:1, invalidateOnRefresh:true }
   });
-
-  // out of the black: each image fully appears near centre, holds, then
-  // dissolves back into black as it leaves. text arrives first, stays longer.
-  function sstep(t){ t=Math.min(1,Math.max(0,t)); return t*t*(3-2*t); }
-  var curPanel=-1;
-  function updateEmerge(){
-    var vw2=(window.innerWidth||1280)/2, best=0, bi=curPanel<0?0:curPanel;
-    panels.forEach(function(p,i){
-      var r=p.getBoundingClientRect(), c=r.left+r.width/2;
-      var d=(c-vw2)/(vw2*2);                    // signed: + right of centre
-      var ad=Math.abs(d);
-      var oImg=sstep((0.18-ad)/0.09);           // full ≤ .09 · gone ≥ .18 (plateau hold)
-      var oTxt=sstep(1-Math.abs(ad-0.23)/0.13); // type bell: black+type before AND after
-      var img=p.querySelector('.art img'), big=p.querySelector('.big'), cap=p.querySelector('.cap');
-      if(img){ img.style.opacity=oImg;
-        img.style.transform='scale('+(0.88+oImg*.12)+')';           // EXPANDS out of black
-        img.style.filter='brightness('+(0.25+0.75*oImg).toFixed(3)+')'; }
-      if(big){ big.style.opacity=oTxt;
-        big.style.transform='translateX('+(d*46).toFixed(2)+'vw)'; } // type lingers, half-speed
-      if(cap){ cap.style.opacity=oImg; }
-      if(oImg>best){ best=oImg; bi=i; }
-    });
-    if(bi!==curPanel){ curPanel=bi;
-      fpNow.textContent=('0'+(bi+1)).slice(-2);
-      var ac=getComputedStyle(panels[bi]).getPropertyValue('--accent2').trim();
-      if(ac){ document.documentElement.style.setProperty('--accent',ac); }
-    }
-  }
-  updateEmerge();
-  addEventListener('resize',updateEmerge);
-  setInterval(updateEmerge,250);
+  panels.forEach(function(p,i){
+    var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
+    var t0=i*U;
+    score.call(function(){ fpNow.textContent=('0'+(i+1)).slice(-2);
+        var ac=getComputedStyle(p).getPropertyValue('--accent2').trim();
+        if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05)
+      // the typography, alone on black
+      .fromTo(big,{opacity:0,y:56},{opacity:1,y:0,duration:2.0,ease:'power3.out'},t0)
+      .to(big,{y:-14,duration:1.4,ease:'sine.inOut'},t0+2.0)          // it breathes
+      .to(big,{opacity:0,y:-52,duration:1.4,ease:'power2.in'},t0+3.4) // lifts away
+      // the work surfaces out of the dark, whole
+      .fromTo(img,{opacity:0,scale:1.045},{opacity:1,scale:1,duration:2.4,ease:'power2.inOut'},t0+4.2)
+      .fromTo(cap,{opacity:0},{opacity:1,duration:.9,ease:'none'},t0+5.6)
+      // holds, complete
+      .to(img,{scale:1.008,duration:1.8,ease:'sine.inOut'},t0+6.6)
+      // sinks back into black
+      .to(img,{opacity:0,scale:.99,duration:1.8,ease:'power2.inOut'},t0+8.2)
+      .to(cap,{opacity:0,duration:.7,ease:'none'},t0+8.2);
+      // t0+10 → one dark beat, then the next typography
+  });
 
   // ══════════════════════════════════════════════════════════════════
   // ACT 4 — AMPERSAND pulse
