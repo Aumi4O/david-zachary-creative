@@ -133,9 +133,10 @@ img{display:block;max-width:100%}
 /* ── WORKS — a scrubbed GSAP score: type on black → the work surfaces
    full-screen → holds → sinks back to black → next. One rhythm. ── */
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
-.film .track{position:relative;height:100vh}
-.fp{position:absolute;inset:0}
-.fp .big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw;opacity:0;will-change:opacity,transform}
+.film .track{display:flex;height:100vh;will-change:transform}
+.fp{position:relative;flex:0 0 100vw;height:100vh}
+.fp.fgap{flex:0 0 50vw}
+.fp .big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw;opacity:1;will-change:opacity,transform}
 .fp .big .idx{font-family:var(--slab);font-weight:900;font-size:clamp(1.1rem,2.4vw,1.9rem);color:transparent;-webkit-text-stroke:1.2px var(--accent2,var(--dim));margin-bottom:3vh}
 .fp .big .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2,var(--dim));margin-bottom:2.6vh}
 .fp .big .name{font-family:var(--slab);font-weight:900;font-size:clamp(2.6rem,7.4vw,6.6rem);line-height:.98;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
@@ -191,8 +192,9 @@ img{display:block;max-width:100%}
   .intro{display:none}
   .fp{flex-basis:auto}
   .film,.film .track{height:auto}
-  .film,.film .track{height:auto}
+  .film,.film .track{height:auto;display:block}
   .fp{position:static;height:auto;padding:9vh 0;display:block}
+  .fp.fgap{display:none}
   .fp .big{position:static;opacity:1!important;transform:none!important;padding:0 8vw}
   .fp .art{position:static;height:60vh;margin-top:4vh}
   .fp .art img{position:static;opacity:1!important;transform:none!important}
@@ -474,14 +476,35 @@ img{display:block;max-width:100%}
   var fpNow = document.getElementById('fpNow');
   var docEl = document.documentElement, prog=document.getElementById('progress');
 
-  // ── one scrubbed score, GSAP-timed: nothing ever looks unfinished ──
-  // per work: type rises in on black · breathes · lifts away · the image
-  // surfaces full-screen · holds · sinks back into black · one beat · next
-  var U=10; // scroll-units per work
+  // ── horizontal score: the track GLIDES to each work (its typography
+  // physically rides in from the right), STOPS, and the performance plays:
+  // type breathes & lifts → the work surfaces full-screen → holds → sinks
+  // back into black → the track glides on through pure black to the next ──
+  panels.forEach(function(p,i){ if(i===0) return;
+    var g=document.createElement('div'); g.className='fp fgap'; track.insertBefore(g,p); });
+  var U=10;
   var score = gsap.timeline({
     scrollTrigger:{ trigger:film, start:'top top',
-      end:function(){ return '+='+(panels.length*180)+'%'; },
+      end:function(){ return '+='+(panels.length*190)+'%'; },
       pin:true, scrub:1, invalidateOnRefresh:true }
+  });
+  panels.forEach(function(p,i){
+    var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
+    var t0=i*U;
+    score.call(function(){ fpNow.textContent=('0'+(i+1)).slice(-2);
+        var ac=getComputedStyle(p).getPropertyValue('--accent2').trim();
+        if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05);
+    // the glide — horizontal travel through black, typography riding in
+    if(i>0) score.to(track,{x:function(){return -p.offsetLeft},duration:2.4,ease:'power2.inOut'},t0);
+    var ts=t0+(i>0?2.6:0.2);            // the stop — the performance begins
+    score.fromTo(big,{opacity:1,y:0},{y:-12,duration:1.2,ease:'sine.inOut'},ts)
+      .to(big,{opacity:0,y:-50,duration:1.3,ease:'power2.in'},ts+1.2)
+      .fromTo(img,{opacity:0,scale:1.045},{opacity:1,scale:1,duration:2.2,ease:'power2.inOut'},ts+2.2)
+      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+3.4)
+      .to(img,{scale:1.008,duration:1.6,ease:'sine.inOut'},ts+4.4)
+      .to(img,{opacity:0,scale:.99,duration:1.5,ease:'power2.inOut'},ts+6.0)
+      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+6.0)
+      .set(big,{opacity:0},ts+7.4);      // panel leaves empty — pure black glide
   });
   panels.forEach(function(p,i){
     var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
