@@ -136,6 +136,8 @@ img{display:block;max-width:100%}
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
 .film .track{display:flex;height:100vh;will-change:transform}
 .fp{position:relative;flex:0 0 100vw;height:100vh}
+.fp.fgap{flex:0 0 12vw}
+.fp.fgap.tail{flex:0 0 90vw}
 .fp.ftext{display:flex;align-items:center;justify-content:center}
 .fp .big{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw}
 .fp .big .idx{font-family:var(--slab);font-weight:900;font-size:clamp(1.1rem,2.4vw,1.9rem);color:transparent;-webkit-text-stroke:1.2px var(--accent2,var(--dim));margin-bottom:3vh}
@@ -143,10 +145,14 @@ img{display:block;max-width:100%}
 .fp .big .name{font-family:var(--slab);font-weight:900;font-size:clamp(2.6rem,7.4vw,6.6rem);line-height:.98;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
 .fp .big .desc{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--dim);max-width:44ch;margin-top:3vh}
 .fp .art{position:absolute;inset:6vh 5vw;overflow:hidden}
-.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
+.fp .art .flash{position:absolute;inset:0;background:var(--accent2,var(--magenta));opacity:0;z-index:2}
+.fp .art .lam{position:absolute;top:-1px;bottom:-1px;width:17.2%;background:#000;transform-origin:left;z-index:3;will-change:transform}
 .fp .art .mask{position:absolute;inset:-2px;background:#000}
-.fp .art .mo{transform-origin:left}
-.fp .art .mc{transform-origin:right;transform:scaleX(0)}
+.fp .art .mc{transform-origin:right;transform:scaleX(0);z-index:4}
+.fp .gidx{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:0;pointer-events:none;
+  font-family:var(--slab);font-weight:900;font-size:38vw;line-height:1;color:transparent;
+  -webkit-text-stroke:1.5px var(--accent2,var(--dim));opacity:.07;will-change:transform}
 .fp .cap{position:absolute;left:5vw;bottom:5vh;display:flex;gap:18px;align-items:baseline;opacity:0;will-change:opacity}
 .fp .cap .c1{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim))}
 .fp .cap .c2{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:1rem;color:#fff}
@@ -179,7 +185,10 @@ img{display:block;max-width:100%}
 /* ── THE MARK — a thin border takes all the space; the mark is present, not large ── */
 .logo-sec{min-height:96vh;display:flex;padding:8vh 5vw}
 .logo-frame{flex:1;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4vh;text-align:center;will-change:opacity}
-.logo-frame img{height:clamp(56px,10vh,92px);width:auto;will-change:opacity,transform}
+.logo-frame img#logoMark{height:clamp(56px,10vh,92px);width:auto;will-change:opacity,transform}
+.logo-frame .blink{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8vh 8vw;
+  filter:grayscale(1) contrast(1.08);opacity:0;pointer-events:none;z-index:0}
+.logo-frame{position:relative;overflow:hidden}
 
 /* ── FIN ── */
 .fin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
@@ -199,7 +208,8 @@ img{display:block;max-width:100%}
   .film,.film .track{height:auto;display:block}
   .fp{position:static;height:auto;padding:6vh 0;display:block}
   .fp .art{position:static;height:60vh;margin:0 5vw}
-  .fp .art .mask{display:none}
+  .fp .art .mask,.fp .art .lam,.fp .art .flash,.fp .gidx{display:none}
+  .fp.fgap{display:none}
   .fp .cap{position:static;opacity:1!important;margin-top:2vh;padding:0 8vw}
 }
 </style>
@@ -285,51 +295,58 @@ img{display:block;max-width:100%}
         <div class="big"><div class="idx">01</div><div class="cat">Brand System · BGB Group</div><h2 class="name">Beyond</h2><p class="desc">A challenger identity for the agency redefining medical communications.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#ff0a78">
-        <div class="art"><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">01 · Brand System · BGB Group</span><span class="c2">Beyond</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#29abe2">
         <div class="big"><div class="idx">02</div><div class="cat">Brand · Innovation × Intelligence</div><h2 class="name">IXI</h2><p class="desc">Where scientific rigor meets creative instinct — an identity built on the multiply sign.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#29abe2">
-        <div class="art"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">02 · Brand · Innovation × Intelligence</span><span class="c2">IXI</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#8bc53f">
         <div class="big"><div class="idx">03</div><div class="cat">Brand · Editorial</div><h2 class="name">Soulful Science</h2><p class="desc">Humanising the science — a warm, signature X-frame visual language.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#8bc53f">
-        <div class="art"><img src="media/sousci3-page-01.png" alt="Soulful Science"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/sousci3-page-01.png" alt="Soulful Science"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">03 · Brand · Editorial</span><span class="c2">Soulful Science</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#e8871e">
         <div class="big"><div class="idx">04</div><div class="cat">Brand · Global Genes</div><h2 class="name">RareCast</h2><p class="desc">Giving the rare-disease community a voice — a podcast identity with reach.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#e8871e">
-        <div class="art"><img src="media/deck/p21.jpg" alt="RareCast"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/deck/p21.jpg" alt="RareCast"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">04 · Brand · Global Genes</span><span class="c2">RareCast</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#ff0a78">
         <div class="big"><div class="idx">05</div><div class="cat">Campaign · Celgene</div><h2 class="name">The Eye</h2><p class="desc">One image, one idea — the concept that makes an audience truly see.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#ff0a78">
-        <div class="art"><img src="media/pinkrabbit.jpg" alt="Celgene concept"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/pinkrabbit.jpg" alt="Celgene concept"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">05 · Campaign · Celgene</span><span class="c2">The Eye</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#ffd400">
         <div class="big"><div class="idx">06</div><div class="cat">Identity · Collected</div><h2 class="name">The Marks</h2><p class="desc">Twenty years of logos — the discipline of the single, perfect symbol.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#ffd400">
-        <div class="art"><img src="media/logos-wall.png" alt="Logo marks wall"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/logos-wall.png" alt="Logo marks wall"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">06 · Identity · Collected</span><span class="c2">The Marks</span></div>
       </div>
+      <div class="fp fgap" aria-hidden="true"></div>
       <div class="fp ftext" style="--accent2:#29abe2">
         <div class="big"><div class="idx">07</div><div class="cat">Campaign · Oncology</div><h2 class="name">OPDIVO</h2><p class="desc">Scale and stakes — a launch campaign that fills the whole arena.</p></div>
       </div>
       <div class="fp fimg" style="--accent2:#29abe2">
-        <div class="art"><img src="media/opq-page-1.png" alt="OPDIVO campaign"><div class="mask mo"></div><div class="mask mc"></div></div>
+        <div class="art"><img src="media/opq-page-1.png" alt="OPDIVO campaign"><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">07 · Campaign · Oncology</span><span class="c2">OPDIVO</span></div>
       </div>
+      <div class="fp fgap tail" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -344,6 +361,7 @@ img{display:block;max-width:100%}
   <!-- THE MARK — the monogram in a thin frame that takes the whole space -->
   <section class="logo-sec" id="logoSec">
     <div class="logo-frame" id="logoFrame">
+      <img class="blink" id="blinkPhoto" src="media/david-child.jpg" alt="" aria-hidden="true">
       <img id="logoMark" src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative">
       <span class="mono-label">David Zachary Creative</span>
     </div>
@@ -504,7 +522,7 @@ img{display:block;max-width:100%}
     ease:'none',
     scrollTrigger:{
       trigger: film, start:'top top',
-      end: function(){ return '+='+(track.scrollWidth - window.innerWidth)*1.4; },
+      end: function(){ return '+='+(track.scrollWidth - window.innerWidth)*1.12; },
       pin:true, scrub:1, invalidateOnRefresh:true,
       onUpdate:function(self){
         var imgs=gsap.utils.toArray('.fp.fimg');
@@ -514,20 +532,55 @@ img{display:block;max-width:100%}
       }
     }
   });
+  // ── the works, scored for WOW ──
+  // text slides: the typography cascades up as it arrives, lifts as it leaves
+  gsap.utils.toArray('.fp.ftext').forEach(function(p){
+    var lines=gsap.utils.toArray(p.querySelectorAll('.big > *'));
+    lines.forEach(function(el,k){
+      gsap.fromTo(el,{y:56,opacity:0},{y:0,opacity:1,ease:'power3.out',
+        scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left '+(96-k*5)+'%',end:'left '+(52-k*5)+'%',scrub:true}});
+      gsap.fromTo(el,{y:0,opacity:1},{y:-44,opacity:0,ease:'power2.in',immediateRender:false,
+        scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right '+(46-k*4)+'%',end:'right '+(16-k*4)+'%',scrub:true}});
+    });
+  });
+  // image slides: louvre reveal · colour flash · parallax depth · ghost index
   gsap.utils.toArray('.fp.fimg').forEach(function(p){
-    var img=p.querySelector('img'), mo=p.querySelector('.mo'), mc=p.querySelector('.mc'), cap=p.querySelector('.cap');
-    // arrival — the Signal expand: black wipes open left→right, the work settles
-    gsap.fromTo(mo,{scaleX:1},{scaleX:0,ease:'expo.inOut',
-      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 62%',end:'left 6%',scrub:true}});
-    gsap.fromTo(img,{scale:1.06},{scale:1,ease:'expo.out',
-      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 62%',end:'left 4%',scrub:true}});
+    var art=p.querySelector('.art'), img=p.querySelector('img'),
+        mc=p.querySelector('.mc'), cap=p.querySelector('.cap');
+    // ghost index behind the work, sliding faster — depth
+    var gi=document.createElement('div'); gi.className='gidx';
+    gi.textContent=(p.querySelector('.cap .c1').textContent||'').slice(0,2); p.insertBefore(gi,p.firstChild);
+    gsap.fromTo(gi,{xPercent:26},{xPercent:-26,ease:'none',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 100%',end:'right 0%',scrub:true}});
+    // the work itself drifts slower than the strip — parallax (on the frame,
+    // so it never fights the scale settle on the img)
+    gsap.fromTo(art,{xPercent:3.5},{xPercent:-3.5,ease:'none',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 100%',end:'right 0%',scrub:true}});
+    // colour FLASH — one accent heartbeat in the opening louvres
+    var flash=document.createElement('div'); flash.className='flash'; art.appendChild(flash);
+    gsap.fromTo(flash,{opacity:0},{opacity:.55,ease:'power2.in',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 70%',end:'left 58%',scrub:true}});
+    gsap.fromTo(flash,{opacity:.55},{opacity:0,ease:'power2.out',immediateRender:false,
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 58%',end:'left 36%',scrub:true}});
+    // LOUVRE reveal — six blades wipe open in a staggered wave
+    for(var k=0;k<6;k++){
+      var lam=document.createElement('div'); lam.className='lam';
+      lam.style.left=(k*16.6)+'%'; art.appendChild(lam);
+      gsap.fromTo(lam,{scaleX:1},{scaleX:0,ease:'expo.inOut',
+        scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left '+(72-k*4)+'%',end:'left '+(30-k*4)+'%',scrub:true}});
+    }
+    // settle + the barely-there breath while fully open
+    gsap.fromTo(img,{scale:1.07},{scale:1,ease:'expo.out',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 70%',end:'left 18%',scrub:true}});
+    gsap.fromTo(img,{scale:1},{scale:1.012,ease:'sine.inOut',immediateRender:false,
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 18%',end:'right 46%',scrub:true}});
     gsap.fromTo(cap,{opacity:0},{opacity:1,ease:'none',
-      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 30%',end:'left 10%',scrub:true}});
-    // exit — it closes back into black, wiping to the right
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 30%',end:'left 14%',scrub:true}});
+    // EXIT — one quick clean sweep back into black (contrast with the entrance)
     gsap.fromTo(mc,{scaleX:0},{scaleX:1,ease:'expo.inOut',
-      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 55%',end:'right 8%',scrub:true}});
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 46%',end:'right 10%',scrub:true}});
     gsap.to(cap,{opacity:0,ease:'none',
-      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 45%',end:'right 25%',scrub:true}});
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 40%',end:'right 22%',scrub:true}});
   });
 
   // ══════════════════════════════════════════════════════════════════
@@ -546,6 +599,21 @@ img{display:block;max-width:100%}
     scrollTrigger:{ trigger:'#logoSec', start:'top 70%', end:'center center', scrub:true }});
   gsap.fromTo('#logoSec .mono-label',{opacity:0},{opacity:.7,ease:'none',
     scrollTrigger:{ trigger:'#logoSec', start:'top 55%', end:'center 45%', scrub:true }});
+  // the childhood photograph — it only BLINKS, twice, like a memory
+  (function(){
+    var ph=document.getElementById('blinkPhoto'); if(!ph) return;
+    function armBlink(){
+      setInterval(function(){
+        var r=document.getElementById('logoSec').getBoundingClientRect();
+        if(r.top>innerHeight||r.bottom<0) return;      // only while in view
+        var t=gsap.timeline();
+        t.set(ph,{opacity:.9}).to(ph,{opacity:0,duration:.001},'+=0.09')
+         .set(ph,{opacity:.7},'+=0.12').to(ph,{opacity:0,duration:.001},'+=0.07');
+      },4600);
+    }
+    if(ph.complete&&ph.naturalWidth>0) armBlink();
+    else{ ph.addEventListener('load',armBlink); ph.addEventListener('error',function(){ph.remove();}); }
+  })();
 
   // ── global scroll progress bar ──
   gsap.to(prog,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
