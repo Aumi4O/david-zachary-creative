@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Work — David Zachary Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo+Expanded:wght@800;900&family=Archivo:wght@400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* Redesign lane — horizontal travel through VERTICAL COLOUR BANDS.
+   Each work lives inside its own zone; the tone is sampled from the work. */
+:root{
+  --black:#050505; --paper:#f4f2ee; --dim:rgba(244,242,238,.5);
+  --magenta:#ff0a78;
+  --slab:"Archivo Expanded",sans-serif; --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Archivo",system-ui,sans-serif; --mono:"Space Mono",ui-monospace,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--black);color:var(--paper);font-family:var(--sans);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.mono{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 5vw;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+nav .brand img{height:22px;width:auto;display:block}
+.nav-right{display:flex;gap:24px;align-items:center}
+.nav-right a{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .5s}
+.nav-right a:hover,.nav-right a.cur{color:#fff}
+.nav-right a.c{color:var(--magenta)}
+
+.lane-hero{height:86vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 7vw 9vh}
+.lane-hero h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(2.6rem,9vw,7.6rem);line-height:.96;overflow:hidden}
+.lane-hero h1 span{display:inline-block;transform:translateY(115%);animation:rise 1.4s var(--ease) .15s forwards}
+@keyframes rise{to{transform:translateY(0)}}
+.lane-hero .tone{font-family:var(--serif);font-size:clamp(1.1rem,1.9vw,1.5rem);color:var(--dim);margin-top:3vh;opacity:0;animation:fadeIn 1.6s ease .8s forwards}
+.lane-hero .hint{margin-top:3vh;opacity:0;animation:fadeIn 1.6s ease 1.2s forwards}
+.lane-hero .hint .a{display:inline-block;animation:bob 2s ease-in-out infinite}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes bob{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+
+/* the strip — every slide IS a vertical colour band riding the track */
+.film{position:relative}
+.film .sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--black)}
+.track{display:flex;height:100vh;will-change:transform}
+.slide{flex:0 0 100vw;width:100vw;height:100vh;display:grid;grid-template-columns:minmax(300px,.72fr) 1.45fr;gap:4vw;align-items:center;padding:13vh 7vw 9vh;background:var(--band,#0b0b0d)}
+.slide .type .cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,238,.55);margin-bottom:18px}
+.slide .type h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
+  font-size:clamp(1.6rem,3.3vw,3rem);line-height:1.05;color:#fff}
+.slide .type .no{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:rgba(244,242,238,.4);margin-top:26px}
+.slide.light .type .cat{color:rgba(16,16,19,.6)}
+.slide.light .type h2{color:#101013}
+.slide.light .type .no{color:rgba(16,16,19,.45)}
+.slide .art{height:72vh;background-size:contain;background-position:center;background-repeat:no-repeat}
+.count{position:fixed;left:5vw;bottom:24px;z-index:90;font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:var(--dim);opacity:0;transition:opacity .8s}
+.count.show{opacity:1}
+
+.fin{min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6vh;text-align:center;position:relative;padding:0 7vw;background:var(--black)}
+.pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(1.7rem,4.6vw,3.8rem);line-height:1.16;color:var(--paper)}
+.pull-link em{font-style:italic;color:var(--magenta)}
+.pull-link .u{border-bottom:2px solid var(--magenta);padding-bottom:5px}
+.fin .footer{position:absolute;left:0;right:0;bottom:0;padding:28px 7vw;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.fin .footer a:hover{color:var(--paper)}
+
+@media (max-width:899px),(prefers-reduced-motion:reduce){
+  .film{height:auto!important}
+  .film .sticky{position:static;height:auto;overflow:visible}
+  .track{display:block;height:auto;transform:none!important}
+  .slide{width:auto;height:auto;grid-template-columns:1fr;padding:9vh 7vw}
+  .slide .art{height:52vh}
+  .lane-hero{height:62vh}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="home.html" aria-label="Home"><img src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative"></a>
+  <div class="nav-right">
+    <a  href="home-branding.html">Branding</a>
+    <a class="cur" href="home-work.html">Work</a>
+    <a  href="home-campaigns.html">Campaigns</a>
+    <a class="c" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="lane-hero">
+  <p class="mono">Lane · Work</p>
+  <h1><span>Work</span></h1>
+  <p class="tone">Digital, film and systems — craft in every medium.</p>
+  <p class="mono hint">Scroll — the lane moves sideways <span class="a">→</span></p>
+</header>
+
+<section class="film" id="film">
+  <div class="sticky" id="sticky"><div class="track" id="track"></div></div>
+</section>
+<div class="count" id="count"><span id="cNow">01</span> — <span id="cAll">00</span></div>
+
+<footer class="fin" id="contact">
+  <a class="pull-link" href="mailto:hello@davidzachary.co">Let&rsquo;s make something <em>real</em>.<br><span class="u">hello@davidzachary.co</span></a>
+  <div class="footer"><span>© David Zachary Creative 2026</span><a href="home-campaigns.html">Next lane — Campaigns →</a></div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+var WORKS=[{"cat": "Alnylam \u00b7 RNAi", "name": "Match + Point", "img": "media/alny-copy-page-2.png", "fb": "#0b1626"}, {"cat": "Global Genes", "name": "RareCast \u2014 the site", "img": "media/deck/p22.jpg", "fb": "#241d10"}, {"cat": "Beyond Basics \u00b7 NYC", "name": "And healing starts here", "img": "media/deck/p25.jpg", "fb": "#0c1f16"}, {"cat": "Celgene \u00b7 with Noma Bar", "name": "Seeing big data", "img": "media/screen-shot-2020-08-18-at-10-18-50-am.png", "fb": "#141014"}, {"cat": "Baxalta \u00b7 Nal-IRI", "name": "The SPIRIT system", "img": "media/deck/p28.jpg", "fb": "#260b13"}, {"cat": "BGB", "name": "The brand, wearable", "img": "media/bgbtsol-copy-page-3.jpg", "fb": "#101013"}];
+var track=document.getElementById('track');
+var film=document.getElementById('film');
+var N=WORKS.length;
+WORKS.forEach(function(w,i){
+  var s=document.createElement('article');s.className='slide';
+  s.style.setProperty('--band',w.fb);
+  s.innerHTML='<div class="type"><div class="cat">'+w.cat+'</div><h2>'+w.name+'</h2>'+
+    '<div class="no">'+String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0')+'</div></div>'+
+    '<div class="art" style="background-image:url('+w.img+')"></div>';
+  track.appendChild(s);
+});
+/* the band tone is sampled from the work itself — deep, muted, its own */
+WORKS.forEach(function(w,i){
+  var im=new Image();
+  im.onload=function(){try{
+    var c=document.createElement('canvas');c.width=12;c.height=12;
+    var x=c.getContext('2d');x.drawImage(im,0,0,12,12);
+    var d=x.getImageData(0,0,12,12).data,r=0,g=0,b=0,n=0;
+    for(var k=0;k<d.length;k+=4){if(d[k+3]>40){r+=d[k];g+=d[k+1];b+=d[k+2];n++}}
+    if(!n)return; r/=n;g/=n;b/=n;
+    var mx=Math.max(r,g,b)/255,mn=Math.min(r,g,b)/255,l=(mx+mn)/2,h=0,sd=mx-mn;
+    if(sd>0){var rr=r/255,gg=g/255,bb=b/255;
+      if(mx===rr)h=((gg-bb)/sd)%6; else if(mx===gg)h=(bb-rr)/sd+2; else h=(rr-gg)/sd+4;
+      h=Math.round(h*60); if(h<0)h+=360;}
+    var s2=sd===0?0:sd/(1-Math.abs(2*l-1));
+    var sl=track.children[i]; if(!sl) return;
+    if(l>0.68){ var sw=Math.min(.42,Math.max(.1,s2));                          // WHITE work → white zone
+      sl.style.setProperty('--band','hsl('+h+' '+Math.round(sw*100)+'% 93%)');
+      sl.classList.add('light'); return; }
+    if(sd<0.035){ sl.style.setProperty('--band','hsl(0 0% 13%)'); return; }   // b/w work → graphite
+    s2=Math.min(.78,Math.max(.45,s2*1.8));                                    // AGGRESSIVE colour
+    sl.style.setProperty('--band','hsl('+h+' '+Math.round(s2*100)+'% 19%)');
+  }catch(e){}};
+  im.src=w.img;
+});
+var count=document.getElementById('count');
+document.getElementById('cAll').textContent=String(N).padStart(2,'0');
+var cNow=document.getElementById('cNow');
+var vw=function(){return innerWidth||document.documentElement.clientWidth||1280};
+var vh=function(){return innerHeight||document.documentElement.clientHeight||800};
+var horizontal=function(){return vw()>=900&&!matchMedia('(prefers-reduced-motion: reduce)').matches};
+function layout(){film.style.height=horizontal()?(N*80+100)+'vh':'auto'}
+layout();addEventListener('resize',layout);
+var active=-1;
+function setActive(i){if(i===active)return;active=i;cNow.textContent=String(i+1).padStart(2,'0');}
+function apply(){
+  if(!horizontal()){track.style.transform='';count.classList.remove('show');return}
+  var ih=vh();
+  var span=(film.offsetHeight||ih*(N*0.8+1))-ih;
+  var r=film.getBoundingClientRect();
+  var p=Math.min(1,Math.max(0,(-r.top)/Math.max(1,span)));
+  var x=p*Math.max(0,track.scrollWidth-vw());
+  track.style.transform='translateX('+(-x)+'px)';
+  setActive(Math.min(N-1,Math.round(p*(N-1))));
+  count.classList.toggle('show',r.top<ih*0.5&&r.bottom>ih*0.5);
+}
+var tick=false;
+addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;apply()})}},{passive:true});
+setInterval(apply,250);
+apply();
+})();
+</script>
+</body>
+</html>
