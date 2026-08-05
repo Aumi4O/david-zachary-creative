@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>David Zachary Creative — Craftsmithing</title>
+<title>David Zachary Creative</title>
 <meta name="description" content="A GSAP-driven journey through David Zachary Creative — concepts, craft, care." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +88,40 @@ img{display:block;max-width:100%}
 .scroll-cue .bar{width:1px;height:44px;background:linear-gradient(#fff,transparent);overflow:hidden}
 .scroll-cue .bar i{display:block;width:1px;height:44px;background:var(--accent)}
 
+/* ── SECTION 2 — the Clean hero, verbatim language ── */
+.clean-hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;padding:120px 0 40px;overflow:hidden}
+.ch-glow{position:absolute;inset:0;z-index:0;pointer-events:none}
+.ch-glow::before{content:"";position:absolute;left:50%;top:33%;width:60vmax;height:60vmax;transform:translate(-50%,-50%);border-radius:50%;filter:blur(80px);background:radial-gradient(circle,rgba(255,10,120,.09),transparent 60%)}
+.ch-mid{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.ch-kicker{display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);margin-bottom:32px;
+  opacity:0;transition:opacity 1s ease .1s}
+.ch-rule{height:1px;width:38px;background:var(--magenta);display:inline-block}
+.ch-title{font-family:var(--serif);font-weight:400;font-size:clamp(3.5rem,12vw,11rem);line-height:.9;letter-spacing:-.02em}
+.ch-title .w{display:inline-block;overflow:hidden;vertical-align:bottom;margin-right:.22em}
+.ch-title .w>span{display:inline-block;transform:translateY(110%);transition:transform 1s cubic-bezier(.16,1,.3,1) .3s}
+.ch-title .w:nth-child(2)>span{transition-delay:.42s;color:var(--magenta)}
+.ch-title .w:nth-child(3)>span{transition-delay:.54s;font-style:italic}
+.clean-hero.on .ch-title .w>span{transform:translateY(0)}
+.clean-hero.on .ch-kicker{opacity:1}
+.sympulse{display:inline-block;animation:symPulse 2.6s ease-in-out infinite;animation-delay:1.1s}
+@keyframes symPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.symbol{display:inline-block;color:inherit;background:none;border:0;font:inherit;line-height:1;cursor:pointer;padding:0 .04em;transition:transform .35s cubic-bezier(.16,1,.3,1);text-shadow:0 0 44px rgba(255,10,120,.5);will-change:transform;-webkit-tap-highlight-color:transparent}
+.symbol:hover{transform:scale(1.28) rotate(-6deg)}
+.symbol:active{transform:scale(.92)}
+.ch-lede{margin-top:36px;max-width:36rem;font-size:1.125rem;line-height:1.7;color:rgba(233,230,224,.8);
+  opacity:0;transform:translateY(20px);transition:opacity 1s ease .8s,transform 1s cubic-bezier(.16,1,.3,1) .8s}
+.ch-lede b{color:#f4f2ee;font-weight:600}
+.clean-hero.on .ch-lede{opacity:1;transform:none}
+.marq{position:relative;border-top:1px solid rgba(28,28,31,.6);border-bottom:1px solid rgba(28,28,31,.6);padding:16px 0;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marq-row{display:flex;width:max-content;gap:46px;font-size:.85rem;text-transform:uppercase;letter-spacing:.24em;color:rgba(255,255,255,.4);animation:chScroll 36s linear infinite}
+.marq-row span{display:flex;align-items:center;gap:46px;white-space:nowrap}
+.marq-row .s{color:var(--magenta)}
+@keyframes chScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ch-hint{display:flex;align-items:center;justify-content:space-between;margin-top:28px;font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.28em;color:var(--dim)}
+.ch-arrow{display:inline-block;animation:chBob 1.6s ease-in-out infinite}
+@keyframes chBob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
 /* ── KINETIC marquee band (moving letters) ── */
 .kin-band{overflow:hidden;padding:5.5vh 0;background:#000;border-top:1px solid #161619;border-bottom:1px solid #161619;position:relative}
 .kin-band + .kin-band{border-top:0;padding-top:0}
@@ -100,8 +134,11 @@ img{display:block;max-width:100%}
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
 .film .track{display:flex;height:100vh;will-change:transform}
 .fp{position:relative;flex:0 0 100vw;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:0 5vw}
-.fp .art{position:relative;height:66vh;border-radius:8px;overflow:hidden;background:#0d0d0f}
-.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform,clip-path}
+.fp .art{position:relative;height:70vh;background:transparent}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform}
+.fp.fspace{flex:0 0 52vw;padding:0}
+.fp.fgap{flex:0 0 46vw;padding:0}
+.fp .meta{will-change:opacity}
 .fp .meta{display:flex;flex-direction:column;justify-content:center}
 .fp .idx{font-family:var(--slab);font-weight:900;font-size:clamp(3rem,9vw,7rem);line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--accent2,var(--dim))}
 .fp .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim));margin:22px 0 10px}
@@ -139,6 +176,11 @@ img{display:block;max-width:100%}
 .amp-cap{position:absolute;left:0;right:0;bottom:12vh;text-align:center;font-family:var(--serif);font-size:clamp(1.3rem,2.6vw,2rem);color:rgba(255,255,255,.8)}
 .amp-cap em{font-style:italic;color:#fff}
 
+/* ── THE MARK — a thin border takes all the space; the mark is present, not large ── */
+.logo-sec{min-height:96vh;display:flex;padding:8vh 5vw}
+.logo-frame{flex:1;border:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4vh;text-align:center;will-change:opacity}
+.logo-frame img{height:clamp(56px,10vh,92px);width:auto;will-change:opacity,transform}
+
 /* ── FIN ── */
 .fin{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative}
 .pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(2rem,6vw,5rem);line-height:1.08}
@@ -154,6 +196,9 @@ img{display:block;max-width:100%}
   .intro{display:none}
   .fp{flex-basis:auto}
   .film,.film .track{height:auto}
+  .fp .art img{opacity:1!important;transform:none!important}
+  .fp .meta{opacity:1!important}
+  .fp.fspace,.fp.fgap{display:none}
 }
 </style>
 </head>
@@ -208,23 +253,18 @@ img{display:block;max-width:100%}
 <div id="smooth-wrapper">
 <div id="smooth-content">
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="ghost" aria-hidden="true">D</div>
-    <div class="container">
-      <div class="eyebrow"><span class="rule"></span><span class="mono-label">David Zachary Creative — est. 2005</span></div>
-      <h1 class="lg-h1" id="heroH1">Craftsmithing<span class="reg">®</span></h1>
-      <h2 class="hero-h2">I dig deep to find what makes you shine — then bring bold vision and obsessive craft to carve out your place in the world.</h2>
+  <!-- HERO — the Clean hero replaces the large-letter block entirely -->
+  <section class="clean-hero" id="concepts">
+    <div class="ch-glow" aria-hidden="true"></div>
+    <div class="container ch-mid">
+      <p class="ch-kicker"><span class="ch-rule"></span>Creative Director · Designer · Brand Builder</p>
+      <h2 class="ch-title"><span class="w"><span>Concepts</span></span><span class="w"><span><span class="sympulse"><button class="symbol" id="chSymbol" type="button" aria-label="Cycle the connector symbol">+</button></span></span></span><span class="w"><span>Craft</span></span></h2>
+      <p class="ch-lede">I&rsquo;m <b>David Zachary</b> — I build brands and campaigns for the places where science, health and culture meet. Twenty years turning complex ideas into work people feel.</p>
     </div>
-    <div class="scroll-cue"><span class="bar"><i></i></span><span class="mono-label">Scroll</span></div>
-  </header>
-
-  <!-- KINETIC bands — twin marquees running opposite ways -->
-  <section class="kin-band" aria-hidden="true">
-    <div class="kin-row" data-dir="-1" data-seed="Concepts&nbsp;<em>+</em>&nbsp;Craft&nbsp;<em>+</em>&nbsp;Care&nbsp;<em>+</em>&nbsp;"></div>
-  </section>
-  <section class="kin-band" aria-hidden="true">
-    <div class="kin-row solid" data-dir="1" data-seed="Discover&nbsp;·&nbsp;Extract&nbsp;·&nbsp;Shape&nbsp;·&nbsp;Refine&nbsp;·&nbsp;"></div>
+    <div>
+      <div class="marq" aria-hidden="true"><div class="marq-row" id="marq"></div></div>
+      <div class="container ch-hint"><span>Selected Work — 2005 → 2026</span><span>Scroll <span class="ch-arrow">↓</span></span></div>
+    </div>
   </section>
 
   <!-- WORKS — pinned horizontal filmstrip -->
@@ -264,68 +304,19 @@ img{display:block;max-width:100%}
     <div class="film-count"><b id="fpNow">01</b> — 07</div>
   </section>
 
-  <!-- CRAFT — pinned services scrub -->
-  <section class="section" style="padding-bottom:6vh">
-    <div class="container">
-      <span class="mono-label">How I craftsmith</span>
-      <p class="big-serif" style="margin-top:18px">Not decoration. <em>Excavation.</em> I mine for the truest idea, then obsess over every gram of craft.</p>
-    </div>
-  </section>
-
-  <section class="services" id="services">
-    <div class="pinwrap">
-      <div class="container">
-        <div class="verbs" id="verbs">
-          <span data-i="0">Discover.</span><span data-i="1">Extract.</span><br>
-          <span data-i="2">Shape.</span><span data-i="3">Refine.</span>
-        </div>
-        <div class="svc-card" id="svcCard">
-          <div class="svc">
-            <h4>I mine the raw materials that make you great.</h4>
-            <div class="rows">
-              <div class="row"><span class="p">+</span>Stakeholder &amp; customer interviews</div>
-              <div class="row"><span class="p">+</span>Brand &amp; landscape audit</div>
-              <div class="row"><span class="p">+</span>Science &amp; story immersion</div>
-              <div class="row"><span class="p">+</span>Competitive review</div>
-            </div>
-          </div>
-          <div class="svc">
-            <h4>I crystallise the essence of your brand.</h4>
-            <div class="rows">
-              <div class="row"><span class="p">+</span>Positioning</div>
-              <div class="row"><span class="p">+</span>Personality</div>
-              <div class="row"><span class="p">+</span>Mission, vision &amp; values</div>
-              <div class="row"><span class="p">+</span>Voice &amp; value proposition</div>
-            </div>
-          </div>
-          <div class="svc">
-            <h4>I carve out an authentic, creative place for you.</h4>
-            <div class="rows">
-              <div class="row"><span class="p">+</span>Visual identity</div>
-              <div class="row"><span class="p">+</span>Messaging &amp; voice</div>
-              <div class="row"><span class="p">+</span>Creative campaigns</div>
-              <div class="row"><span class="p">+</span>Brand launch</div>
-            </div>
-          </div>
-          <div class="svc">
-            <h4>I polish the work across the whole life cycle.</h4>
-            <div class="rows">
-              <div class="row"><span class="p">+</span>Ongoing creative direction</div>
-              <div class="row"><span class="p">+</span>Brand refresh</div>
-              <div class="row"><span class="p">+</span>Market expansion</div>
-              <div class="row"><span class="p">+</span>Campaign response</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- AMPERSAND -->
   <section class="amp-sec" id="ampSec">
     <div class="amp-pin">
       <div class="amp-glyph" id="ampGlyph">&amp;</div>
       <div class="amp-cap">Concepts <em>&amp;</em> craft. The little sign that holds the whole practice together.</div>
+    </div>
+  </section>
+
+  <!-- THE MARK — the monogram in a thin frame that takes the whole space -->
+  <section class="logo-sec" id="logoSec">
+    <div class="logo-frame" id="logoFrame">
+      <img id="logoMark" src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative">
+      <span class="mono-label">David Zachary Creative</span>
     </div>
   </section>
 
@@ -398,6 +389,28 @@ img{display:block;max-width:100%}
       modifiers:{ x:function(x){ var v=parseFloat(x); return (dir<0 ? (v%half) : (v%half)-half)+'px'; } } });
   });
 
+  // ── SECTION 2 — the Clean hero: connector cycle, clients marquee, reveal ──
+  (function(){
+    var sym=document.getElementById('chSymbol'); if(!sym) return;
+    var SYMBOLS=['+','&','×','∞','/'], si=0;
+    function pop(){
+      try{ sym.animate([
+        {transform:'scale(.35) rotate(-45deg)',filter:'blur(6px)',opacity:.25},
+        {transform:'scale(1.5) rotate(10deg)',filter:'blur(0)',opacity:1,offset:.55},
+        {transform:'scale(1) rotate(0)',filter:'blur(0)',opacity:1}
+      ],{duration:680,easing:'cubic-bezier(.16,1,.3,1)'});}catch(e){}
+    }
+    function next(){ si=(si+1)%SYMBOLS.length; sym.textContent=SYMBOLS[si]; pop(); }
+    setInterval(next,2000);
+    sym.addEventListener('click',next);
+    var clients=["BGB Group","Genentech","Pfizer","Amgen","Celgene","Baxalta","Agios","Global Genes","BMS","Beyond Basics","Alnylam","PALIO"];
+    var row=document.getElementById('marq');
+    var mk=clients.map(function(c){return '<span>'+c+'<span class="s">✦</span></span>'}).join('');
+    row.innerHTML=mk+mk;
+    var ch=document.querySelector('.clean-hero');
+    new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ch.classList.add('on');}})},{threshold:.25}).observe(ch);
+  })();
+
   // ══════════════════════════════════════════════════════════════════
   // ACT 0 — INTRO TIMELINE
   // ══════════════════════════════════════════════════════════════════
@@ -442,31 +455,8 @@ img{display:block;max-width:100%}
   // ACT 1 — HERO (SplitText char rise)
   // ══════════════════════════════════════════════════════════════════
   function playHero(){
-    var h1 = document.getElementById('heroH1');
-    var h2 = document.querySelector('.hero-h2');
-    var eb = document.querySelector('.eyebrow');
-    if(hasSplit){
-      var split = new SplitText(h1,{type:'chars'});
-      gsap.set(h1,{opacity:1});
-      gsap.set(split.chars,{display:'inline-block'});
-      gsap.from(split.chars,{yPercent:120,opacity:0,duration:.9,ease:'expo.out',stagger:.03,
-        onComplete:function(){
-          // letters keep breathing — a soft perpetual wave across the word
-          gsap.to(split.chars,{yPercent:-9,duration:1.7,ease:'sine.inOut',
-            stagger:{each:.055,repeat:-1,yoyo:true}});
-        }});
-      // pointer proximity kick — hovering a letter pops it
-      split.chars.forEach(function(c){
-        c.style.cursor='default';
-        c.addEventListener('mouseenter',function(){ gsap.to(c,{yPercent:-34,color:'#ff0a78',duration:.3,ease:'back.out(3)',overwrite:'auto'}); });
-        c.addEventListener('mouseleave',function(){ gsap.to(c,{color:'#fff',duration:.5,ease:'power2.out'}); });
-      });
-    } else {
-      gsap.from(h1,{yPercent:20,opacity:0,duration:.9,ease:'expo.out'});
-    }
-    gsap.from(eb,{opacity:0,y:14,duration:.6,ease:'power2.out',delay:.1});
-    gsap.from(h2,{opacity:0,y:26,duration:.9,ease:'expo.out',delay:.35});
-    gsap.fromTo('.scroll-cue .bar i',{yPercent:-100},{yPercent:100,duration:1.4,ease:'power1.inOut',repeat:-1});
+    // the Clean hero IS the hero now — trigger its rise the moment the intro lifts
+    var ch=document.querySelector('.clean-hero'); if(ch) ch.classList.add('on');
   }
 
   // ══════════════════════════════════════════════════════════════════
@@ -478,6 +468,13 @@ img{display:block;max-width:100%}
   var fpNow = document.getElementById('fpNow');
   var docEl = document.documentElement, prog=document.getElementById('progress');
 
+  // pure-black spacers: before, BETWEEN and after the works — so between two
+  // works the screen returns to black + typography only, never two at once
+  var lead=document.createElement('div'); lead.className='fp fspace'; track.insertBefore(lead,track.firstElementChild);
+  panels.forEach(function(p,i){ if(i===0) return;
+    var g=document.createElement('div'); g.className='fp fgap'; track.insertBefore(g,p); });
+  var tail=document.createElement('div'); tail.className='fp fspace'; track.appendChild(tail);
+
   var horiz = gsap.to(track,{
     x: function(){ return -(track.scrollWidth - window.innerWidth); },
     ease:'none',
@@ -485,52 +482,35 @@ img{display:block;max-width:100%}
       trigger: film, start:'top top',
       end: function(){ return '+='+(track.scrollWidth - window.innerWidth); },
       pin:true, scrub:1, invalidateOnRefresh:true,
-      onUpdate:function(self){
-        var i = Math.round(self.progress*(panels.length-1));
-        fpNow.textContent = ('0'+(i+1)).slice(-2);
-        var ac = getComputedStyle(panels[i]).getPropertyValue('--accent2').trim();
-        if(ac){ document.documentElement.style.setProperty('--accent',ac); }
-      }
+      onUpdate: updateEmerge
     }
   });
 
-  // each panel's art wipes in + parallax, tied to the horizontal scroll
-  panels.forEach(function(p){
-    var img = p.querySelector('.art img');
-    gsap.fromTo(img,{clipPath:'inset(0% 100% 0% 0%)',scale:1.2},{
-      clipPath:'inset(0% 0% 0% 0%)',scale:1.06,ease:'none',
-      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 82%', end:'left 20%', scrub:true }
+  // out of the black: each image fully appears near centre, holds, then
+  // dissolves back into black as it leaves. text arrives first, stays longer.
+  function sstep(t){ t=Math.min(1,Math.max(0,t)); return t*t*(3-2*t); }
+  var curPanel=-1;
+  function updateEmerge(){
+    var vw2=(window.innerWidth||1280)/2, best=0, bi=0;
+    panels.forEach(function(p,i){
+      var r=p.getBoundingClientRect(), c=r.left+r.width/2;
+      var d=Math.abs(c-vw2)/(vw2*2);            // 0 at centre → .5 a screen away
+      var oImg=sstep(1-d/0.26);                 // image: full only around centre
+      var oTxt=sstep(1-d/0.38);                 // type window, still inside own zone
+      var img=p.querySelector('.art img'), meta=p.querySelector('.meta');
+      if(img){ img.style.opacity=oImg; img.style.transform='scale('+(0.9+oImg*.1)+')'; } // EXPANDS out of black
+      if(meta){ meta.style.opacity=oTxt; }
+      if(oImg>best){ best=oImg; bi=i; }
     });
-    gsap.fromTo(p.querySelector('.meta'),{opacity:0,y:40},{opacity:1,y:0,ease:'power2.out',
-      scrollTrigger:{ trigger:p, containerAnimation:horiz, start:'left 80%', end:'left 45%', scrub:true }});
-  });
-
-  // ══════════════════════════════════════════════════════════════════
-  // ACT 3 — CRAFT: pinned services scrub (verbs light up, card slides)
-  // ══════════════════════════════════════════════════════════════════
-  var verbs = gsap.utils.toArray('#verbs span');
-  var svcs  = gsap.utils.toArray('#svcCard .svc');
-  gsap.set(svcs[0],{opacity:1}); gsap.set(verbs[0],{}); verbs[0].classList.add('on');
-
-  function showStep(i){
-    verbs.forEach(function(v,k){ v.classList.toggle('on',k===i); });
-    svcs.forEach(function(s,k){
-      gsap.to(s,{opacity:k===i?1:0,x:k===i?0:(k<i?-46:46),duration:.5,ease:'power2.out',overwrite:true});
-    });
+    if(bi!==curPanel){ curPanel=bi;
+      fpNow.textContent=('0'+(bi+1)).slice(-2);
+      var ac=getComputedStyle(panels[bi]).getPropertyValue('--accent2').trim();
+      if(ac){ document.documentElement.style.setProperty('--accent',ac); }
+    }
   }
-  ScrollTrigger.create({
-    trigger:'#services', start:'top top', end:'+=300%', pin:true, scrub:true,
-    snap:{ snapTo:[0,1/3,2/3,1], duration:.25, ease:'power1.inOut' },
-    onUpdate:function(self){ showStep(Math.min(3,Math.floor(self.progress*3.999))); }
-  });
-  verbs.forEach(function(v){
-    v.addEventListener('click',function(){
-      var i=+v.dataset.i, st=ScrollTrigger.getById; // jump via smoother
-      var t=document.getElementById('services');
-      var y=t.offsetTop + (t.offsetHeight)* (i/3.999) * 0.75;
-      if(smoother) smoother.scrollTo(y,true); else window.scrollTo({top:y,behavior:'smooth'});
-    });
-  });
+  updateEmerge();
+  addEventListener('resize',updateEmerge);
+  setInterval(updateEmerge,250);
 
   // ══════════════════════════════════════════════════════════════════
   // ACT 4 — AMPERSAND pulse
@@ -540,6 +520,14 @@ img{display:block;max-width:100%}
     scrollTrigger:{ trigger:'#ampSec', start:'top bottom', end:'center center', scrub:true }
   });
   gsap.to('#ampGlyph',{scale:1.06,duration:1.6,repeat:-1,yoyo:true,ease:'sine.inOut'});
+
+  // ── THE MARK — frame draws in, monogram surfaces out of the dark ──
+  gsap.fromTo('#logoFrame',{opacity:0},{opacity:1,ease:'none',
+    scrollTrigger:{ trigger:'#logoSec', start:'top 88%', end:'top 40%', scrub:true }});
+  gsap.fromTo('#logoMark',{opacity:0,scale:.94},{opacity:1,scale:1,ease:'none',
+    scrollTrigger:{ trigger:'#logoSec', start:'top 70%', end:'center center', scrub:true }});
+  gsap.fromTo('#logoSec .mono-label',{opacity:0},{opacity:.7,ease:'none',
+    scrollTrigger:{ trigger:'#logoSec', start:'top 55%', end:'center 45%', scrub:true }});
 
   // ── global scroll progress bar ──
   gsap.to(prog,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
