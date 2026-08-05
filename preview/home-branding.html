@@ -19,16 +19,16 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-font-smoothing:antialiased}
-body{background:var(--black);color:var(--paper);font-family:var(--sans);overflow-x:hidden}
+body{background:#f4f2ee;color:#101013;font-family:var(--sans);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.mono{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.mono{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(16,16,19,.5)}
 
-nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 5vw;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 5vw;display:flex;align-items:center;justify-content:space-between}
 nav .brand img{height:22px;width:auto;display:block}
 .nav-right{display:flex;gap:24px;align-items:center}
-.nav-right a{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .5s}
-.nav-right a:hover,.nav-right a.cur{color:#fff}
+.nav-right a{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(16,16,19,.55);transition:color .5s}
+.nav-right a:hover,.nav-right a.cur{color:#101013}
 .nav-right a.c{color:var(--magenta)}
 
 .lane-hero{height:86vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 7vw 9vh}
@@ -36,7 +36,7 @@ nav .brand img{height:22px;width:auto;display:block}
   font-size:clamp(2.6rem,9vw,7.6rem);line-height:.96;overflow:hidden}
 .lane-hero h1 span{display:inline-block;transform:translateY(115%);animation:rise 1.4s var(--ease) .15s forwards}
 @keyframes rise{to{transform:translateY(0)}}
-.lane-hero .tone{font-family:var(--serif);font-size:clamp(1.1rem,1.9vw,1.5rem);color:var(--dim);margin-top:3vh;opacity:0;animation:fadeIn 1.6s ease .8s forwards}
+.lane-hero .tone{font-family:var(--serif);font-size:clamp(1.1rem,1.9vw,1.5rem);color:rgba(16,16,19,.55);margin-top:3vh;opacity:0;animation:fadeIn 1.6s ease .8s forwards}
 .lane-hero .hint{margin-top:3vh;opacity:0;animation:fadeIn 1.6s ease 1.2s forwards}
 .lane-hero .hint .a{display:inline-block;animation:bob 2s ease-in-out infinite}
 @keyframes fadeIn{to{opacity:1}}
@@ -44,27 +44,27 @@ nav .brand img{height:22px;width:auto;display:block}
 
 /* the strip — every slide IS a vertical colour band riding the track */
 .film{position:relative}
-.film .sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--black)}
+.film .sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#f4f2ee}
 .track{display:flex;height:100vh;will-change:transform}
 .slide{flex:0 0 100vw;width:100vw;height:100vh;display:grid;grid-template-columns:minmax(300px,.72fr) 1.45fr;gap:4vw;align-items:center;padding:13vh 7vw 9vh;background:var(--band,#0b0b0d)}
-.slide .type .cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,242,238,.55);margin-bottom:18px}
+.slide .type .cat{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(16,16,19,.6);margin-bottom:18px}
 .slide .type h2{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
-  font-size:clamp(1.6rem,3.3vw,3rem);line-height:1.05;color:#fff}
-.slide .type .no{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:rgba(244,242,238,.4);margin-top:26px}
+  font-size:clamp(1.6rem,3.3vw,3rem);line-height:1.05;color:#101013}
+.slide .type .no{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:rgba(16,16,19,.45);margin-top:26px}
 .slide.light .type .cat{color:rgba(16,16,19,.6)}
 .slide.light .type h2{color:#101013}
 .slide.light .type .no{color:rgba(16,16,19,.45)}
 .slide .art{height:72vh;background-size:contain;background-position:center;background-repeat:no-repeat}
-.count{position:fixed;left:5vw;bottom:24px;z-index:90;font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:var(--dim);opacity:0;transition:opacity .8s}
+.count{position:fixed;left:5vw;bottom:24px;z-index:90;font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;color:rgba(16,16,19,.5);opacity:0;transition:opacity .8s}
 .count.show{opacity:1}
 
-.fin{min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6vh;text-align:center;position:relative;padding:0 7vw;background:var(--black)}
-.pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(1.7rem,4.6vw,3.8rem);line-height:1.16;color:var(--paper)}
+.fin{min-height:78vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6vh;text-align:center;position:relative;padding:0 7vw;background:#f4f2ee}
+.pull-link{display:block;text-align:center;font-family:var(--serif);font-size:clamp(1.7rem,4.6vw,3.8rem);line-height:1.16;color:#101013}
 .pull-link em{font-style:italic;color:var(--magenta)}
 .pull-link .u{border-bottom:2px solid var(--magenta);padding-bottom:5px}
 .fin .footer{position:absolute;left:0;right:0;bottom:0;padding:28px 7vw;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.fin .footer a:hover{color:var(--paper)}
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(16,16,19,.5)}
+.fin .footer a:hover{color:#101013}
 
 @media (max-width:899px),(prefers-reduced-motion:reduce){
   .film{height:auto!important}
@@ -79,7 +79,7 @@ nav .brand img{height:22px;width:auto;display:block}
 <body>
 
 <nav>
-  <a class="brand" href="home.html" aria-label="Home"><img src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative"></a>
+  <a class="brand" href="home.html" aria-label="Home"><img src="media/brand/dzc-mark-ink.svg" alt="David Zachary Creative"></a>
   <div class="nav-right">
     <a class="cur" href="home-branding.html">Branding</a>
     <a  href="home-work.html">Work</a>
@@ -114,7 +114,7 @@ var film=document.getElementById('film');
 var N=WORKS.length;
 WORKS.forEach(function(w,i){
   var s=document.createElement('article');s.className='slide';
-  s.style.setProperty('--band',w.fb);
+  s.style.setProperty('--band','#ececea');
   s.innerHTML='<div class="type"><div class="cat">'+w.cat+'</div><h2>'+w.name+'</h2>'+
     '<div class="no">'+String(i+1).padStart(2,'0')+' / '+String(N).padStart(2,'0')+'</div></div>'+
     '<div class="art" style="background-image:url('+w.img+')"></div>';
@@ -135,12 +135,11 @@ WORKS.forEach(function(w,i){
       h=Math.round(h*60); if(h<0)h+=360;}
     var s2=sd===0?0:sd/(1-Math.abs(2*l-1));
     var sl=track.children[i]; if(!sl) return;
-    if(l>0.68){ var sw=Math.min(.42,Math.max(.1,s2));                          // WHITE work → white zone
-      sl.style.setProperty('--band','hsl('+h+' '+Math.round(sw*100)+'% 93%)');
-      sl.classList.add('light'); return; }
-    if(sd<0.035){ sl.style.setProperty('--band','hsl(0 0% 13%)'); return; }   // b/w work → graphite
-    s2=Math.min(.78,Math.max(.45,s2*1.8));                                    // AGGRESSIVE colour
-    sl.style.setProperty('--band','hsl('+h+' '+Math.round(s2*100)+'% 19%)');
+    if(l>0.68){ var sw=Math.min(.3,Math.max(.08,s2));                          // white work → near-white
+      sl.style.setProperty('--band','hsl('+h+' '+Math.round(sw*100)+'% 96%)'); return; }
+    if(sd<0.035){ sl.style.setProperty('--band','hsl(0 0% 90%)'); return; }    // b/w work → light grey
+    s2=Math.min(.6,Math.max(.34,s2*1.5));                                      // colour, FROM LIGHT
+    sl.style.setProperty('--band','hsl('+h+' '+Math.round(s2*100)+'% 86%)');
   }catch(e){}};
   im.src=w.img;
 });
