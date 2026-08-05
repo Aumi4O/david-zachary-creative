@@ -143,6 +143,7 @@ img{display:block;max-width:100%}
 .fp .big .desc{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--dim);max-width:44ch;margin-top:3vh}
 .fp .art{position:absolute;inset:6vh 5vw;pointer-events:none}
 .fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform}
+.fp .art .mask{position:absolute;inset:-1px;background:#000;transform-origin:left;z-index:2;will-change:transform}
 .fp .cap{position:absolute;left:5vw;bottom:5vh;display:flex;gap:18px;align-items:baseline;opacity:0;will-change:opacity}
 .fp .cap .c1{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim))}
 .fp .cap .c2{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:1rem;color:#fff}
@@ -198,6 +199,7 @@ img{display:block;max-width:100%}
   .fp .big{position:static;opacity:1!important;transform:none!important;padding:0 8vw}
   .fp .art{position:static;height:60vh;margin-top:4vh}
   .fp .art img{position:static;opacity:1!important;transform:none!important}
+  .fp .art .mask{display:none}
   .fp .cap{position:static;opacity:1!important;margin-top:2vh;padding:0 8vw}
 }
 </style>
@@ -266,6 +268,14 @@ img{display:block;max-width:100%}
       <div class="marq" aria-hidden="true"><div class="marq-row" id="marq"></div></div>
       <div class="container ch-hint"><span>Selected Work — 2005 → 2026</span><span>Scroll <span class="ch-arrow">↓</span></span></div>
     </div>
+  </section>
+
+  <!-- KINETIC bands — the two confirmed moving lines -->
+  <section class="kin-band" aria-hidden="true">
+    <div class="kin-row" data-dir="-1" data-seed="Concepts&nbsp;<em>+</em>&nbsp;Craft&nbsp;<em>+</em>&nbsp;Care&nbsp;<em>+</em>&nbsp;"></div>
+  </section>
+  <section class="kin-band" aria-hidden="true">
+    <div class="kin-row solid" data-dir="1" data-seed="Discover&nbsp;·&nbsp;Extract&nbsp;·&nbsp;Shape&nbsp;·&nbsp;Refine&nbsp;·&nbsp;"></div>
   </section>
 
   <!-- WORKS — pinned horizontal filmstrip -->
@@ -496,37 +506,24 @@ img{display:block;max-width:100%}
         if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05);
     // the glide — horizontal travel through black, typography riding in
     if(i>0) score.to(track,{x:function(){return -p.offsetLeft},duration:2.4,ease:'power2.inOut'},t0);
+    var mask=document.createElement('div'); mask.className='mask'; p.querySelector('.art').appendChild(mask);
     var ts=t0+(i>0?2.6:0.2);            // the stop — the performance begins
     score.fromTo(big,{opacity:1,y:0},{y:-12,duration:1.2,ease:'sine.inOut'},ts)
       .to(big,{opacity:0,y:-50,duration:1.3,ease:'power2.in'},ts+1.2)
-      .fromTo(img,{opacity:0,scale:1.045},{opacity:1,scale:1,duration:2.2,ease:'power2.inOut'},ts+2.2)
-      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+3.4)
-      .to(img,{scale:1.008,duration:1.6,ease:'sine.inOut'},ts+4.4)
-      .to(img,{opacity:0,scale:.99,duration:1.5,ease:'power2.inOut'},ts+6.0)
-      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+6.0)
-      .set(big,{opacity:0},ts+7.4);      // panel leaves empty — pure black glide
+      // the Signal expand — the black mask wipes open, the work settles in
+      .set(img,{opacity:1},ts+2.2)
+      .set(mask,{transformOrigin:'left'},ts+2.2)
+      .fromTo(mask,{scaleX:1},{scaleX:0,duration:2.0,ease:'expo.inOut'},ts+2.3)
+      .fromTo(img,{scale:1.06},{scale:1,duration:2.4,ease:'expo.out'},ts+2.3)
+      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+3.6)
+      .to(img,{scale:1.008,duration:1.5,ease:'sine.inOut'},ts+4.7)
+      // it closes back into black, wiping to the right
+      .set(mask,{transformOrigin:'right'},ts+6.1)
+      .to(mask,{scaleX:1,duration:1.6,ease:'expo.inOut'},ts+6.2)
+      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+6.4)
+      .set(img,{opacity:0},ts+7.9)
+      .set(big,{opacity:0},ts+7.9);      // panel leaves empty — pure black glide
   });
-  panels.forEach(function(p,i){
-    var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
-    var t0=i*U;
-    score.call(function(){ fpNow.textContent=('0'+(i+1)).slice(-2);
-        var ac=getComputedStyle(p).getPropertyValue('--accent2').trim();
-        if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05)
-      // the typography, alone on black
-      .fromTo(big,{opacity:0,y:56},{opacity:1,y:0,duration:2.0,ease:'power3.out'},t0)
-      .to(big,{y:-14,duration:1.4,ease:'sine.inOut'},t0+2.0)          // it breathes
-      .to(big,{opacity:0,y:-52,duration:1.4,ease:'power2.in'},t0+3.4) // lifts away
-      // the work surfaces out of the dark, whole
-      .fromTo(img,{opacity:0,scale:1.045},{opacity:1,scale:1,duration:2.4,ease:'power2.inOut'},t0+4.2)
-      .fromTo(cap,{opacity:0},{opacity:1,duration:.9,ease:'none'},t0+5.6)
-      // holds, complete
-      .to(img,{scale:1.008,duration:1.8,ease:'sine.inOut'},t0+6.6)
-      // sinks back into black
-      .to(img,{opacity:0,scale:.99,duration:1.8,ease:'power2.inOut'},t0+8.2)
-      .to(cap,{opacity:0,duration:.7,ease:'none'},t0+8.2);
-      // t0+10 → one dark beat, then the next typography
-  });
-
   // ══════════════════════════════════════════════════════════════════
   // ACT 4 — AMPERSAND pulse
   // ══════════════════════════════════════════════════════════════════
