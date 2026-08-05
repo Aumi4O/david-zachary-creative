@@ -130,20 +130,23 @@ img{display:block;max-width:100%}
 .kin-row .seg em{font-style:normal;color:var(--accent);-webkit-text-stroke:0}
 .kin-row.solid .seg{color:rgba(255,255,255,.06);-webkit-text-stroke:0}
 
-/* ── WORKS — a scrubbed GSAP score: type on black → the work surfaces
-   full-screen → holds → sinks back to black → next. One rhythm. ── */
+/* ── WORKS — the Kinetic read: a TEXT slide travels before every image;
+   the image slide wipes open out of black as it arrives (Signal expand)
+   and wipes back into black as it leaves. Continuous horizontal travel. ── */
 .film{position:relative;height:100vh;overflow:hidden;background:#000}
 .film .track{display:flex;height:100vh;will-change:transform}
 .fp{position:relative;flex:0 0 100vw;height:100vh}
-.fp.fgap{flex:0 0 50vw}
-.fp .big{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw;opacity:1;will-change:opacity,transform}
+.fp.ftext{display:flex;align-items:center;justify-content:center}
+.fp .big{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 8vw}
 .fp .big .idx{font-family:var(--slab);font-weight:900;font-size:clamp(1.1rem,2.4vw,1.9rem);color:transparent;-webkit-text-stroke:1.2px var(--accent2,var(--dim));margin-bottom:3vh}
 .fp .big .cat{font-family:var(--mono);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent2,var(--dim));margin-bottom:2.6vh}
 .fp .big .name{font-family:var(--slab);font-weight:900;font-size:clamp(2.6rem,7.4vw,6.6rem);line-height:.98;letter-spacing:-.02em;text-transform:uppercase;color:#fff}
 .fp .big .desc{font-family:var(--serif);font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--dim);max-width:44ch;margin-top:3vh}
-.fp .art{position:absolute;inset:6vh 5vw;pointer-events:none}
-.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform}
-.fp .art .mask{position:absolute;inset:-1px;background:#000;transform-origin:left;z-index:2;will-change:transform}
+.fp .art{position:absolute;inset:6vh 5vw;overflow:hidden}
+.fp .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.fp .art .mask{position:absolute;inset:-2px;background:#000}
+.fp .art .mo{transform-origin:left}
+.fp .art .mc{transform-origin:right;transform:scaleX(0)}
 .fp .cap{position:absolute;left:5vw;bottom:5vh;display:flex;gap:18px;align-items:baseline;opacity:0;will-change:opacity}
 .fp .cap .c1{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent2,var(--dim))}
 .fp .cap .c2{font-family:var(--slab);font-weight:900;text-transform:uppercase;font-size:1rem;color:#fff}
@@ -194,11 +197,8 @@ img{display:block;max-width:100%}
   .fp{flex-basis:auto}
   .film,.film .track{height:auto}
   .film,.film .track{height:auto;display:block}
-  .fp{position:static;height:auto;padding:9vh 0;display:block}
-  .fp.fgap{display:none}
-  .fp .big{position:static;opacity:1!important;transform:none!important;padding:0 8vw}
-  .fp .art{position:static;height:60vh;margin-top:4vh}
-  .fp .art img{position:static;opacity:1!important;transform:none!important}
+  .fp{position:static;height:auto;padding:6vh 0;display:block}
+  .fp .art{position:static;height:60vh;margin:0 5vw}
   .fp .art .mask{display:none}
   .fp .cap{position:static;opacity:1!important;margin-top:2vh;padding:0 8vw}
 }
@@ -281,42 +281,55 @@ img{display:block;max-width:100%}
   <!-- WORKS — pinned horizontal filmstrip -->
   <section class="film" id="film">
     <div class="track" id="track">
-      <!-- panels get their accent via --accent2 -->
-      <article class="fp" style="--accent2:#ff0a78">
+      <div class="fp ftext" style="--accent2:#ff0a78">
         <div class="big"><div class="idx">01</div><div class="cat">Brand System · BGB Group</div><h2 class="name">Beyond</h2><p class="desc">A challenger identity for the agency redefining medical communications.</p></div>
-        <div class="art"><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#ff0a78">
+        <div class="art"><img src="media/bgbtsol-copy-page-4.jpg" alt="BGB — Beyond"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">01 · Brand System · BGB Group</span><span class="c2">Beyond</span></div>
-      </article>
-      <article class="fp" style="--accent2:#29abe2">
+      </div>
+      <div class="fp ftext" style="--accent2:#29abe2">
         <div class="big"><div class="idx">02</div><div class="cat">Brand · Innovation × Intelligence</div><h2 class="name">IXI</h2><p class="desc">Where scientific rigor meets creative instinct — an identity built on the multiply sign.</p></div>
-        <div class="art"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#29abe2">
+        <div class="art"><img src="media/ixi-branding-r2-page-16.png" alt="Innovation × Intelligence"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">02 · Brand · Innovation × Intelligence</span><span class="c2">IXI</span></div>
-      </article>
-      <article class="fp" style="--accent2:#8bc53f">
+      </div>
+      <div class="fp ftext" style="--accent2:#8bc53f">
         <div class="big"><div class="idx">03</div><div class="cat">Brand · Editorial</div><h2 class="name">Soulful Science</h2><p class="desc">Humanising the science — a warm, signature X-frame visual language.</p></div>
-        <div class="art"><img src="media/sousci3-page-01.png" alt="Soulful Science"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#8bc53f">
+        <div class="art"><img src="media/sousci3-page-01.png" alt="Soulful Science"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">03 · Brand · Editorial</span><span class="c2">Soulful Science</span></div>
-      </article>
-      <article class="fp" style="--accent2:#e8871e">
+      </div>
+      <div class="fp ftext" style="--accent2:#e8871e">
         <div class="big"><div class="idx">04</div><div class="cat">Brand · Global Genes</div><h2 class="name">RareCast</h2><p class="desc">Giving the rare-disease community a voice — a podcast identity with reach.</p></div>
-        <div class="art"><img src="media/deck/p21.jpg" alt="RareCast"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#e8871e">
+        <div class="art"><img src="media/deck/p21.jpg" alt="RareCast"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">04 · Brand · Global Genes</span><span class="c2">RareCast</span></div>
-      </article>
-      <article class="fp" style="--accent2:#ff0a78">
+      </div>
+      <div class="fp ftext" style="--accent2:#ff0a78">
         <div class="big"><div class="idx">05</div><div class="cat">Campaign · Celgene</div><h2 class="name">The Eye</h2><p class="desc">One image, one idea — the concept that makes an audience truly see.</p></div>
-        <div class="art"><img src="media/pinkrabbit.jpg" alt="Celgene concept"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#ff0a78">
+        <div class="art"><img src="media/pinkrabbit.jpg" alt="Celgene concept"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">05 · Campaign · Celgene</span><span class="c2">The Eye</span></div>
-      </article>
-      <article class="fp" style="--accent2:#ffd400">
+      </div>
+      <div class="fp ftext" style="--accent2:#ffd400">
         <div class="big"><div class="idx">06</div><div class="cat">Identity · Collected</div><h2 class="name">The Marks</h2><p class="desc">Twenty years of logos — the discipline of the single, perfect symbol.</p></div>
-        <div class="art"><img src="media/logos-wall.png" alt="Logo marks wall"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#ffd400">
+        <div class="art"><img src="media/logos-wall.png" alt="Logo marks wall"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">06 · Identity · Collected</span><span class="c2">The Marks</span></div>
-      </article>
-      <article class="fp" style="--accent2:#29abe2">
+      </div>
+      <div class="fp ftext" style="--accent2:#29abe2">
         <div class="big"><div class="idx">07</div><div class="cat">Campaign · Oncology</div><h2 class="name">OPDIVO</h2><p class="desc">Scale and stakes — a launch campaign that fills the whole arena.</p></div>
-        <div class="art"><img src="media/opq-page-1.png" alt="OPDIVO campaign"></div>
+      </div>
+      <div class="fp fimg" style="--accent2:#29abe2">
+        <div class="art"><img src="media/opq-page-1.png" alt="OPDIVO campaign"><div class="mask mo"></div><div class="mask mc"></div></div>
         <div class="cap"><span class="c1">07 · Campaign · Oncology</span><span class="c2">OPDIVO</span></div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -484,44 +497,39 @@ img{display:block;max-width:100%}
   var fpNow = document.getElementById('fpNow');
   var docEl = document.documentElement, prog=document.getElementById('progress');
 
-  // ── horizontal score: the track GLIDES to each work (its typography
-  // physically rides in from the right), STOPS, and the performance plays:
-  // type breathes & lifts → the work surfaces full-screen → holds → sinks
-  // back into black → the track glides on through pure black to the next ──
-  panels.forEach(function(p,i){ if(i===0) return;
-    var g=document.createElement('div'); g.className='fp fgap'; track.insertBefore(g,p); });
-  var U=12;
-  var score = gsap.timeline({
-    scrollTrigger:{ trigger:film, start:'top top',
-      end:function(){ return '+='+(panels.length*190)+'%'; },
-      pin:true, scrub:1, invalidateOnRefresh:true }
+  // ── continuous horizontal travel; text slides ride ahead of every image;
+  // each image wipes open out of black on arrival, wipes shut on exit ──
+  var horiz = gsap.to(track,{
+    x: function(){ return -(track.scrollWidth - window.innerWidth); },
+    ease:'none',
+    scrollTrigger:{
+      trigger: film, start:'top top',
+      end: function(){ return '+='+(track.scrollWidth - window.innerWidth)*1.4; },
+      pin:true, scrub:1, invalidateOnRefresh:true,
+      onUpdate:function(self){
+        var imgs=gsap.utils.toArray('.fp.fimg');
+        var i=Math.min(imgs.length-1,Math.round(self.progress*(imgs.length-1)));
+        var ac=getComputedStyle(imgs[i]).getPropertyValue('--accent2').trim();
+        if(ac) document.documentElement.style.setProperty('--accent',ac);
+      }
+    }
   });
-  panels.forEach(function(p,i){
-    var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
-    var t0=i*U;
-    score.call(function(){ if(fpNow) fpNow.textContent=('0'+(i+1)).slice(-2);
-        var ac=getComputedStyle(p).getPropertyValue('--accent2').trim();
-        if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05);
-    // the glide — horizontal travel through black, typography riding in
-    if(i>0) score.to(track,{x:function(){return -p.offsetLeft},duration:2.4,ease:'power2.inOut'},t0);
-    var mask=document.createElement('div'); mask.className='mask'; p.querySelector('.art').appendChild(mask);
-    var ts=t0+(i>0?2.6:0.2);            // the stop — the performance begins
-    score.fromTo(big,{opacity:1,y:0},{y:-10,duration:2.6,ease:'sine.inOut'},ts)   // the typography STANDS, breathing
-      .to(big,{opacity:0,y:-50,duration:1.2,ease:'power2.in'},ts+2.6)             // then lifts away
-      // the Signal expand — the black mask wipes open, the work settles in
-      .set(img,{opacity:1},ts+4.0)
-      .set(mask,{transformOrigin:'left'},ts+4.0)
-      .fromTo(mask,{scaleX:1},{scaleX:0,duration:2.0,ease:'expo.inOut'},ts+4.1)
-      .fromTo(img,{scale:1.06},{scale:1,duration:2.4,ease:'expo.out'},ts+4.1)
-      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+5.4)
-      .to(img,{scale:1.008,duration:1.4,ease:'sine.inOut'},ts+6.6)
-      // it closes back into black, wiping to the right
-      .set(mask,{transformOrigin:'right'},ts+7.8)
-      .to(mask,{scaleX:1,duration:1.4,ease:'expo.inOut'},ts+7.9)
-      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+8.0)
-      .set(img,{opacity:0},ts+9.4)
-      .set(big,{opacity:0},ts+9.4);      // panel leaves empty — pure black glide
+  gsap.utils.toArray('.fp.fimg').forEach(function(p){
+    var img=p.querySelector('img'), mo=p.querySelector('.mo'), mc=p.querySelector('.mc'), cap=p.querySelector('.cap');
+    // arrival — the Signal expand: black wipes open left→right, the work settles
+    gsap.fromTo(mo,{scaleX:1},{scaleX:0,ease:'expo.inOut',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 62%',end:'left 6%',scrub:true}});
+    gsap.fromTo(img,{scale:1.06},{scale:1,ease:'expo.out',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 62%',end:'left 4%',scrub:true}});
+    gsap.fromTo(cap,{opacity:0},{opacity:1,ease:'none',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'left 30%',end:'left 10%',scrub:true}});
+    // exit — it closes back into black, wiping to the right
+    gsap.fromTo(mc,{scaleX:0},{scaleX:1,ease:'expo.inOut',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 55%',end:'right 8%',scrub:true}});
+    gsap.to(cap,{opacity:0,ease:'none',
+      scrollTrigger:{trigger:p,containerAnimation:horiz,start:'right 45%',end:'right 25%',scrub:true}});
   });
+
   // ══════════════════════════════════════════════════════════════════
   // ACT 4 — AMPERSAND pulse
   // ══════════════════════════════════════════════════════════════════
