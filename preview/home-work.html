@@ -24,12 +24,26 @@ a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .mono{font-family:var(--mono);font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
 
-nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 5vw;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:22px 5vw;display:flex;align-items:center;justify-content:flex-start;gap:32px;mix-blend-mode:difference}
 nav .brand img{height:22px;width:auto;display:block}
 .nav-right{display:flex;gap:24px;align-items:center}
 .nav-right a{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:color .5s}
 .nav-right a:hover,.nav-right a.cur{color:#fff}
 .nav-right a.c{color:var(--magenta)}
+
+/* ── LEFT MENU — two lines drop under it ── */
+.menu-left{position:relative;display:flex;align-items:center}
+.nav-toggle{font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:none;border:0;cursor:pointer;padding:0}
+.nav-toggle .x{display:inline-block;color:var(--magenta);transition:transform .7s cubic-bezier(.22,1,.36,1)}
+nav.open .nav-toggle .x,.nav-bar.open .nav-toggle .x{transform:rotate(45deg)}
+.menu-rows{position:absolute;top:calc(100% + 14px);left:0;display:flex;flex-direction:column;gap:12px;min-width:max-content}
+.menu-rows .row{display:flex;gap:26px;overflow:hidden;max-height:0;opacity:0;transform:translateY(-8px);
+  transition:max-height .8s cubic-bezier(.22,1,.36,1),opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
+.menu-rows .row a{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.65);white-space:nowrap;transition:color .5s}
+.menu-rows .row a:hover,.menu-rows .row a.cur{color:#fff}
+.menu-rows .row a.c{color:var(--magenta)}
+nav.open .menu-rows .row,.nav-bar.open .menu-rows .row{max-height:2em;opacity:1;transform:none}
+nav.open .menu-rows .r2,.nav-bar.open .menu-rows .r2{transition-delay:.12s}
 
 .lane-hero{height:86vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 7vw 9vh}
 .lane-hero h1{font-family:var(--slab);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;
@@ -80,12 +94,20 @@ nav .brand img{height:22px;width:auto;display:block}
 
 <nav>
   <a class="brand" href="home.html" aria-label="Home"><img src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative"></a>
-  <div class="nav-right">
-    <a  href="home-branding.html">Branding</a>
-    <a class="cur" href="home-work.html">Work</a>
-    <a  href="home-campaigns.html">Campaigns</a>
-    <a class="c" href="#contact">Contact</a>
-  </div>
+  <div class="menu-left">
+      <button class="nav-toggle" id="menuTgl" type="button">Menu <span class="x">+</span></button>
+      <div class="menu-rows">
+        <div class="row r1">
+          <a href="home-branding.html">Branding</a>
+          <a class="cur" href="home-work.html">Work</a>
+          <a href="home-campaigns.html">Campaigns</a>
+        </div>
+        <div class="row r2">
+          <a href="home.html#film">Selected Work</a>
+          <a class="c" href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
 </nav>
 
 <header class="lane-hero">
@@ -169,6 +191,9 @@ var tick=false;
 addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;apply()})}},{passive:true});
 setInterval(apply,250);
 apply();
+var nv=document.querySelector('nav');
+var tg=document.getElementById('menuTgl');
+if(tg)tg.addEventListener('click',function(){nv.classList.toggle('open')});
 })();
 </script>
 </body>
