@@ -253,18 +253,8 @@ img{display:block;max-width:100%}
 <div id="smooth-wrapper">
 <div id="smooth-content">
 
-  <!-- SECTION 1 — the Kinetic hero, exactly as confirmed -->
-  <header class="hero">
-    <div class="ghost" aria-hidden="true">D</div>
-    <div class="container">
-      <div class="eyebrow"><span class="rule"></span><span class="mono-label">David Zachary Creative — est. 2005</span></div>
-      <h1 class="lg-h1" id="heroH1">David Zachary</h1>
-      <h2 class="hero-h2">I dig deep to find what makes you shine — then bring bold vision and obsessive craft to carve out your place in the world.</h2>
-    </div>
-    <div class="scroll-cue"><span class="bar"><i></i></span><span class="mono-label">Scroll</span></div>
-  </header>
-
-  <!-- SECTION 2 — the Clean hero: Concepts + Craft, then back to Kinetic -->
+  <!-- HERO — Kinetic part 1 (the intro above) stays; part 2 (the large
+       letters) is replaced by the Clean hero. Then back to Kinetic. -->
   <section class="clean-hero" id="concepts">
     <div class="ch-glow" aria-hidden="true"></div>
     <div class="container ch-mid">
@@ -466,31 +456,8 @@ img{display:block;max-width:100%}
   // ACT 1 — HERO (SplitText char rise)
   // ══════════════════════════════════════════════════════════════════
   function playHero(){
-    var h1 = document.getElementById('heroH1');
-    var h2 = document.querySelector('.hero-h2');
-    var eb = document.querySelector('.eyebrow');
-    if(hasSplit){
-      var split = new SplitText(h1,{type:'chars'});
-      gsap.set(h1,{opacity:1});
-      gsap.set(split.chars,{display:'inline-block'});
-      gsap.from(split.chars,{yPercent:120,opacity:0,duration:.9,ease:'expo.out',stagger:.03,
-        onComplete:function(){
-          // letters keep breathing — a soft perpetual wave across the word
-          gsap.to(split.chars,{yPercent:-9,duration:1.7,ease:'sine.inOut',
-            stagger:{each:.055,repeat:-1,yoyo:true}});
-        }});
-      // pointer proximity kick — hovering a letter pops it
-      split.chars.forEach(function(c){
-        c.style.cursor='default';
-        c.addEventListener('mouseenter',function(){ gsap.to(c,{yPercent:-34,color:'#ff0a78',duration:.3,ease:'back.out(3)',overwrite:'auto'}); });
-        c.addEventListener('mouseleave',function(){ gsap.to(c,{color:'#fff',duration:.5,ease:'power2.out'}); });
-      });
-    } else {
-      gsap.from(h1,{yPercent:20,opacity:0,duration:.9,ease:'expo.out'});
-    }
-    gsap.from(eb,{opacity:0,y:14,duration:.6,ease:'power2.out',delay:.1});
-    gsap.from(h2,{opacity:0,y:26,duration:.9,ease:'expo.out',delay:.35});
-    gsap.fromTo('.scroll-cue .bar i',{yPercent:-100},{yPercent:100,duration:1.4,ease:'power1.inOut',repeat:-1});
+    // the Clean hero opens the page the moment the intro lifts
+    var ch=document.querySelector('.clean-hero'); if(ch) ch.classList.add('on');
   }
 
   // ══════════════════════════════════════════════════════════════════
