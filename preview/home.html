@@ -46,7 +46,7 @@ img{display:block;max-width:100%}
 
 /* ── nav ── */
 .nav-bar{position:fixed;inset:0 0 auto 0;z-index:200;padding:18px 0;mix-blend-mode:difference}
-.nav-bar .container{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.nav-bar .container{display:flex;align-items:center;justify-content:space-between;gap:18px}
 .nav-bar svg{height:22px;width:auto;color:#fff;display:block}
 .nav-right{display:flex;align-items:center;gap:22px}
 .nav-link{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;position:relative}
@@ -55,12 +55,6 @@ img{display:block;max-width:100%}
 .nav-link.chip{border:1px solid rgba(255,255,255,.5);border-radius:100px;padding:7px 13px}
 .nav-link.chip::after{display:none}
 @media(max-width:720px){.nav-right .lane{display:none}}
-
-/* ── right menu — two compact lines, project names under the menu ── */
-.nav-right2{display:flex;flex-direction:column;align-items:flex-end;gap:11px}
-.nav-right2 .row{display:flex;gap:22px;align-items:center}
-.nav-right2 .row.lanes a{color:rgba(255,255,255,.62)}
-.nav-right2 .row.lanes a:hover{color:#fff}
 
 /* ── scroll progress ── */
 .progress{position:fixed;left:0;top:0;height:2px;width:100%;transform:scaleX(0);transform-origin:left;background:var(--accent);z-index:250;transition:background .5s ease}
@@ -229,16 +223,11 @@ img{display:block;max-width:100%}
     <a href="#" aria-label="David Zachary Creative">
       <img src="media/brand/dzc-mark-white.svg" alt="David Zachary Creative" style="height:22px;width:auto;display:block">
     </a>
-<div class="nav-right2">
-      <div class="row">
-        <a class="nav-link" href="#film">Selected Work</a>
-        <a class="nav-link chip" href="#contact">Contact</a>
-      </div>
-      <div class="row lanes">
-        <a class="nav-link" href="home-branding.html">Branding</a>
-        <a class="nav-link" href="home-work.html">Work</a>
-        <a class="nav-link" href="home-campaigns.html">Campaigns</a>
-      </div>
+<div class="nav-right">
+      <a class="nav-link lane" href="home-branding.html">Branding</a>
+      <a class="nav-link lane" href="home-work.html">Work</a>
+      <a class="nav-link lane" href="home-campaigns.html">Campaigns</a>
+      <a class="nav-link chip" href="#contact">Contact</a>
     </div>
   </div>
 </nav>
@@ -468,7 +457,7 @@ img{display:block;max-width:100%}
     new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){ch.classList.add('on');}})},{threshold:.25}).observe(ch);
   })();
 
-  document.querySelectorAll('.nav-right2 a[href^="#"]').forEach(function(a){
+  document.querySelectorAll('.nav-right a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));
       if(t){e.preventDefault();
         if(smoother)smoother.scrollTo(t,true); else t.scrollIntoView({behavior:'smooth'});}});
