@@ -280,7 +280,6 @@ img{display:block;max-width:100%}
 
   <!-- WORKS — pinned horizontal filmstrip -->
   <section class="film" id="film">
-    <div class="film-head"><span class="t">Selected Work</span><span class="t">/ 07</span></div>
     <div class="track" id="track">
       <!-- panels get their accent via --accent2 -->
       <article class="fp" style="--accent2:#ff0a78">
@@ -319,7 +318,6 @@ img{display:block;max-width:100%}
         <div class="cap"><span class="c1">07 · Campaign · Oncology</span><span class="c2">OPDIVO</span></div>
       </article>
     </div>
-    <div class="film-count"><b id="fpNow">01</b> — 07</div>
   </section>
 
   <!-- AMPERSAND -->
@@ -492,7 +490,7 @@ img{display:block;max-width:100%}
   // back into black → the track glides on through pure black to the next ──
   panels.forEach(function(p,i){ if(i===0) return;
     var g=document.createElement('div'); g.className='fp fgap'; track.insertBefore(g,p); });
-  var U=10;
+  var U=12;
   var score = gsap.timeline({
     scrollTrigger:{ trigger:film, start:'top top',
       end:function(){ return '+='+(panels.length*190)+'%'; },
@@ -501,28 +499,28 @@ img{display:block;max-width:100%}
   panels.forEach(function(p,i){
     var big=p.querySelector('.big'), img=p.querySelector('.art img'), cap=p.querySelector('.cap');
     var t0=i*U;
-    score.call(function(){ fpNow.textContent=('0'+(i+1)).slice(-2);
+    score.call(function(){ if(fpNow) fpNow.textContent=('0'+(i+1)).slice(-2);
         var ac=getComputedStyle(p).getPropertyValue('--accent2').trim();
         if(ac) document.documentElement.style.setProperty('--accent',ac); },null,t0+0.05);
     // the glide — horizontal travel through black, typography riding in
     if(i>0) score.to(track,{x:function(){return -p.offsetLeft},duration:2.4,ease:'power2.inOut'},t0);
     var mask=document.createElement('div'); mask.className='mask'; p.querySelector('.art').appendChild(mask);
     var ts=t0+(i>0?2.6:0.2);            // the stop — the performance begins
-    score.fromTo(big,{opacity:1,y:0},{y:-12,duration:1.2,ease:'sine.inOut'},ts)
-      .to(big,{opacity:0,y:-50,duration:1.3,ease:'power2.in'},ts+1.2)
+    score.fromTo(big,{opacity:1,y:0},{y:-10,duration:2.6,ease:'sine.inOut'},ts)   // the typography STANDS, breathing
+      .to(big,{opacity:0,y:-50,duration:1.2,ease:'power2.in'},ts+2.6)             // then lifts away
       // the Signal expand — the black mask wipes open, the work settles in
-      .set(img,{opacity:1},ts+2.2)
-      .set(mask,{transformOrigin:'left'},ts+2.2)
-      .fromTo(mask,{scaleX:1},{scaleX:0,duration:2.0,ease:'expo.inOut'},ts+2.3)
-      .fromTo(img,{scale:1.06},{scale:1,duration:2.4,ease:'expo.out'},ts+2.3)
-      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+3.6)
-      .to(img,{scale:1.008,duration:1.5,ease:'sine.inOut'},ts+4.7)
+      .set(img,{opacity:1},ts+4.0)
+      .set(mask,{transformOrigin:'left'},ts+4.0)
+      .fromTo(mask,{scaleX:1},{scaleX:0,duration:2.0,ease:'expo.inOut'},ts+4.1)
+      .fromTo(img,{scale:1.06},{scale:1,duration:2.4,ease:'expo.out'},ts+4.1)
+      .fromTo(cap,{opacity:0},{opacity:1,duration:.8,ease:'none'},ts+5.4)
+      .to(img,{scale:1.008,duration:1.4,ease:'sine.inOut'},ts+6.6)
       // it closes back into black, wiping to the right
-      .set(mask,{transformOrigin:'right'},ts+6.1)
-      .to(mask,{scaleX:1,duration:1.6,ease:'expo.inOut'},ts+6.2)
-      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+6.4)
-      .set(img,{opacity:0},ts+7.9)
-      .set(big,{opacity:0},ts+7.9);      // panel leaves empty — pure black glide
+      .set(mask,{transformOrigin:'right'},ts+7.8)
+      .to(mask,{scaleX:1,duration:1.4,ease:'expo.inOut'},ts+7.9)
+      .to(cap,{opacity:0,duration:.6,ease:'none'},ts+8.0)
+      .set(img,{opacity:0},ts+9.4)
+      .set(big,{opacity:0},ts+9.4);      // panel leaves empty — pure black glide
   });
   // ══════════════════════════════════════════════════════════════════
   // ACT 4 — AMPERSAND pulse
